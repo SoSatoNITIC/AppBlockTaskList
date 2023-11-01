@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Lock_setting_details_fragment">
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/設定概要"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:background="#D9D9D9"
+            android:text="設定概要"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="364dp"
+            android:layout_height="548dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/wakusen2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/設定概要" />
+
+        <TextView
+            android:id="@+id/ロック設定a"
+            android:layout_width="340dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="#D9D9D9"
+            app:layout_constraintEnd_toEndOf="@+id/textView5"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toTopOf="@+id/textView5" />
+
+        <TextView
+            android:id="@+id/ロック設定u"
+            android:layout_width="340dp"
+            android:layout_height="100dp"
+            android:background="@drawable/border_up"
+            app:layout_constraintEnd_toEndOf="@+id/textView5"
+            app:layout_constraintHorizontal_bias="0.521"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/ロック設定a" />
+
+        <TextView
+            android:id="@+id/アプリ一覧a"
+            android:layout_width="340dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="40dp"
+            android:background="#D9D9D9"
+            app:layout_constraintEnd_toEndOf="@+id/textView5"
+            app:layout_constraintHorizontal_bias="0.507"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/ロック設定u" />
+
+        <TextView
+            android:id="@+id/アプリ一覧u"
+            android:layout_width="340dp"
+            android:layout_height="100dp"
+            android:background="@drawable/border_up"
+            app:layout_constraintEnd_toEndOf="@+id/textView5"
+            app:layout_constraintHorizontal_bias="0.507"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/アプリ一覧a" />
+
+        <TextView
+            android:id="@+id/詳細設定a"
+            android:layout_width="340dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="40dp"
+            android:background="#D9D9D9"
+            app:layout_constraintEnd_toEndOf="@+id/textView5"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/アプリ一覧u" />
+
+        <TextView
+            android:id="@+id/詳細設定u"
+            android:layout_width="340dp"
+            android:layout_height="100dp"
+            android:background="@drawable/border_up"
+            app:layout_constraintEnd_toEndOf="@+id/textView5"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/詳細設定a" />
+
+        <Button
+            android:id="@+id/button戻る"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="←戻る"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/buttonロック設定"
+            android:layout_width="78dp"
+            android:layout_height="48dp"
+            android:text="→"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="@+id/ロック設定a"
+            app:layout_constraintTop_toTopOf="@+id/ロック設定a" />
+
+        <Button
+            android:id="@+id/button詳細"
+            android:layout_width="78dp"
+            android:layout_height="48dp"
+            android:text="→"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="@+id/詳細設定a"
+            app:layout_constraintTop_toTopOf="@+id/詳細設定a" />
+
+        <Button
+            android:id="@+id/buttonアプリ"
+            android:layout_width="78dp"
+            android:layout_height="48dp"
+            android:text="→"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="@+id/アプリ一覧a"
+            app:layout_constraintTop_toTopOf="@+id/アプリ一覧a" />
+
+        <TextView
+            android:id="@+id/ロック設定"
+            android:layout_width="123dp"
+            android:layout_height="41dp"
+            android:text="ロック設定"
+            android:textSize="23sp"
+            app:layout_constraintStart_toStartOf="@+id/ロック設定a"
+            app:layout_constraintTop_toTopOf="@+id/ロック設定a" />
+
+        <TextView
+            android:id="@+id/アプリ一覧"
+            android:layout_width="123dp"
+            android:layout_height="41dp"
+            android:text="アプリ一覧"
+            android:textSize="23sp"
+            app:layout_constraintStart_toStartOf="@+id/アプリ一覧a"
+            app:layout_constraintTop_toTopOf="@+id/アプリ一覧a" />
+
+        <TextView
+            android:id="@+id/詳細設定"
+            android:layout_width="123dp"
+            android:layout_height="41dp"
+            android:text="詳細設定"
+            android:textSize="23sp"
+            app:layout_constraintStart_toStartOf="@+id/詳細設定a"
+            app:layout_constraintTop_toTopOf="@+id/詳細設定a" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="次へ→"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
