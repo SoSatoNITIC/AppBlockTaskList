@@ -22,7 +22,7 @@
         android:layout_width="364dp"
         android:layout_height="548dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/wakusen2"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/設定概要" />
@@ -41,7 +41,7 @@
         android:id="@+id/ロック設定u"
         android:layout_width="340dp"
         android:layout_height="100dp"
-        android:background="@drawable/border_up"
+
         app:layout_constraintEnd_toEndOf="@+id/textView5"
         app:layout_constraintHorizontal_bias="0.521"
         app:layout_constraintStart_toStartOf="@+id/textView5"
@@ -62,7 +62,7 @@
         android:id="@+id/アプリ一覧u"
         android:layout_width="340dp"
         android:layout_height="100dp"
-        android:background="@drawable/border_up"
+
         app:layout_constraintEnd_toEndOf="@+id/textView5"
         app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="@+id/textView5"
@@ -82,7 +82,7 @@
         android:id="@+id/詳細設定u"
         android:layout_width="340dp"
         android:layout_height="100dp"
-        android:background="@drawable/border_up"
+
         app:layout_constraintEnd_toEndOf="@+id/textView5"
         app:layout_constraintStart_toStartOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/詳細設定a" />

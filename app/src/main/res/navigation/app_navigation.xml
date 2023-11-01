@@ -1,6 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/app_navigation">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_navigation"
+    app:startDestination="@id/system_home_fragment">
 
+    <fragment
+        android:id="@+id/lock_setting_between_fragment"
+        android:name="com.example.appblocktasklist.lock_setting_between_fragment"
+        android:label="fragment_lock_setting_between_fragment"
+        tools:layout="@layout/fragment_lock_setting_between_fragment" >
+        <action
+            android:id="@+id/action_lock_setting_between_fragment_to_lock_setting_target_fragment"
+            app:destination="@id/lock_setting_target_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lock_setting_details_fragment"
+        android:name="com.example.appblocktasklist.Lock_setting_details_fragment"
+        android:label="fragment_lock_setting_details_fragment"
+        tools:layout="@layout/fragment_lock_setting_details_fragment" >
+        <action
+            android:id="@+id/action_lock_setting_details_fragment_to_system_lockmenu_fragment"
+            app:destination="@id/system_lockmenu_fragment" />
+        <action
+            android:id="@+id/action_lock_setting_details_fragment_to_system_advanced_setting_fragment"
+            app:destination="@id/system_advanced_setting_fragment" />
+        <action
+            android:id="@+id/action_lock_setting_details_fragment_to_lock_setting_target_fragment"
+            app:destination="@id/lock_setting_target_fragment" />
+        <action
+            android:id="@+id/action_lock_setting_details_fragment_to_lock_setting_triger_fragment"
+            app:destination="@id/lock_setting_triger_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lock_setting_target_fragment"
+        android:name="com.example.appblocktasklist.lock_setting_target_fragment"
+        android:label="fragment_lock_setting_target_fragment"
+        tools:layout="@layout/fragment_lock_setting_target_fragment" >
+        <action
+            android:id="@+id/action_lock_setting_target_fragment_to_system_advanced_setting_fragment"
+            app:destination="@id/system_advanced_setting_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lock_setting_triger_fragment"
+        android:name="com.example.appblocktasklist.lock_setting_triger_fragment"
+        android:label="fragment_lock_setting_triger_fragment"
+        tools:layout="@layout/fragment_lock_setting_triger_fragment" >
+        <action
+            android:id="@+id/action_lock_setting_triger_fragment_to_lock_setting_between_fragment"
+            app:destination="@id/lock_setting_between_fragment" />
+        <action
+            android:id="@+id/action_lock_setting_triger_fragment_to_lock_setting_useabletime_fragment"
+            app:destination="@id/lock_setting_useabletime_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lock_setting_useabletime_fragment"
+        android:name="com.example.appblocktasklist.Lock_setting_useabletime_fragment"
+        android:label="fragment_lock_setting_useabletime_fragment"
+        tools:layout="@layout/fragment_lock_setting_useabletime_fragment" >
+        <action
+            android:id="@+id/action_lock_setting_useabletime_fragment_to_lock_setting_target_fragment"
+            app:destination="@id/lock_setting_target_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/system_advanced_setting_fragment"
+        android:name="com.example.appblocktasklist.system_advanced_setting_fragment"
+        android:label="fragment_system_advanced_setting_fragment"
+        tools:layout="@layout/fragment_system_advanced_setting_fragment" >
+        <action
+            android:id="@+id/action_system_advanced_setting_fragment_to_lock_setting_details_fragment"
+            app:destination="@id/lock_setting_details_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/system_home_fragment"
+        android:name="com.example.appblocktasklist.system_home_fragment"
+        android:label="fragment_system_home_fragment"
+        tools:layout="@layout/fragment_system_home_fragment" >
+        <action
+            android:id="@+id/action_system_home_fragment_to_system_taskmenu_fragment"
+            app:destination="@id/system_taskmenu_fragment" />
+        <action
+            android:id="@+id/action_system_home_fragment_to_system_lockmenu_fragment"
+            app:destination="@id/system_lockmenu_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/system_lockmenu_fragment"
+        android:name="com.example.appblocktasklist.system_lockmenu_fragment"
+        android:label="fragment_system_lockmenu_fragment"
+        tools:layout="@layout/fragment_system_lockmenu_fragment" >
+        <action
+            android:id="@+id/action_system_lockmenu_fragment_to_lock_setting_triger_fragment"
+            app:destination="@id/lock_setting_triger_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/system_taskmenu_fragment"
+        android:name="com.example.appblocktasklist.system_taskmenu_fragment"
+        android:label="fragment_system_taskmenu_fragment"
+        tools:layout="@layout/fragment_system_taskmenu_fragment" >
+        <action
+            android:id="@+id/action_system_taskmenu_fragment_to_task_setting_wan_fragment"
+            app:destination="@id/task_setting_wan_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/task_setting_wan_fragment"
+        android:name="com.example.appblocktasklist.task_setting_wan_fragment"
+        android:label="fragment_task_setting_wan_fragment"
+        tools:layout="@layout/fragment_task_setting_wan_fragment" />
 </navigation>
