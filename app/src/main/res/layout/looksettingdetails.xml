@@ -98,7 +98,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/buttonロック設定"
+        android:id="@+id/buttonLockSetting"
         android:layout_width="78dp"
         android:layout_height="48dp"
         android:text="→"
@@ -107,7 +107,7 @@
         app:layout_constraintTop_toTopOf="@+id/ロック設定a" />
 
     <Button
-        android:id="@+id/button詳細"
+        android:id="@+id/buttonDetail"
         android:layout_width="78dp"
         android:layout_height="48dp"
         android:text="→"
@@ -116,7 +116,7 @@
         app:layout_constraintTop_toTopOf="@+id/詳細設定a" />
 
     <Button
-        android:id="@+id/buttonアプリ"
+        android:id="@+id/buttonApp"
         android:layout_width="78dp"
         android:layout_height="48dp"
         android:text="→"

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/lock_setting_between_fragment"
-        android:name="com.example.appblocktasklist.lock_setting_between_fragment"
+        android:name="com.example.appblocktasklist.LockSettingBetween"
         android:label="fragment_lock_setting_between_fragment"
         tools:layout="@layout/fragment_lock_setting_between_fragment" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/lock_setting_details_fragment"
-        android:name="com.example.appblocktasklist.Lock_setting_details_fragment"
+        android:name="com.example.appblocktasklist.LockSettingDetails"
         android:label="fragment_lock_setting_details_fragment"
         tools:layout="@layout/fragment_lock_setting_details_fragment" >
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/lock_setting_target_fragment"
-        android:name="com.example.appblocktasklist.lock_setting_target_fragment"
+        android:name="com.example.appblocktasklist.LockSettingTarget"
         android:label="fragment_lock_setting_target_fragment"
         tools:layout="@layout/fragment_lock_setting_target_fragment" >
         <action
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/lock_setting_triger_fragment"
-        android:name="com.example.appblocktasklist.lock_setting_triger_fragment"
+        android:name="com.example.appblocktasklist.LockSettingTrigger"
         android:label="fragment_lock_setting_triger_fragment"
         tools:layout="@layout/fragment_lock_setting_triger_fragment" >
         <action
@@ -55,7 +55,7 @@
     </fragment>
     <fragment
         android:id="@+id/lock_setting_useabletime_fragment"
-        android:name="com.example.appblocktasklist.Lock_setting_useabletime_fragment"
+        android:name="com.example.appblocktasklist.LockSettingUseAble"
         android:label="fragment_lock_setting_useabletime_fragment"
         tools:layout="@layout/fragment_lock_setting_useabletime_fragment" >
         <action
@@ -64,7 +64,7 @@
     </fragment>
     <fragment
         android:id="@+id/system_advanced_setting_fragment"
-        android:name="com.example.appblocktasklist.system_advanced_setting_fragment"
+        android:name="com.example.appblocktasklist.SystemAdvancedSetting"
         android:label="fragment_system_advanced_setting_fragment"
         tools:layout="@layout/fragment_system_advanced_setting_fragment" >
         <action
@@ -73,7 +73,7 @@
     </fragment>
     <fragment
         android:id="@+id/system_home_fragment"
-        android:name="com.example.appblocktasklist.system_home_fragment"
+        android:name="com.example.appblocktasklist.SystemHome"
         android:label="fragment_system_home_fragment"
         tools:layout="@layout/fragment_system_home_fragment" >
         <action
@@ -85,16 +85,19 @@
     </fragment>
     <fragment
         android:id="@+id/system_lockmenu_fragment"
-        android:name="com.example.appblocktasklist.system_lockmenu_fragment"
+        android:name="com.example.appblocktasklist.SystemLockMenu"
         android:label="fragment_system_lockmenu_fragment"
         tools:layout="@layout/fragment_system_lockmenu_fragment" >
         <action
             android:id="@+id/action_system_lockmenu_fragment_to_lock_setting_triger_fragment"
             app:destination="@id/lock_setting_triger_fragment" />
+        <action
+            android:id="@+id/action_system_lockmenu_fragment_to_system_home_fragment"
+            app:destination="@id/system_home_fragment" />
     </fragment>
     <fragment
         android:id="@+id/system_taskmenu_fragment"
-        android:name="com.example.appblocktasklist.system_taskmenu_fragment"
+        android:name="com.example.appblocktasklist.SystemTaskMenu"
         android:label="fragment_system_taskmenu_fragment"
         tools:layout="@layout/fragment_system_taskmenu_fragment" >
         <action
@@ -103,7 +106,7 @@
     </fragment>
     <fragment
         android:id="@+id/task_setting_wan_fragment"
-        android:name="com.example.appblocktasklist.task_setting_wan_fragment"
+        android:name="com.example.appblocktasklist.TaskSettingWan"
         android:label="fragment_task_setting_wan_fragment"
         tools:layout="@layout/fragment_task_setting_wan_fragment" />
 </navigation>
