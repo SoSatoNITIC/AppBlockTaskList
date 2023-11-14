@@ -21,16 +21,24 @@
         tools:layout="@layout/fragment_lock_setting_details_fragment" >
         <action
             android:id="@+id/action_lock_setting_details_fragment_to_system_lockmenu_fragment"
-            app:destination="@id/system_lockmenu_fragment" />
+            app:destination="@id/system_lockmenu_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
         <action
             android:id="@+id/action_lock_setting_details_fragment_to_system_advanced_setting_fragment"
-            app:destination="@id/system_advanced_setting_fragment" />
+            app:destination="@id/system_advanced_setting_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
         <action
             android:id="@+id/action_lock_setting_details_fragment_to_lock_setting_target_fragment"
-            app:destination="@id/lock_setting_target_fragment" />
+            app:destination="@id/lock_setting_target_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
         <action
             android:id="@+id/action_lock_setting_details_fragment_to_lock_setting_triger_fragment"
-            app:destination="@id/lock_setting_triger_fragment" />
+            app:destination="@id/lock_setting_triger_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/lock_setting_target_fragment"
@@ -39,7 +47,9 @@
         tools:layout="@layout/fragment_lock_setting_target_fragment" >
         <action
             android:id="@+id/action_lock_setting_target_fragment_to_system_advanced_setting_fragment"
-            app:destination="@id/system_advanced_setting_fragment" />
+            app:destination="@id/system_advanced_setting_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/lock_setting_triger_fragment"
@@ -48,10 +58,14 @@
         tools:layout="@layout/fragment_lock_setting_triger_fragment" >
         <action
             android:id="@+id/action_lock_setting_triger_fragment_to_lock_setting_between_fragment"
-            app:destination="@id/lock_setting_between_fragment" />
+            app:destination="@id/lock_setting_between_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
         <action
             android:id="@+id/action_lock_setting_triger_fragment_to_lock_setting_useabletime_fragment"
-            app:destination="@id/lock_setting_useabletime_fragment" />
+            app:destination="@id/lock_setting_useabletime_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/lock_setting_useabletime_fragment"
@@ -60,7 +74,9 @@
         tools:layout="@layout/fragment_lock_setting_useabletime_fragment" >
         <action
             android:id="@+id/action_lock_setting_useabletime_fragment_to_lock_setting_target_fragment"
-            app:destination="@id/lock_setting_target_fragment" />
+            app:destination="@id/lock_setting_target_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/system_advanced_setting_fragment"
@@ -69,7 +85,9 @@
         tools:layout="@layout/fragment_system_advanced_setting_fragment" >
         <action
             android:id="@+id/action_system_advanced_setting_fragment_to_lock_setting_details_fragment"
-            app:destination="@id/lock_setting_details_fragment" />
+            app:destination="@id/lock_setting_details_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/system_home_fragment"
@@ -78,10 +96,14 @@
         tools:layout="@layout/fragment_system_home_fragment" >
         <action
             android:id="@+id/action_system_home_fragment_to_system_taskmenu_fragment"
-            app:destination="@id/system_taskmenu_fragment" />
+            app:destination="@id/system_taskmenu_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
         <action
             android:id="@+id/action_system_home_fragment_to_system_lockmenu_fragment"
-            app:destination="@id/system_lockmenu_fragment" />
+            app:destination="@id/system_lockmenu_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/system_lockmenu_fragment"
@@ -90,10 +112,14 @@
         tools:layout="@layout/fragment_system_lockmenu_fragment" >
         <action
             android:id="@+id/action_system_lockmenu_fragment_to_lock_setting_triger_fragment"
-            app:destination="@id/lock_setting_triger_fragment" />
+            app:destination="@id/lock_setting_triger_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
         <action
             android:id="@+id/action_system_lockmenu_fragment_to_system_home_fragment"
-            app:destination="@id/system_home_fragment" />
+            app:destination="@id/system_home_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/system_taskmenu_fragment"
@@ -102,11 +128,15 @@
         tools:layout="@layout/fragment_system_taskmenu_fragment" >
         <action
             android:id="@+id/action_system_taskmenu_fragment_to_task_setting_wan_fragment"
-            app:destination="@id/task_setting_wan_fragment" />
+            app:destination="@id/task_setting_wan_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/task_setting_wan_fragment"
         android:name="com.example.appblocktasklist.TaskSettingWan"
         android:label="fragment_task_setting_wan_fragment"
-        tools:layout="@layout/fragment_task_setting_wan_fragment" />
+        tools:layout="@layout/fragment_task_setting_wan_fragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"/>
 </navigation>
