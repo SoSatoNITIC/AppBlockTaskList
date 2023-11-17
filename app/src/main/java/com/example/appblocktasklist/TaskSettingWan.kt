@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.fragment.NavHostFragment
+import com.google.android.material.textfield.TextInputEditText
 
 
 class TaskSettingWan : Fragment() {
@@ -25,7 +26,10 @@ class TaskSettingWan : Fragment() {
         val navController = navHostFragment.navController
 
         view.findViewById<Button>(R.id.button7).setOnClickListener{
+            val wanTaskTitle = view.findViewById<TextInputEditText>(R.id.inputTask1)
+            val wanTaskReason = view.findViewById<TextInputEditText>(R.id.inputTask2)
             val action = TaskSettingWanDirections.actionTaskSettingWanFragmentToSystemHomeFragment()
+
             navController.navigate(action)
         }
     }
