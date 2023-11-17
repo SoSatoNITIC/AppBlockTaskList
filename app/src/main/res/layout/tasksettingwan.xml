@@ -62,7 +62,7 @@
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textInputEditText2"
+        app:layout_constraintBottom_toBottomOf="@+id/inputTask2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,7 +73,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/textInputEditText2"
+        android:id="@+id/inputTask2"
         android:layout_width="347dp"
         android:layout_height="59dp"
         android:layout_marginStart="10dp"
@@ -102,7 +102,7 @@
         android:text="・上記の理由"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textInputEditText2" />
+        app:layout_constraintTop_toBottomOf="@+id/inputTask2" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout3"
