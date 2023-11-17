@@ -28,11 +28,11 @@ class TaskSettingShould : Fragment() {
 
         view.findViewById<Button>(R.id.button3).setOnClickListener{
 
-            val title = view.findViewById<EditText>(R.id.title)
-            val titleReason = view.findViewById<EditText>(R.id.title_reason)
-            val reasonOfReason = view.findViewById<EditText>(R.id.reason_of_reason)
-            val memo = view.findViewById<EditText>(R.id.memo)
-            val kigen = view.findViewById<EditText>(R.id.kigen)
+            val title = view.findViewById<EditText>(R.id.title).text.toString()
+            val titleReason = view.findViewById<EditText>(R.id.title_reason).text.toString()
+            val reasonOfReason = view.findViewById<EditText>(R.id.reason_of_reason).text.toString()
+            val memo = view.findViewById<EditText>(R.id.memo).text.toString()
+            val kigen = view.findViewById<EditText>(R.id.kigen).text.toString()
             val action = TaskSettingShouldDirections.actionTaskSettingShouldToSystemHomeFragment()
             navController.navigate(action)
         }

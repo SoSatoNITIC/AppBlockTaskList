@@ -27,13 +27,13 @@ class LockSettingBetween : Fragment() {
 
         view.findViewById<Button>(R.id.button3).setOnClickListener{
             // val 変数名(好きなの)　= view.findViewById<型名>(R.id.型名の名前ID)　val = view.findViewById<>(R.id.)
-            val sunday = view.findViewById<ToggleButton>(R.id.SundayToggleButton)
-            val monday = view.findViewById<ToggleButton>(R.id.MondayToggleButton)
-            val tuesday = view.findViewById<ToggleButton>(R.id.TuesdayToggleButton)
-            val wednesday = view.findViewById<ToggleButton>(R.id.WednesdayToggleButton)
-            val thursday = view.findViewById<ToggleButton>(R.id.ThursdayToggleButton)
-            val friday = view.findViewById<ToggleButton>(R.id.FridayToggleButton)
-            val saturday = view.findViewById<ToggleButton>(R.id.SaturdayToggleButton)
+            val sunday = view.findViewById<ToggleButton>(R.id.SundayToggleButton).isChecked
+            val monday = view.findViewById<ToggleButton>(R.id.MondayToggleButton).isChecked
+            val tuesday = view.findViewById<ToggleButton>(R.id.TuesdayToggleButton).isChecked
+            val wednesday = view.findViewById<ToggleButton>(R.id.WednesdayToggleButton).isChecked
+            val thursday = view.findViewById<ToggleButton>(R.id.ThursdayToggleButton).isChecked
+            val friday = view.findViewById<ToggleButton>(R.id.FridayToggleButton).isChecked
+            val saturday = view.findViewById<ToggleButton>(R.id.SaturdayToggleButton).isChecked
             val action = LockSettingBetweenDirections.actionLockSettingBetweenFragmentToLockSettingTargetFragment()
             navController.navigate(action)
         }
