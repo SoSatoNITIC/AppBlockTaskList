@@ -7,11 +7,14 @@ interface TasksDao {
     fun getAll(): List<Task>
 
     @Query("SELECT * FROM Task WHERE id IN (:userIds)")
-    fun loadAllByIds(userIds: IntArray): List<Task>
+    fun getByIds(userIds: IntArray): List<Task>
 
     @Insert
     fun insertAll(vararg tasks: Task)
 
     @Delete
     fun delete(task: Task)
+
+    @Update
+    fun update(task: Task)
 }
