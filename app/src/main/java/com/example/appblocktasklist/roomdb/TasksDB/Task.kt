@@ -4,10 +4,11 @@ import androidx.room.*
 
 @Entity
 data class Task(
-    @PrimaryKey val id: Int,
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0,
     val taskName: String,
     val memo: String,
-    val deadline: String?,
-    val nullableLockSettingId: Int?,
+    val deadline: Long? = null,
+    val nullableLockSettingId: Int? = null,
     val reason: String,
 )
