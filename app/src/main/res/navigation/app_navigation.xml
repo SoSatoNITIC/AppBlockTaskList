@@ -131,6 +131,11 @@
             app:destination="@id/task_setting_wan_fragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"/>
+        <action
+            android:id="@+id/action_system_taskmenu_fragment_to_taskSettingShould"
+            app:destination="@id/taskSettingShould"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/task_setting_wan_fragment"
@@ -138,5 +143,24 @@
         android:label="fragment_task_setting_wan_fragment"
         tools:layout="@layout/fragment_task_setting_wan_fragment"
         app:enterAnim="@anim/slide_in_right"
-        app:exitAnim="@anim/slide_out_left"/>
+        app:exitAnim="@anim/slide_out_left">
+
+
+        <action
+            android:id="@+id/action_task_setting_wan_fragment_to_system_home_fragment"
+            app:destination="@id/system_home_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+    </fragment>
+    <fragment
+        android:id="@+id/taskSettingShould"
+        android:name="com.example.appblocktasklist.TaskSettingShould"
+        android:label="fragment_task_setting_should"
+        tools:layout="@layout/fragment_task_setting_should" >
+        <action
+            android:id="@+id/action_taskSettingShould_to_system_home_fragment"
+            app:destination="@id/system_home_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+    </fragment>
 </navigation>

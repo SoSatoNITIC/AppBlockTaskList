@@ -9,7 +9,7 @@ import android.widget.Button
 import androidx.navigation.fragment.NavHostFragment
 
 
-class SystemTaskMenu : Fragment() {
+class TaskSettingShould : Fragment() {
 
 
     override fun onCreateView(
@@ -17,7 +17,7 @@ class SystemTaskMenu : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_system_taskmenu_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_task_setting_should, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -25,13 +25,8 @@ class SystemTaskMenu : Fragment() {
         val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         val navController = navHostFragment.navController
 
-        view.findViewById<Button>(R.id.SystemTaskMenuAddWantBottun).setOnClickListener{
-            val action = SystemTaskMenuDirections.actionSystemTaskmenuFragmentToTaskSettingWanFragment()
-            navController.navigate(action)
-        }
-
-        view.findViewById<Button>(R.id.systemTaskMenuAddMustBottun).setOnClickListener{
-            val action = SystemTaskMenuDirections.actionSystemTaskmenuFragmentToTaskSettingShould()
+        view.findViewById<Button>(R.id.button3).setOnClickListener{
+            val action = TaskSettingShouldDirections.actionTaskSettingShouldToSystemHomeFragment()
             navController.navigate(action)
         }
     }
