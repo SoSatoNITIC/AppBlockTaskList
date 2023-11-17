@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ToggleButton
 import androidx.navigation.fragment.NavHostFragment
 
 
@@ -29,6 +30,13 @@ class LockSettingUseAble : Fragment() {
         val navController = navHostFragment.navController
 
         view.findViewById<Button>(R.id.button3).setOnClickListener{
+            val sunday = view.findViewById<ToggleButton>(R.id.SundayToggleButton)
+            val monday = view.findViewById<ToggleButton>(R.id.MondayToggleButton)
+            val tuesday = view.findViewById<ToggleButton>(R.id.TuesdayToggleButton)
+            val wednesday = view.findViewById<ToggleButton>(R.id.WednesdayToggleButton)
+            val thursday = view.findViewById<ToggleButton>(R.id.ThursdayToggleButton)
+            val friday = view.findViewById<ToggleButton>(R.id.FridayToggleButton)
+            val saturday = view.findViewById<ToggleButton>(R.id.SaturdayToggleButton)
             val action = LockSettingUseAbleDirections.actionLockSettingUseabletimeFragmentToLockSettingTargetFragment()
             navController.navigate(action)
         }

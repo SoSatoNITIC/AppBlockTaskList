@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import androidx.navigation.fragment.NavHostFragment
 
 
@@ -26,6 +27,12 @@ class TaskSettingShould : Fragment() {
         val navController = navHostFragment.navController
 
         view.findViewById<Button>(R.id.button3).setOnClickListener{
+
+            val title = view.findViewById<EditText>(R.id.title)
+            val titleReason = view.findViewById<EditText>(R.id.title_reason)
+            val reasonOfReason = view.findViewById<EditText>(R.id.reason_of_reason)
+            val memo = view.findViewById<EditText>(R.id.memo)
+            val kigen = view.findViewById<EditText>(R.id.kigen)
             val action = TaskSettingShouldDirections.actionTaskSettingShouldToSystemHomeFragment()
             navController.navigate(action)
         }
