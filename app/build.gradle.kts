@@ -1,7 +1,6 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("com.google.devtools.ksp")
     id("androidx.navigation.safeargs")
 }
 
@@ -38,24 +37,6 @@ android {
 }
 
 dependencies {
-    val roomVersion = "2.5.0"
-
-    implementation("androidx.room:room-runtime:$roomVersion")
-    annotationProcessor("androidx.room:room-compiler:$roomVersion")
-
-    // To use Kotlin Symbol Processing (KSP)
-    ksp("androidx.room:room-compiler:$roomVersion")
-
-    // optional - Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:$roomVersion")
-
-
-    // optional - Guava support for Room, including Optional and ListenableFuture
-
-    // optional - Test helpers
-    testImplementation("androidx.room:room-testing:$roomVersion")
-
-    // optional - Paging 3 Integration
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
