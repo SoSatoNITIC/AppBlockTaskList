@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.navigation.fragment.NavHostFragment
+import com.example.appblocktasklist.roomdb.TasksDB.Task
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class TaskSettingShould : Fragment() {
@@ -32,7 +35,17 @@ class TaskSettingShould : Fragment() {
             val titleReason = view.findViewById<EditText>(R.id.title_reason).text.toString()
             val reasonOfReason = view.findViewById<EditText>(R.id.reason_of_reason).text.toString()
             val memo = view.findViewById<EditText>(R.id.memo).text.toString()
-            val kigen = view.findViewById<EditText>(R.id.kigen).text.toString()
+            val deadline = view.findViewById<EditText>(R.id.deadline).text.toString()
+            GlobalScope.launch {
+                MyApplication.database.tasksDao().insertAll(
+                    Task(
+                        taskName = title,
+                        memo = memo,
+                        deadline = deadline,
+                        reason = "$titleReason, $reasonOfReason"
+                    )
+                )
+            }
             val action = TaskSettingShouldDirections.actionTaskSettingShouldToSystemHomeFragment()
             navController.navigate(action)
         }
