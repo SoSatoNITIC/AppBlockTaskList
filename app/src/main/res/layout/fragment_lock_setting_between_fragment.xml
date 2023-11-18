@@ -24,7 +24,7 @@
             app:layout_constraintVertical_bias="0.007" />
 
         <TextView
-            android:id="@+id/LockSettingbetweenText1"
+            android:id="@+id/lock_setting_between_text1"
             android:layout_width="125dp"
             android:layout_height="46dp"
             android:layout_centerInParent="true"

@@ -6,10 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import androidx.navigation.fragment.NavHostFragment
 import com.example.appblocktasklist.roomdb.TasksDB.Task
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -30,21 +29,25 @@ class TaskSettingWan : Fragment() {
         val navController = navHostFragment.navController
 
         view.findViewById<Button>(R.id.button7).setOnClickListener{
-            val title = view.findViewById<TextInputLayout>(R.id.inputTask1).editText?.text.toString()
-            val titleReason = view.findViewById<TextInputLayout>(R.id.inputTask2).editText?.text.toString()
-            val reasonOfReason = view.findViewById<TextInputLayout>(R.id.textInputLayout3).editText?.text.toString()
-            val memo = view.findViewById<TextInputLayout>(R.id.memoInput).editText?.text.toString()
-            GlobalScope.launch {
-                MyApplication.database.tasksDao().insertAll(
-                    Task(
-                        taskName = title,
-                        memo = memo,
-                        reason = "$titleReason, $reasonOfReason"
+            val title = view.findViewById<EditText>(R.id.title).text.toString()
+            val titleReason = view.findViewById<EditText>(R.id.title_reason).text.toString()
+            val reasonOfReason = view.findViewById<EditText>(R.id.reason_of_reason).text.toString()
+            val memo = view.findViewById<EditText>(R.id.memo).text.toString()
+
+            if (title != ""){
+                GlobalScope.launch {
+                    MyApplication.database.tasksDao().insertAll(
+                        Task(
+                            taskName = title,
+                            memo = memo,
+                            reason = "$titleReason, $reasonOfReason"
+                        )
                     )
-                )
+                }
+                val action = TaskSettingWanDirections.actionTaskSettingWanFragmentToSystemHomeFragment()
+                navController.navigate(action)
             }
-            val action = TaskSettingWanDirections.actionTaskSettingWanFragmentToSystemHomeFragment()
-            navController.navigate(action)
+
         }
     }
 }

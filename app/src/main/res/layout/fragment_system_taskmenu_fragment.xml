@@ -14,7 +14,7 @@
         android:backgroundTint="#D9D9D9">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/text_view_title"
             android:layout_width="140dp"
             android:layout_height="47dp"
             android:background="#D9D9D9"
@@ -28,7 +28,7 @@
             app:layout_constraintVertical_bias="0.077" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/text_view_reason"
             android:layout_width="140dp"
             android:layout_height="47dp"
             android:background="#D9D9D9"
@@ -42,7 +42,7 @@
             app:layout_constraintVertical_bias="0.557" />
 
         <ListView
-            android:id="@+id/SystemTaskWantMustList"
+            android:id="@+id/SystemTaskWantList"
             android:layout_width="295dp"
             android:layout_height="199dp"
             android:background="#D9D9D9"
@@ -53,7 +53,7 @@
             app:layout_constraintVertical_bias="0.21" />
 
         <ListView
-            android:id="@+id/SystemTaskMenuMustList"
+            android:id="@+id/SystemTaskMustList"
             android:layout_width="297dp"
             android:layout_height="221dp"
             android:background="#D9D9D9"
