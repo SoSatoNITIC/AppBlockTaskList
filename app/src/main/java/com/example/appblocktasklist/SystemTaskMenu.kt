@@ -1,5 +1,6 @@
 package com.example.appblocktasklist
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,8 +11,10 @@ import android.widget.Button
 import android.widget.ListView
 import androidx.navigation.fragment.NavHostFragment
 import com.example.appblocktasklist.roomdb.TasksDB.Task
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class SystemTaskMenu : Fragment() {
@@ -30,18 +33,27 @@ class SystemTaskMenu : Fragment() {
         val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         val navController = navHostFragment.navController
 
+        val listViewWant = view.findViewById<ListView>(R.id.SystemTaskWantList)
+        val listViewMust = view.findViewById<ListView>(R.id.SystemTaskMustList)
+
+        val taskNamesWant: ArrayList<Task> = arrayListOf()
+        val taskNamesMust: ArrayList<Task> = arrayListOf()
+
+        val adapterWant = TaskAdapter(requireContext(), taskNamesWant)
+        val adapterMust = TaskAdapter(requireContext(), taskNamesMust)
+
+        listViewWant.adapter = adapterWant
+        listViewMust.adapter = adapterMust
+
         GlobalScope.launch {
-            val listViewWant = view.findViewById<ListView>(R.id.SystemTaskWantList)
-            val listViewMust = view.findViewById<ListView>(R.id.SystemTaskMustList)
-
             val tasks: List<Task> = MyApplication.database.tasksDao().getAll()
-            val taskNamesWant: List<String> = tasks.filter { it.deadline == null }.map { it.taskName }
-            val taskNamesMust: List<String> = tasks.filter { it.deadline != null }.map { it.taskName }
+            taskNamesWant.clear()
+            taskNamesWant.addAll(tasks.filter { it.deadline == null })
+            taskNamesMust.clear()
+            taskNamesMust.addAll(tasks.filter { it.deadline != null })
 
-            val adapterWant = ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, taskNamesWant)
-            val adapterMust = ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, taskNamesMust)
-            listViewWant.adapter = adapterWant
-            listViewMust.adapter = adapterMust
+            adapterWant.notifyDataSetChanged()
+            adapterMust.notifyDataSetChanged()
         }
 
 
@@ -53,6 +65,24 @@ class SystemTaskMenu : Fragment() {
         view.findViewById<Button>(R.id.systemTaskMenuAddMustBottun).setOnClickListener{
             val action = SystemTaskMenuDirections.actionSystemTaskmenuFragmentToTaskSettingShould()
             navController.navigate(action)
+        }
+        listViewMust.setOnItemClickListener() { parent, view, position, id ->
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setMessage("削除しますか？")
+                .setPositiveButton("OK") { dialog, which ->
+                    val task = taskNamesMust[position]
+                    GlobalScope.launch {
+                        MyApplication.database.tasksDao().delete(task)
+                        withContext(Dispatchers.Main){
+                            adapterMust.notifyDataSetChanged()
+                        }
+                    }
+                }
+                .setNegativeButton("キャンセル", null)
+                .setCancelable(true)
+            // show dialog
+            builder.show()
+            true
         }
     }
 }
