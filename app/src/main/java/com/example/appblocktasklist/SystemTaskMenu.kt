@@ -66,16 +66,35 @@ class SystemTaskMenu : Fragment() {
             val action = SystemTaskMenuDirections.actionSystemTaskmenuFragmentToTaskSettingShould()
             navController.navigate(action)
         }
-        listViewMust.setOnItemClickListener() { parent, view, position, id ->
+        listViewMust.setOnItemLongClickListener() { parent, view, position, id ->
             val builder = AlertDialog.Builder(requireContext())
             builder.setMessage("削除しますか？")
                 .setPositiveButton("OK") { dialog, which ->
                     val task = taskNamesMust[position]
+                    taskNamesMust.removeAt(position)
+                    adapterMust.notifyDataSetChanged()
+
                     GlobalScope.launch {
                         MyApplication.database.tasksDao().delete(task)
-                        withContext(Dispatchers.Main){
-                            adapterMust.notifyDataSetChanged()
-                        }
+                    }
+                }
+                .setNegativeButton("キャンセル", null)
+                .setCancelable(true)
+            // show dialog
+            builder.show()
+            true
+        }
+
+        listViewWant.setOnItemLongClickListener() { parent, view, position, id ->
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setMessage("削除しますか？")
+                .setPositiveButton("OK") { dialog, which ->
+                    val task = taskNamesWant[position]
+                    taskNamesWant.removeAt(position)
+                    adapterWant.notifyDataSetChanged()
+
+                    GlobalScope.launch {
+                        MyApplication.database.tasksDao().delete(task)
                     }
                 }
                 .setNegativeButton("キャンセル", null)
