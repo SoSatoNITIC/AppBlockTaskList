@@ -130,7 +130,8 @@
             android:id="@+id/action_system_taskmenu_fragment_to_task_setting_wan_fragment"
             app:destination="@id/task_setting_wan_fragment"
             app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"/>
+            app:exitAnim="@anim/slide_out_left">
+        </action>
         <action
             android:id="@+id/action_system_taskmenu_fragment_to_taskSettingShould"
             app:destination="@id/taskSettingShould"
@@ -151,6 +152,9 @@
             app:destination="@id/system_home_fragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"/>
+        <argument
+            android:name="taskID"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/taskSettingShould"
@@ -162,5 +166,8 @@
             app:destination="@id/system_home_fragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"/>
+        <argument
+            android:name="taskID"
+            app:argType="integer" />
     </fragment>
 </navigation>
