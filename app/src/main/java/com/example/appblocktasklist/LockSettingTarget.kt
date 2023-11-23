@@ -1,5 +1,6 @@
 package com.example.appblocktasklist
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
@@ -16,6 +17,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.navigation.fragment.NavHostFragment
 import com.example.appblocktasklist.applist.AppListAdapter
 
@@ -93,6 +95,26 @@ class LockSettingTarget : Fragment() {
                 appListViewChoose.adapter = adapterChoose
             }
         }
+
+
+        appListViewChoose.setOnItemLongClickListener { parent, view, position, id ->
+            AlertDialog.Builder(requireActivity())
+                .setMessage("削除しますか？")
+                .setPositiveButton("OK") { dialog, which ->
+                    // remove item from ArrayList
+                    chosenAppIcons.removeAt(position)
+                    chosenAppNames.removeAt(position)
+                    // update ListView
+                    val adapterChoose = AppListAdapter(requireActivity(), chosenAppIcons, chosenAppNames)
+                    appListViewChoose.adapter = adapterChoose
+                    //Toast.makeText(requireActivity(), "削除しました", Toast.LENGTH_SHORT).show()
+                }
+                .setNegativeButton("キャンセル", null)
+                .setCancelable(true)
+                .show()
+            true
+        }
+
 
 
         val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
