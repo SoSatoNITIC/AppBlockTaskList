@@ -1,13 +1,21 @@
 package com.example.appblocktasklist
 
+import android.app.AlertDialog
+import android.app.TimePickerDialog
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ToggleButton
+import androidx.annotation.RequiresApi
 import androidx.navigation.fragment.NavHostFragment
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 class LockSettingUseAble : Fragment() {
@@ -40,6 +48,44 @@ class LockSettingUseAble : Fragment() {
             val action = LockSettingUseAbleDirections.actionLockSettingUseabletimeFragmentToLockSettingTargetFragment()
             navController.navigate(action)
         }
+
+
+
+        val timePickerButton = view.findViewById<ImageButton>(R.id.time_picker_actions_timer)
+        timePickerButton.setOnClickListener {
+            val timeInput = view.findViewById<EditText>(R.id.time_timer)
+            showTimePicker(timeInput)
+        }
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun showTimePicker(timeInput: EditText) {
+        var hourOfDay = 0
+        var minutes = 0
+        val ldt = toLocaleTime(timeInput.text.toString())
+        if (ldt != null) {
+            hourOfDay = ldt.hour
+            minutes = ldt.minute
+        }
+        val picker = TimePickerDialog(
+            timeInput.rootView.context,
+            AlertDialog.THEME_HOLO_LIGHT,
+            { _, getHour, getMinutes ->
+                timeInput.setText(String.format("%02d時間　%02d分", getHour, getMinutes))
+            },
+            hourOfDay,
+            minutes,
+            true
+        )
+        picker.show()
+    }
+
+    private val TIME_FORMAT = "yyyy/MM/dd HH:mm"
+
+    fun toLocaleTime(stringTime: String): LocalDateTime? {
+        val df = DateTimeFormatter.ofPattern(TIME_FORMAT)
+        return try { LocalDateTime.parse("2001/01/01 " + stringTime, df) } catch (t: Throwable) { null }
     }
 
 

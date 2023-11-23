@@ -11,17 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/Backbutton"
-            android:layout_width="110dp"
-            android:layout_height="53dp"
-            android:text="←  戻る"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.003"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.007" />
+
 
         <TextView
             android:id="@+id/LockSettingTargetAppText1"
@@ -74,6 +64,7 @@
             app:layout_constraintVertical_bias="0.029" />
 
         <ListView
+            android:id="@+id/app_list"
             android:layout_width="287dp"
             android:layout_height="329dp"
             app:layout_constraintBottom_toBottomOf="@+id/textView10"
@@ -107,6 +98,7 @@
             app:layout_constraintVertical_bias="0.059" />
 
         <ListView
+            android:id="@+id/choose_appList"
             android:layout_width="288dp"
             android:layout_height="99dp"
             app:layout_constraintBottom_toBottomOf="@+id/textView11"
