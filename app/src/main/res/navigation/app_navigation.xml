@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_lock_setting_between_fragment" >
         <action
             android:id="@+id/action_lock_setting_between_fragment_to_lock_setting_target_fragment"
-            app:destination="@id/lock_setting_target_fragment" />
+            app:destination="@id/lock_setting_target_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/lock_setting_details_fragment"
