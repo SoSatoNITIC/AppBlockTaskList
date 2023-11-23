@@ -6,15 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
 import androidx.navigation.fragment.NavHostFragment
 import com.example.appblocktasklist.roomdb.TasksDB.Task
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class SystemTaskMenu : Fragment() {
@@ -33,46 +30,67 @@ class SystemTaskMenu : Fragment() {
         val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         val navController = navHostFragment.navController
 
+        val addWantButton = view.findViewById<Button>(R.id.SystemTaskMenuAddWantBottun)
+        val addMustBottun = view.findViewById<Button>(R.id.systemTaskMenuAddMustBottun)
+
+        addWantButton.setOnClickListener{
+            val action = SystemTaskMenuDirections.actionSystemTaskmenuFragmentToTaskSettingWanFragment(-1)
+            navController.navigate(action)
+        }
+
+        addMustBottun.setOnClickListener{
+            val action = SystemTaskMenuDirections.actionSystemTaskmenuFragmentToTaskSettingShould(-1)
+            navController.navigate(action)
+        }
+
         val listViewWant = view.findViewById<ListView>(R.id.SystemTaskWantList)
         val listViewMust = view.findViewById<ListView>(R.id.SystemTaskMustList)
 
-        val taskNamesWant: ArrayList<Task> = arrayListOf()
-        val taskNamesMust: ArrayList<Task> = arrayListOf()
+        val tasksWant: ArrayList<Task> = arrayListOf()
+        val tasksMust: ArrayList<Task> = arrayListOf()
 
-        val adapterWant = TaskAdapter(requireContext(), taskNamesWant)
-        val adapterMust = TaskAdapter(requireContext(), taskNamesMust)
+        val adapterWant = TaskAdapter(requireContext(), tasksWant)
+        val adapterMust = TaskAdapter(requireContext(), tasksMust)
 
         listViewWant.adapter = adapterWant
         listViewMust.adapter = adapterMust
 
         GlobalScope.launch {
             val tasks: List<Task> = MyApplication.database.tasksDao().getAll()
-            taskNamesWant.clear()
-            taskNamesWant.addAll(tasks.filter { it.deadline == null })
-            taskNamesMust.clear()
-            taskNamesMust.addAll(tasks.filter { it.deadline != null })
+            tasksWant.clear()
+            tasksWant.addAll(tasks.filter { it.deadline == null })
+            tasksMust.clear()
+            tasksMust.addAll(tasks.filter { it.deadline != null })
 
             adapterWant.notifyDataSetChanged()
             adapterMust.notifyDataSetChanged()
         }
 
+        setupLongClickListenerOnListView(listViewMust, tasksMust, adapterMust)
+        setupLongClickListenerOnListView(listViewWant, tasksWant, adapterWant)
 
-        view.findViewById<Button>(R.id.SystemTaskMenuAddWantBottun).setOnClickListener{
-            val action = SystemTaskMenuDirections.actionSystemTaskmenuFragmentToTaskSettingWanFragment()
+        listViewWant.setOnItemClickListener { parent, view, position, id ->
+            val task = tasksWant[position]
+            val action = SystemTaskMenuDirections.actionSystemTaskmenuFragmentToTaskSettingWanFragment(task.id)
             navController.navigate(action)
         }
 
-        view.findViewById<Button>(R.id.systemTaskMenuAddMustBottun).setOnClickListener{
-            val action = SystemTaskMenuDirections.actionSystemTaskmenuFragmentToTaskSettingShould()
+        listViewMust.setOnItemClickListener { parent, view, position, id ->
+            val task = tasksMust[position]
+            val action = SystemTaskMenuDirections.actionSystemTaskmenuFragmentToTaskSettingShould(task.id)
             navController.navigate(action)
         }
-        listViewMust.setOnItemLongClickListener() { parent, view, position, id ->
+
+    }
+
+    private fun setupLongClickListenerOnListView(listView: ListView, tasks: ArrayList<Task>, adapter: TaskAdapter) {
+        listView.setOnItemLongClickListener { parent, view, position, id ->
             val builder = AlertDialog.Builder(requireContext())
             builder.setMessage("削除しますか？")
                 .setPositiveButton("OK") { dialog, which ->
-                    val task = taskNamesMust[position]
-                    taskNamesMust.removeAt(position)
-                    adapterMust.notifyDataSetChanged()
+                    val task = tasks[position]
+                    tasks.removeAt(position)
+                    adapter.notifyDataSetChanged()
 
                     GlobalScope.launch {
                         MyApplication.database.tasksDao().delete(task)
@@ -80,26 +98,6 @@ class SystemTaskMenu : Fragment() {
                 }
                 .setNegativeButton("キャンセル", null)
                 .setCancelable(true)
-            // show dialog
-            builder.show()
-            true
-        }
-
-        listViewWant.setOnItemLongClickListener() { parent, view, position, id ->
-            val builder = AlertDialog.Builder(requireContext())
-            builder.setMessage("削除しますか？")
-                .setPositiveButton("OK") { dialog, which ->
-                    val task = taskNamesWant[position]
-                    taskNamesWant.removeAt(position)
-                    adapterWant.notifyDataSetChanged()
-
-                    GlobalScope.launch {
-                        MyApplication.database.tasksDao().delete(task)
-                    }
-                }
-                .setNegativeButton("キャンセル", null)
-                .setCancelable(true)
-            // show dialog
             builder.show()
             true
         }
