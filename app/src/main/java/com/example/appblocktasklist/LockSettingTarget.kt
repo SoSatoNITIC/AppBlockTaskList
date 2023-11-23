@@ -93,6 +93,9 @@ class LockSettingTarget : Fragment() {
                 // ArrayAdapterを更新します。
                 val adapterChoose = AppListAdapter(requireActivity(), chosenAppIcons, chosenAppNames)
                 appListViewChoose.adapter = adapterChoose
+
+                //保持リストに追加
+                chosenApps.add(selectedItem)
             }
         }
 
@@ -104,6 +107,9 @@ class LockSettingTarget : Fragment() {
                     // remove item from ArrayList
                     chosenAppIcons.removeAt(position)
                     chosenAppNames.removeAt(position)
+                    //保持リストからも削除
+                    chosenApps.removeAt(position)
+
                     // update ListView
                     val adapterChoose = AppListAdapter(requireActivity(), chosenAppIcons, chosenAppNames)
                     appListViewChoose.adapter = adapterChoose
