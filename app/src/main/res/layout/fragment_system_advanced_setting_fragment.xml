@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SystemAdvancedSetting">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/background">
 
         <Button
             android:id="@+id/systemAdvancedSettingNextBottun"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#696363"
+            android:backgroundTint="@color/toggle"
             android:text="次へ"
+            android:textColor="@color/w1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.948"
@@ -28,7 +29,7 @@
             android:id="@+id/textView13"
             android:layout_width="289dp"
             android:layout_height="147dp"
-            android:background="#D9D9D9"
+            android:background="@color/title"
             android:text="使用禁止時間"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -41,7 +42,7 @@
             android:id="@+id/textView14"
             android:layout_width="239dp"
             android:layout_height="23dp"
-            android:background="#696363"
+            android:background="@color/toggle"
             android:text="1時間"
             android:textAlignment="textEnd"
             android:textColor="@color/white"
@@ -55,9 +56,10 @@
             android:id="@+id/textView8"
             android:layout_width="140dp"
             android:layout_height="47dp"
-            android:background="#D9D9D9"
+            android:background="@color/title"
             android:gravity="center_vertical|center_horizontal"
             android:text="詳細設定"
+            android:textColor="@color/w1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -66,12 +68,11 @@
             app:layout_constraintVertical_bias="0.024" />
 
 
-
         <TextView
             android:id="@+id/textView9"
             android:layout_width="289dp"
             android:layout_height="147dp"
-            android:background="#D9D9D9"
+            android:background="@color/title"
             android:text="通知のタイミング"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -84,7 +85,7 @@
             android:id="@+id/textView10"
             android:layout_width="239dp"
             android:layout_height="26dp"
-            android:background="#696363"
+            android:background="@color/toggle"
             android:text="30分"
             android:textAlignment="textEnd"
             android:textColor="@color/white"
@@ -99,7 +100,7 @@
             android:id="@+id/textView12"
             android:layout_width="239dp"
             android:layout_height="23dp"
-            android:background="#696363"
+            android:background="@color/toggle"
             android:text="45分"
             android:textAlignment="textEnd"
             android:textColor="@color/white"

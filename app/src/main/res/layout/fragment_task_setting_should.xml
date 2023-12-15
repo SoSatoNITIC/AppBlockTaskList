@@ -8,7 +8,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/background">
 
         <TextView
             android:id="@+id/lock_setting_between_text1"
@@ -16,9 +17,10 @@
             android:layout_height="46dp"
             android:layout_centerInParent="true"
             android:layout_marginBottom="88dp"
-            android:background="#D9D9D9"
+            android:background="@color/title"
             android:gravity="center_vertical|center_horizontal"
             android:text="タスクの追加"
+            android:textColor="@color/w1"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/frame"
             app:layout_constraintEnd_toEndOf="parent"
@@ -29,6 +31,7 @@
             android:layout_width="301dp"
             android:layout_height="396dp"
             android:background="@drawable/wakusen"
+            android:backgroundTint="@color/title"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -174,7 +177,9 @@
             android:id="@+id/button3"
             android:layout_width="103dp"
             android:layout_height="42dp"
+            android:backgroundTint="@color/toggle"
             android:text="次へ"
+            android:textColor="@color/w1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.948"

@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SystemLockMenu">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:backgroundTint="@color/background">
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="140dp"
             android:layout_height="47dp"
-            android:background="#D9D9D9"
+            android:background="@color/title"
             android:gravity="center_vertical|center_horizontal"
             android:text="ロック一覧"
+            android:textColor="@color/w1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -30,19 +32,23 @@
             android:id="@+id/SystemLockMenuBackButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#696363"
+            android:backgroundTint="@color/toggle"
             android:text="ホーム"
+            android:textColor="@color/w1"
             app:icon="?attr/actionModeCloseDrawable"
+            app:iconTint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.023" />
+            app:layout_constraintVertical_bias="0.023"
+            app:strokeColor="#C13E3E" />
 
         <ListView
             android:layout_width="370dp"
             android:layout_height="519dp"
+            android:background="@color/title"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,9 +58,15 @@
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#696363"
+            android:backgroundTint="@color/toggle"
+            android:foregroundTint="@color/white"
             android:text="新規"
+            android:textColor="@color/w1"
+            android:textColorHighlight="@color/white"
+            android:textColorHint="@color/white"
+            android:textColorLink="@color/white"
             app:icon="@android:drawable/ic_menu_add"
+            app:iconTint="@color/w1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.067"
