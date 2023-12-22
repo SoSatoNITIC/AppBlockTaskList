@@ -30,13 +30,12 @@
 
         <Button
             android:id="@+id/SystemLockMenuBackButton"
+            android:layout_width="62dp"
+            android:layout_height="45dp"
+            android:backgroundTint="@color/toggle"
+            android:textColor="@color/w1"
             app:icon="@drawable/ic_action_home"
             app:iconPadding="12dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/toggle"
-            android:text="ホーム"
-            android:textColor="@color/w1"
             app:iconTint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
