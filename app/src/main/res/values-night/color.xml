@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FFFFFFFF</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="w1">#FFFFFF</color>
+    <color name="gray">#FF80FF00</color>
+    <color name="title">#143D50</color>
+    <color name="list">#196E78</color>
+    <color name='background'>#16212C</color>
+    <color name='toggle'>#59889E</color>
+</resources>

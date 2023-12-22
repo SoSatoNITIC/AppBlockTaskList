@@ -1,44 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LockSettingDetails">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/background">
 
         <TextView
-            android:id="@+id/設定概要"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:background="#D9D9D9"
-            android:text="設定概要"
-            android:textSize="24sp"
+            android:id="@+id/lock_setting_between_text1"
+            android:layout_width="125dp"
+            android:layout_height="46dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="27dp"
+            android:background="@color/title"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="概要設定"
+            android:textColor="@color/w1"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/textView5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="364dp"
             android:layout_height="548dp"
-            android:layout_marginTop="16dp"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/設定概要" />
+            tools:layout_editor_absoluteY="116dp" />
 
         <TextView
             android:id="@+id/ロック設定a"
             android:layout_width="340dp"
             android:layout_height="48dp"
             android:layout_marginTop="10dp"
-            android:background="#D9D9D9"
+            android:background="@color/title"
             app:layout_constraintEnd_toEndOf="@+id/textView5"
             app:layout_constraintStart_toStartOf="@+id/textView5"
             app:layout_constraintTop_toTopOf="@+id/textView5" />
@@ -58,7 +62,7 @@
             android:layout_width="340dp"
             android:layout_height="48dp"
             android:layout_marginTop="40dp"
-            android:background="#D9D9D9"
+            android:background="@color/title"
             app:layout_constraintEnd_toEndOf="@+id/textView5"
             app:layout_constraintHorizontal_bias="0.507"
             app:layout_constraintStart_toStartOf="@+id/textView5"
@@ -79,7 +83,7 @@
             android:layout_width="340dp"
             android:layout_height="48dp"
             android:layout_marginTop="40dp"
-            android:background="#D9D9D9"
+            android:background="@color/title"
             app:layout_constraintEnd_toEndOf="@+id/textView5"
             app:layout_constraintStart_toStartOf="@+id/textView5"
             app:layout_constraintTop_toBottomOf="@+id/アプリ一覧u" />
@@ -94,12 +98,13 @@
             app:layout_constraintTop_toBottomOf="@+id/詳細設定a" />
 
 
-
         <Button
             android:id="@+id/buttonLockSetting"
             android:layout_width="78dp"
             android:layout_height="48dp"
+            android:backgroundTint="@color/toggle"
             android:text="→"
+            android:textColor="@color/w1"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="@+id/ロック設定a"
             app:layout_constraintTop_toTopOf="@+id/ロック設定a" />
@@ -108,7 +113,9 @@
             android:id="@+id/buttonDetail"
             android:layout_width="78dp"
             android:layout_height="48dp"
+            android:backgroundTint="@color/toggle"
             android:text="→"
+            android:textColor="@color/w1"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="@+id/詳細設定a"
             app:layout_constraintTop_toTopOf="@+id/詳細設定a" />
@@ -117,7 +124,9 @@
             android:id="@+id/buttonApp"
             android:layout_width="78dp"
             android:layout_height="48dp"
+            android:backgroundTint="@color/toggle"
             android:text="→"
+            android:textColor="@color/w1"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="@+id/アプリ一覧a"
             app:layout_constraintTop_toTopOf="@+id/アプリ一覧a" />
@@ -127,6 +136,7 @@
             android:layout_width="123dp"
             android:layout_height="41dp"
             android:text="ロック設定"
+            android:textColor="@color/w1"
             android:textSize="23sp"
             app:layout_constraintStart_toStartOf="@+id/ロック設定a"
             app:layout_constraintTop_toTopOf="@+id/ロック設定a" />
@@ -136,6 +146,7 @@
             android:layout_width="123dp"
             android:layout_height="41dp"
             android:text="アプリ一覧"
+            android:textColor="@color/w1"
             android:textSize="23sp"
             app:layout_constraintStart_toStartOf="@+id/アプリ一覧a"
             app:layout_constraintTop_toTopOf="@+id/アプリ一覧a" />
@@ -145,6 +156,7 @@
             android:layout_width="123dp"
             android:layout_height="41dp"
             android:text="詳細設定"
+            android:textColor="@color/w1"
             android:textSize="23sp"
             app:layout_constraintStart_toStartOf="@+id/詳細設定a"
             app:layout_constraintTop_toTopOf="@+id/詳細設定a" />
@@ -155,7 +167,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/toggle"
             android:text="次へ→"
+            android:textColor="@color/w1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
