@@ -8,8 +8,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        android:background="@color/background">
 
 
         <TextView
@@ -18,19 +18,24 @@
             android:layout_height="46dp"
             android:layout_centerInParent="true"
             android:layout_marginTop="27dp"
-            android:background="#D9D9D9"
+            android:background="@color/title"
             android:gravity="center_vertical|center_horizontal"
             android:text="時間帯設定"
+            android:textColor="@color/w1"
             android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/textView10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/button3"
             android:layout_width="103dp"
             android:layout_height="42dp"
+            android:backgroundTint="@color/toggle"
             android:text="次へ"
+            android:textColor="@color/w1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.948"
@@ -39,18 +44,17 @@
             app:layout_constraintVertical_bias="0.976" />
 
 
-
         <TextView
             android:id="@+id/textView10"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@drawable/wakusen"
-            app:layout_constraintWidth_percent="0.8"
-            app:layout_constraintHeight_percent="0.65"
+            android:background="@color/title"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.65"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.8" />
 
 
         <TextView
@@ -60,6 +64,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
             android:text="・時間帯の設定"
+            android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/textView10"
             app:layout_constraintEnd_toEndOf="@+id/textView10"
@@ -67,8 +72,6 @@
             app:layout_constraintStart_toStartOf="@+id/textView10"
             app:layout_constraintTop_toTopOf="@+id/textView10"
             app:layout_constraintVertical_bias="0.072" />
-
-
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -89,9 +92,11 @@
                 android:id="@+id/time_start"
                 android:layout_width="190dp"
                 android:layout_height="60dp"
+                android:backgroundTint="@color/title"
                 android:clickable="false"
+                android:editable="false"
                 android:inputType="none"
-                android:editable="false"/>
+                android:textColorLink="@color/w1" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- TimePicker表示ボタン -->
@@ -99,15 +104,15 @@
             android:id="@+id/time_picker_actions_start"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/black"
             android:contentDescription="TimePicker"
             android:src="@drawable/ic_arrow_down"
-            app:layout_constraintTop_toTopOf="@id/time_label_start"
             app:layout_constraintBottom_toBottomOf="@id/time_label_start"
-            android:layout_marginTop="4dp"
             app:layout_constraintEnd_toEndOf="@id/time_label_start"
-            android:layout_marginEnd="8dp"
-            app:tint="@android:color/black"
-            android:background="@color/white" />
+            app:layout_constraintTop_toTopOf="@id/time_label_start"
+            app:tint="@android:color/black" />
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -128,8 +133,8 @@
                 android:layout_width="190dp"
                 android:layout_height="60dp"
                 android:clickable="false"
-                android:inputType="none"
-                android:editable="false"/>
+                android:editable="false"
+                android:inputType="none" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- TimePicker表示ボタン -->
@@ -137,21 +142,15 @@
             android:id="@+id/time_picker_actions_end"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/black"
             android:contentDescription="TimePicker"
             android:src="@drawable/ic_arrow_down"
-            app:layout_constraintTop_toTopOf="@id/time_label_end"
             app:layout_constraintBottom_toBottomOf="@id/time_label_end"
-            android:layout_marginTop="4dp"
             app:layout_constraintEnd_toEndOf="@id/time_label_end"
-            android:layout_marginEnd="8dp"
-            app:tint="@android:color/black"
-            android:background="@color/white" />
-
-
-
-
-
-
+            app:layout_constraintTop_toTopOf="@id/time_label_end"
+            app:tint="@android:color/black" />
 
 
         <TextView
@@ -173,7 +172,9 @@
             android:id="@+id/SundayToggleButton"
             android:layout_width="38dp"
             android:layout_height="39dp"
+            android:backgroundTint="@color/toggle"
             android:text="ToggleButton"
+            android:textColor="@color/w1"
             android:textOff="日"
             android:textOn="日"
             app:layout_constraintBottom_toBottomOf="@+id/textView10"
@@ -187,7 +188,9 @@
             android:id="@+id/MondayToggleButton"
             android:layout_width="38dp"
             android:layout_height="39dp"
+            android:backgroundTint="@color/toggle"
             android:text="ToggleButton"
+            android:textColor="@color/w1"
             android:textOff="月"
             android:textOn="月"
             app:layout_constraintBottom_toBottomOf="@+id/textView10"
@@ -202,7 +205,9 @@
             android:id="@+id/TuesdayToggleButton"
             android:layout_width="38dp"
             android:layout_height="39dp"
+            android:backgroundTint="@color/toggle"
             android:text="ToggleButton"
+            android:textColor="@color/w1"
             android:textOff="火"
             android:textOn="火"
             app:layout_constraintBottom_toBottomOf="@+id/textView10"
@@ -216,7 +221,9 @@
             android:id="@+id/WednesdayToggleButton"
             android:layout_width="38dp"
             android:layout_height="39dp"
+            android:backgroundTint="@color/toggle"
             android:text="ToggleButton"
+            android:textColor="@color/w1"
             android:textOff="水"
             android:textOn="水"
             app:layout_constraintBottom_toBottomOf="@+id/textView10"
@@ -230,7 +237,9 @@
             android:id="@+id/ThursdayToggleButton"
             android:layout_width="38dp"
             android:layout_height="39dp"
+            android:backgroundTint="@color/toggle"
             android:text="ToggleButton"
+            android:textColor="@color/w1"
             android:textOff="木"
             android:textOn="木"
             app:layout_constraintBottom_toBottomOf="@+id/textView10"
@@ -244,7 +253,9 @@
             android:id="@+id/FridayToggleButton"
             android:layout_width="38dp"
             android:layout_height="39dp"
+            android:backgroundTint="@color/toggle"
             android:text="ToggleButton"
+            android:textColor="@color/w1"
             android:textOff="金"
             android:textOn="金"
             app:layout_constraintBottom_toBottomOf="@+id/textView10"
@@ -258,7 +269,9 @@
             android:id="@+id/SaturdayToggleButton"
             android:layout_width="38dp"
             android:layout_height="39dp"
+            android:backgroundTint="@color/toggle"
             android:text="ToggleButton"
+            android:textColor="@color/w1"
             android:textOff="土"
             android:textOn="土"
             app:layout_constraintBottom_toBottomOf="@+id/textView10"
