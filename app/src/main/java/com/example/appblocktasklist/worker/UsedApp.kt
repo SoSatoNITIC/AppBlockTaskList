@@ -14,23 +14,26 @@ class UsedApp(context: Context, params: WorkerParameters) : CoroutineWorker(cont
         //println("call doWork")
 
 
-        // Get an instance of UsageStatsManager
-        val usageStatsManager = applicationContext.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
-        val time = System.currentTimeMillis()
+        while (true){
+            // Get an instance of UsageStatsManager
+            val usageStatsManager = applicationContext.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
+            val time = System.currentTimeMillis()
 
 
-        //delay(5000L)
-        //Thread.sleep(1000) // wait for 1 seconds
+            delay(5000L)
+            //Thread.sleep(1000) // wait for 1 seconds
 
-        // Query and aggregate usage stats
-        val statsMap = usageStatsManager.queryAndAggregateUsageStats(time - 1000 * 60 * 60 * 24, time)
-        mostRecentlyUsedPackage = statsMap.values.maxByOrNull { it.lastTimeUsed }?.packageName
+            // Query and aggregate usage stats
+            val statsMap = usageStatsManager.queryAndAggregateUsageStats(time - 1000 * 60 * 60 * 24, time)
+            mostRecentlyUsedPackage = statsMap.values.maxByOrNull { it.lastTimeUsed }?.packageName
 
-        val localMostRecentlyUsedPackage = mostRecentlyUsedPackage
+            val localMostRecentlyUsedPackage = mostRecentlyUsedPackage
 
-        if (localMostRecentlyUsedPackage != null) {
-            Log.i("Most Recently Used App", localMostRecentlyUsedPackage)
+            if (localMostRecentlyUsedPackage != null) {
+                Log.i("Most Recently Used App", localMostRecentlyUsedPackage)
+            }
         }
+
 
         return Result.success()
     }
