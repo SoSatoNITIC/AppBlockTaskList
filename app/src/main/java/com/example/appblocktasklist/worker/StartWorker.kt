@@ -20,24 +20,16 @@ import java.util.concurrent.TimeUnit
 //    }
 //}
 
-//class StartWorker : BroadcastReceiver(){
-//    override fun onReceive(context: Context, intent: Intent) {
-//        if (intent.action == Intent.ACTION_BOOT_COMPLETED) {
-//            // Create an intent for MainActivity
-//            val startIntent = Intent(context, MainActivity::class.java)
-//            startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//            context.startActivity(startIntent)
-//        }
-//    }
-//}
-
 class StartWorker : BroadcastReceiver(){
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.action == Intent.ACTION_BOOT_COMPLETED) {
-            val workRequest = PeriodicWorkRequestBuilder<UsedApp>(1, TimeUnit.MINUTES)
-                .build()
-            WorkManager.getInstance(context).enqueue(workRequest)
+            // Create an intent for MainActivity
+            val startIntent = Intent(context, MainActivity::class.java)
+            startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context.startActivity(startIntent)
         }
     }
 }
+
+
 

@@ -11,20 +11,17 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
-import androidx.work.Constraints
-import androidx.work.NetworkType
+import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.PeriodicWorkRequestBuilder
-import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.example.appblocktasklist.roomdb.TasksDB.Task
-import com.example.appblocktasklist.worker.StartWorker
 import com.example.appblocktasklist.worker.UsedApp
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
+
+
 
 
 class SystemHome : Fragment() {
@@ -53,20 +50,31 @@ class SystemHome : Fragment() {
             listView.adapter = adapter
         }
 
+        if (Settings.canDrawOverlays(requireContext())) {
+            println("permission OK")
+
+            val workRequest = OneTimeWorkRequestBuilder<UsedApp>()
+                .setInitialDelay(0, TimeUnit.SECONDS)
+                .build()
+            WorkManager.getInstance(requireContext())
+                .beginUniqueWork("uniqueWork", ExistingWorkPolicy.KEEP, workRequest)//Workerが複数起動することを防ぐ
+                .enqueue()
+
+        } else {
+            val intent = Intent(
+                Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                Uri.parse("package:" + requireContext().packageName)
+            )
+
+            requireActivity().startActivity(intent)
+            val intent2 = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
+            requireActivity().startActivity(intent2)
+        }
+
+
         //ロック設定が押されたら
         view.findViewById<Button>(R.id.button2).setOnClickListener{
-            if (Settings.canDrawOverlays(requireContext())) {
-                createWork(1, TimeUnit.SECONDS)
-            } else {
-                val intent = Intent(
-                    Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                    Uri.parse("package:" + requireContext().packageName)
-                )
-                requireActivity().startActivity(intent)
-                val intent2 = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
-                requireActivity().startActivity(intent2)
-            }
-
+            //ファイル名 +  Directionsが自動生成される
             val action = SystemHomeDirections.actionSystemHomeFragmentToSystemLockmenuFragment()
             navController.navigate(action)
         }
@@ -77,29 +85,4 @@ class SystemHome : Fragment() {
             navController.navigate(action)
         }
     }
-
-    fun createWork(delay: Long, unit: TimeUnit) {
-        val constraints = Constraints.Builder()
-            .setRequiresBatteryNotLow(true)
-            .setRequiredNetworkType(NetworkType.CONNECTED)
-            .build()
-
-        val request = OneTimeWorkRequestBuilder<UsedApp>()
-
-        val work = request.setConstraints(constraints)
-            .setInitialDelay(delay, unit)
-            .build()
-
-        WorkManager.getInstance(requireContext()).enqueue(work)
-
-        // UsedAppワーカーが完了したら次のワークをスケジュール
-        WorkManager.getInstance(requireContext())
-            .getWorkInfoByIdLiveData(work.id)
-            .observe(viewLifecycleOwner, Observer { workInfo ->
-                if (workInfo != null && workInfo.state == WorkInfo.State.SUCCEEDED) {
-                    createWork(1, TimeUnit.MINUTES)
-                }
-            })
-    }
-
 }
