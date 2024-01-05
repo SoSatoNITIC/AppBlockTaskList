@@ -51,7 +51,7 @@ class SystemHome : Fragment() {
         }
 
         if (Settings.canDrawOverlays(requireContext())) {
-            println("permission OK")
+            println("Work OK1")
 
             val workRequest = OneTimeWorkRequestBuilder<UsedApp>()
                 .setInitialDelay(0, TimeUnit.SECONDS)
@@ -59,6 +59,8 @@ class SystemHome : Fragment() {
             WorkManager.getInstance(requireContext())
                 .beginUniqueWork("uniqueWork", ExistingWorkPolicy.KEEP, workRequest)//Workerが複数起動することを防ぐ
                 .enqueue()
+
+            println("Work OK2")
 
         } else {
             val intent = Intent(
@@ -74,6 +76,18 @@ class SystemHome : Fragment() {
 
         //ロック設定が押されたら
         view.findViewById<Button>(R.id.button2).setOnClickListener{
+
+            println("Work OK1")
+            val workRequest = OneTimeWorkRequestBuilder<UsedApp>()
+                .setInitialDelay(0, TimeUnit.SECONDS)
+                .build()
+            WorkManager.getInstance(requireContext())
+                .beginUniqueWork("uniqueWork", ExistingWorkPolicy.KEEP, workRequest)//Workerが複数起動することを防ぐ
+                .enqueue()
+
+            println("Work OK2")
+
+
             //ファイル名 +  Directionsが自動生成される
             val action = SystemHomeDirections.actionSystemHomeFragmentToSystemLockmenuFragment()
             navController.navigate(action)
@@ -81,6 +95,19 @@ class SystemHome : Fragment() {
 
         //タスク設定が押されたら
         view.findViewById<Button>(R.id.SystemHomeTaskBottun).setOnClickListener{
+
+            println("Work OK1")
+            val workRequest = OneTimeWorkRequestBuilder<UsedApp>()
+                .setInitialDelay(0, TimeUnit.SECONDS)
+                .build()
+            WorkManager.getInstance(requireContext())
+                .beginUniqueWork("uniqueWork", ExistingWorkPolicy.KEEP, workRequest)//Workerが複数起動することを防ぐ
+                .enqueue()
+
+            println("Work OK2")
+
+
+
             val action = SystemHomeDirections.actionSystemHomeFragmentToSystemTaskmenuFragment()
             navController.navigate(action)
         }

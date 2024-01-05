@@ -10,7 +10,9 @@ import android.os.PowerManager
 class UsedApp(context: Context, params: WorkerParameters) : CoroutineWorker(context, params) {
     private var mostRecentlyUsedPackage: String? = null
 
-    var appName = mutableListOf<String>("com.google.android.youtube","com.google.android.apps.youtube.music",)
+
+    // com.google.android.permissioncontroller をどう扱うか用検討　たまーにパーミッション許可を求めていない時でもこれがずっと表示されるアプリがある
+    var appName = mutableListOf<String>("com.google.android.youtube","com.google.android.apps.youtube.music","tv.abema")
 
     override suspend fun doWork(): Result {
 
@@ -28,7 +30,7 @@ class UsedApp(context: Context, params: WorkerParameters) : CoroutineWorker(cont
             delay(1000L) // wait for 1 seconds
 
             // Query and aggregate usage stats
-            val statsMap = usageStatsManager.queryAndAggregateUsageStats(time - 1000 * 10 , time)//60* 60 * 24
+            val statsMap = usageStatsManager.queryAndAggregateUsageStats(time - 1000L * 60* 60 * 24 * 60, time)//2month
             mostRecentlyUsedPackage = if (powerManager.isInteractive) {
                 statsMap.values.maxByOrNull { it.lastTimeUsed }?.packageName
             } else {
@@ -39,6 +41,8 @@ class UsedApp(context: Context, params: WorkerParameters) : CoroutineWorker(cont
 
             if (localMostRecentlyUsedPackage != null) {
                 Log.i("Most Recently Used App", localMostRecentlyUsedPackage)
+            }else{
+                println("null!!")
             }
 
             //対象アプリを見つける
