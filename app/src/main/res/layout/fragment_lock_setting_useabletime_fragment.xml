@@ -136,10 +136,10 @@
             android:textOn="日"
             app:layout_constraintBottom_toBottomOf="@+id/textView10"
             app:layout_constraintEnd_toEndOf="@+id/textView10"
-            app:layout_constraintHorizontal_bias="0.044"
+            app:layout_constraintHorizontal_bias="0.043"
             app:layout_constraintStart_toStartOf="@+id/textView10"
             app:layout_constraintTop_toTopOf="@+id/textView10"
-            app:layout_constraintVertical_bias="0.699" />
+            app:layout_constraintVertical_bias="0.916" />
 
         <ToggleButton
             android:id="@+id/MondayToggleButton"
@@ -152,11 +152,10 @@
             android:textOn="月"
             app:layout_constraintBottom_toBottomOf="@+id/textView10"
             app:layout_constraintEnd_toEndOf="@+id/textView10"
-            app:layout_constraintHorizontal_bias="0.185"
+            app:layout_constraintHorizontal_bias="0.043"
             app:layout_constraintStart_toStartOf="@+id/textView10"
             app:layout_constraintTop_toTopOf="@+id/textView10"
-            app:layout_constraintVertical_bias="0.699" />
-
+            app:layout_constraintVertical_bias="0.565" />
 
         <ToggleButton
             android:id="@+id/TuesdayToggleButton"
@@ -169,10 +168,10 @@
             android:textOn="火"
             app:layout_constraintBottom_toBottomOf="@+id/textView10"
             app:layout_constraintEnd_toEndOf="@+id/textView10"
-            app:layout_constraintHorizontal_bias="0.325"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="@+id/textView10"
             app:layout_constraintTop_toTopOf="@+id/textView10"
-            app:layout_constraintVertical_bias="0.699" />
+            app:layout_constraintVertical_bias="0.565" />
 
         <ToggleButton
             android:id="@+id/WednesdayToggleButton"
@@ -185,10 +184,10 @@
             android:textOn="水"
             app:layout_constraintBottom_toBottomOf="@+id/textView10"
             app:layout_constraintEnd_toEndOf="@+id/textView10"
-            app:layout_constraintHorizontal_bias="0.466"
+            app:layout_constraintHorizontal_bias="0.043"
             app:layout_constraintStart_toStartOf="@+id/textView10"
             app:layout_constraintTop_toTopOf="@+id/textView10"
-            app:layout_constraintVertical_bias="0.699" />
+            app:layout_constraintVertical_bias="0.686" />
 
         <ToggleButton
             android:id="@+id/ThursdayToggleButton"
@@ -201,10 +200,10 @@
             android:textOn="木"
             app:layout_constraintBottom_toBottomOf="@+id/textView10"
             app:layout_constraintEnd_toEndOf="@+id/textView10"
-            app:layout_constraintHorizontal_bias="0.607"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="@+id/textView10"
             app:layout_constraintTop_toTopOf="@+id/textView10"
-            app:layout_constraintVertical_bias="0.699" />
+            app:layout_constraintVertical_bias="0.686" />
 
         <ToggleButton
             android:id="@+id/FridayToggleButton"
@@ -217,10 +216,10 @@
             android:textOn="金"
             app:layout_constraintBottom_toBottomOf="@+id/textView10"
             app:layout_constraintEnd_toEndOf="@+id/textView10"
-            app:layout_constraintHorizontal_bias="0.748"
+            app:layout_constraintHorizontal_bias="0.043"
             app:layout_constraintStart_toStartOf="@+id/textView10"
             app:layout_constraintTop_toTopOf="@+id/textView10"
-            app:layout_constraintVertical_bias="0.699" />
+            app:layout_constraintVertical_bias="0.802" />
 
         <ToggleButton
             android:id="@+id/SaturdayToggleButton"
@@ -233,10 +232,94 @@
             android:textOn="土"
             app:layout_constraintBottom_toBottomOf="@+id/textView10"
             app:layout_constraintEnd_toEndOf="@+id/textView10"
-            app:layout_constraintHorizontal_bias="0.888"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="@+id/textView10"
             app:layout_constraintTop_toTopOf="@+id/textView10"
-            app:layout_constraintVertical_bias="0.699" />
+            app:layout_constraintVertical_bias="0.802" />
+
+        <Switch
+            android:id="@+id/Mondayswitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="195dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+            app:layout_constraintEnd_toEndOf="@+id/textView10"
+            app:layout_constraintHorizontal_bias="0.064"
+            app:layout_constraintStart_toEndOf="@+id/MondayToggleButton"
+            app:layout_constraintTop_toBottomOf="@+id/LockSettingbetweenText3"
+            app:layout_constraintVertical_bias="0.091" />
+
+        <Switch
+            android:id="@+id/Tuesdayswitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="195dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+            app:layout_constraintEnd_toEndOf="@+id/textView10"
+            app:layout_constraintHorizontal_bias="0.23"
+            app:layout_constraintStart_toEndOf="@+id/TuesdayToggleButton"
+            app:layout_constraintTop_toBottomOf="@+id/LockSettingbetweenText3"
+            app:layout_constraintVertical_bias="0.091" />
+
+        <Switch
+            android:id="@+id/Wednesdayswitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="145dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+            app:layout_constraintEnd_toEndOf="@+id/textView10"
+            app:layout_constraintHorizontal_bias="0.064"
+            app:layout_constraintStart_toEndOf="@+id/WednesdayToggleButton"
+            app:layout_constraintTop_toBottomOf="@+id/LockSettingbetweenText3"
+            app:layout_constraintVertical_bias="0.345" />
+
+        <Switch
+            android:id="@+id/Thursdayswitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="145dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+            app:layout_constraintEnd_toEndOf="@+id/textView10"
+            app:layout_constraintHorizontal_bias="0.25"
+            app:layout_constraintStart_toEndOf="@+id/ThursdayToggleButton"
+            app:layout_constraintTop_toBottomOf="@+id/LockSettingbetweenText3"
+            app:layout_constraintVertical_bias="0.345" />
+
+        <Switch
+            android:id="@+id/Fridayswitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="90dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+            app:layout_constraintEnd_toEndOf="@+id/textView10"
+            app:layout_constraintHorizontal_bias="0.064"
+            app:layout_constraintStart_toEndOf="@+id/FridayToggleButton"
+            app:layout_constraintTop_toBottomOf="@+id/LockSettingbetweenText3"
+            app:layout_constraintVertical_bias="0.587" />
+
+        <Switch
+            android:id="@+id/Saturdayswitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="95dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+            app:layout_constraintEnd_toEndOf="@+id/textView10"
+            app:layout_constraintHorizontal_bias="0.23"
+            app:layout_constraintStart_toEndOf="@+id/SaturdayToggleButton"
+            app:layout_constraintTop_toBottomOf="@+id/LockSettingbetweenText3"
+            app:layout_constraintVertical_bias="0.587" />
+
+        <Switch
+            android:id="@+id/Sundayswitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+            app:layout_constraintEnd_toEndOf="@+id/textView10"
+            app:layout_constraintHorizontal_bias="0.064"
+            app:layout_constraintStart_toEndOf="@+id/SundayToggleButton"
+            app:layout_constraintTop_toBottomOf="@+id/LockSettingbetweenText3"
+            app:layout_constraintVertical_bias="0.825" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
