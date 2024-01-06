@@ -3,6 +3,9 @@ package com.example.appblocktasklist
 import android.app.Application
 import androidx.room.Room
 import com.example.appblocktasklist.roomdb.AppDB
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MyApplication : Application() {
     companion object {
@@ -11,9 +14,13 @@ class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        database = Room.databaseBuilder(
-            applicationContext,
-            AppDB::class.java, "AppDB"
-        ).build()
+        CoroutineScope(Dispatchers.IO).launch {
+
+            database = Room.databaseBuilder(
+                applicationContext,
+                AppDB::class.java, "AppDB"
+            ).build()
+        }
+
     }
 }

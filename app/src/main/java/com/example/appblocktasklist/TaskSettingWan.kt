@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.RadioGroup
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.example.appblocktasklist.roomdb.TasksDB.Task
@@ -41,6 +42,14 @@ class TaskSettingWan : Fragment() {
                 val titleReason = titleReasonEditText.text.toString()
                 val reasonOfReason = reasonOfReasonEditText.text.toString()
                 val memo = memoEditText.text.toString()
+                val priorityRadioGroup = view.findViewById<RadioGroup>(R.id.priorityRadioGroup)
+
+                val priority = when (priorityRadioGroup.checkedRadioButtonId) {
+                    R.id.radioLowPriority -> 1 // 低い優先度を選択した場合
+                    R.id.radioMediumPriority -> 5 // 中程度の優先度を選択した場合
+                    R.id.radioHighPriority -> 10 // 高い優先度を選択した場合
+                    else -> 1 // デフォルトは低い優先度
+                }
 
                 if (title != ""){
                     GlobalScope.launch {

@@ -11,4 +11,5 @@ data class Task(
     var deadline: String? = null,
     var nullableLockSettingId: Int? = null,
     var reason: String,
+    var priority: Int = 0,
 )
