@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
 import androidx.navigation.fragment.NavHostFragment
+import com.example.appblocktasklist.notify.TimeRemaining
 import com.example.appblocktasklist.roomdb.TasksDB.Task
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -43,6 +44,13 @@ class SystemHome : Fragment() {
 
         //ロック設定が押されたら
         view.findViewById<Button>(R.id.button2).setOnClickListener{
+
+            //通知送るとき
+            //val timeRemaining = TimeRemaining()
+            //val remaining = 60
+            //timeRemaining.sendRemainingTimeNotification(requireContext(),remaining)
+
+
             //ファイル名 +  Directionsが自動生成される
             val action = SystemHomeDirections.actionSystemHomeFragmentToSystemLockmenuFragment()
             navController.navigate(action)
