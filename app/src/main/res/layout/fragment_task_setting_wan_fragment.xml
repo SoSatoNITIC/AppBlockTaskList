@@ -156,6 +156,46 @@
             app:layout_constraintTop_toBottomOf="@+id/frame"
             app:layout_constraintVertical_bias="1.0" />
 
+        <RadioGroup
+            android:id="@+id/priorityRadioGroup"
+            android:layout_width="220dp"
+            android:layout_height="65dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.445"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.845"
+            tools:ignore="MissingConstraints">
+
+
+            <RadioButton
+                android:id="@+id/radioMediumPriority"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Medium"
+                tools:layout_editor_absoluteX="159dp"
+                tools:layout_editor_absoluteY="554dp" />
+
+            <RadioButton
+                android:id="@+id/radioHighPriority"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="High"
+                tools:layout_editor_absoluteX="244dp"
+                tools:layout_editor_absoluteY="554dp" />
+
+            <RadioButton
+                android:id="@+id/radioLowPriority"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Low"
+                tools:layout_editor_absoluteX="100dp"
+                tools:layout_editor_absoluteY="554dp" />
+        </RadioGroup>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
