@@ -9,9 +9,12 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
 import androidx.navigation.fragment.NavHostFragment
+import com.example.appblocktasklist.lockProcess.calcRemaining
+import com.example.appblocktasklist.lockProcess.setLockWorker
 import com.example.appblocktasklist.roomdb.TasksDB.Task
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.concurrent.locks.Lock
 
 
 class SystemHome : Fragment() {
@@ -43,9 +46,14 @@ class SystemHome : Fragment() {
 
         //ロック設定が押されたら
         view.findViewById<Button>(R.id.button2).setOnClickListener{
-            //ファイル名 +  Directionsが自動生成される
-            val action = SystemHomeDirections.actionSystemHomeFragmentToSystemLockmenuFragment()
-            navController.navigate(action)
+//            //ファイル名 +  Directionsが自動生成される
+//            val action = SystemHomeDirections.actionSystemHomeFragmentToSystemLockmenuFragment()
+//            navController.navigate(action)
+
+            val remaining = calcRemaining("com.google.android.youtube")
+            if (remaining != null) {
+                setLockWorker(requireContext(), remaining)
+            }
         }
 
         //タスク設定が押されたら
