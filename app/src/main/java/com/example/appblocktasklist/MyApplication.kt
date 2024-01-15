@@ -5,6 +5,9 @@ import androidx.room.Room
 import com.example.appblocktasklist.lockProcess.GetterUsageStats
 import com.example.appblocktasklist.roomdb.AppDB
 import kotlin.reflect.KProperty
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MyApplication : Application() {
     companion object {
