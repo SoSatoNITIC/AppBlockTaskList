@@ -12,6 +12,8 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
 import androidx.navigation.fragment.NavHostFragment
+import com.example.appblocktasklist.lockProcess.calcRemaining
+import com.example.appblocktasklist.lockProcess.setLockWorker
 import com.example.appblocktasklist.notify.TimeRemaining
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
@@ -20,10 +22,8 @@ import com.example.appblocktasklist.roomdb.TasksDB.Task
 import com.example.appblocktasklist.worker.UsedApp
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.concurrent.locks.Lock
 import java.util.concurrent.TimeUnit
-
-
-
 
 class SystemHome : Fragment() {
     override fun onCreateView(
@@ -77,6 +77,14 @@ class SystemHome : Fragment() {
 
         //ロック設定が押されたら
         view.findViewById<Button>(R.id.button2).setOnClickListener{
+//            //ファイル名 +  Directionsが自動生成される
+//            val action = SystemHomeDirections.actionSystemHomeFragmentToSystemLockmenuFragment()
+//            navController.navigate(action)
+
+            //val remaining = calcRemaining("com.google.android.youtube")
+            //if (remaining != null) {
+            //    setLockWorker(requireContext(), remaining)
+            //}
 
 
             //通知送るとき
