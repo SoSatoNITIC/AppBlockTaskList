@@ -43,7 +43,7 @@ class TimeRemaining {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = "Timer"
             val descriptionText = "Notifications for timer"
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val importance = NotificationManager.IMPORTANCE_HIGH
             val channel = NotificationChannel("timer", name, importance).apply {
                 description = descriptionText
                 enableVibration(true)
