@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
 import androidx.navigation.fragment.NavHostFragment
+import com.example.appblocktasklist.notify.TimeRemaining
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
@@ -77,6 +78,13 @@ class SystemHome : Fragment() {
         //ロック設定が押されたら
         view.findViewById<Button>(R.id.button2).setOnClickListener{
 
+
+            //通知送るとき
+            //val timeRemaining = TimeRemaining()
+            //val remaining = 60
+            //timeRemaining.sendRemainingTimeNotification(requireContext(),remaining)
+          
+          
             println("Work OK1")
             val workRequest = OneTimeWorkRequestBuilder<UsedApp>()
                 .setInitialDelay(0, TimeUnit.SECONDS)
@@ -86,6 +94,7 @@ class SystemHome : Fragment() {
                 .enqueue()
 
             println("Work OK2")
+
 
 
             //ファイル名 +  Directionsが自動生成される
