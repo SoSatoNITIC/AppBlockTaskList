@@ -12,6 +12,7 @@ import androidx.core.view.get
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.example.appblocktasklist.roomdb.TasksDB.Task
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -74,11 +75,14 @@ class TaskSettingWan : Fragment() {
 
                 val reasons = task.reason.split(",")
 
-                titleEditText.setText(task.taskName)
-                titleReasonEditText.setText(reasons[0])
-                reasonOfReasonEditText.setText(reasons[1])
-                memoEditText.setText(task.memo)
-                when (task.priority) {
+
+                launch(Dispatchers.Main) {
+                    // ここにメインスレッドで実行したいコードを書く
+                    titleEditText.setText(task.taskName)
+                    titleReasonEditText.setText(reasons[0])
+                    reasonOfReasonEditText.setText(reasons[1])
+                    memoEditText.setText(task.memo)
+                    when (task.priority) {
                     1 -> editpriority.check(R.id.radioLowPriority)// 低い優先度を選択した場合
                     5 -> editpriority.check(R.id.radioMediumPriority) // 中程度の優先度を選択した場合
                     10 ->editpriority.check(R.id.radioHighPriority)
