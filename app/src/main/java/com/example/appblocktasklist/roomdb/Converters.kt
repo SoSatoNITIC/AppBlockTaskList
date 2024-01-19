@@ -58,4 +58,14 @@ class Converters {
     fun durationsToString(durations: List<Duration>?): String? {
         return durations?.joinToString(",") { it.toString() }
     }
+
+    //Stringのリストを変換する
+    @TypeConverter
+    fun fromStringToStringList(value: String?): List<String>? {
+        return value?.split(",")
+    }
+    @TypeConverter
+    fun stringListToString(strings: List<String>?): String? {
+        return strings?.joinToString(",")
+    }
 }
