@@ -11,6 +11,7 @@ import android.widget.RadioGroup
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.example.appblocktasklist.roomdb.TasksDB.Task
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -71,10 +72,13 @@ class TaskSettingWan : Fragment() {
 
                 val reasons = task.reason.split(",")
 
-                titleEditText.setText(task.taskName)
-                titleReasonEditText.setText(reasons[0])
-                reasonOfReasonEditText.setText(reasons[1])
-                memoEditText.setText(task.memo)
+                launch(Dispatchers.Main) {
+                    // ここにメインスレッドで実行したいコードを書く
+                    titleEditText.setText(task.taskName)
+                    titleReasonEditText.setText(reasons[0])
+                    reasonOfReasonEditText.setText(reasons[1])
+                    memoEditText.setText(task.memo)
+                }
 
                 view.findViewById<Button>(R.id.button7).setOnClickListener{
                     val title = titleEditText.text.toString()
