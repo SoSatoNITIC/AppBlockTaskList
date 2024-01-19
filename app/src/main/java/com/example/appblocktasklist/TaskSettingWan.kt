@@ -117,4 +117,4 @@ class TaskSettingWan : Fragment() {
             }
         }
     }
-}
+}}
