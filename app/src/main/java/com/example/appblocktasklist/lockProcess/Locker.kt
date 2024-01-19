@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.appblocktasklist.MyApplication
-import com.example.appblocktasklist.roomdb.rocksettingDB.RockSetting
+import com.example.appblocktasklist.roomdb.rocksettingDB.LockSetting
 import java.time.DayOfWeek
 import java.time.Duration
 import java.time.LocalTime
@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
 
 fun calcRemaining(packageName: String):Duration? {
 //    TODO:データベースからデータをとってくる処理にあとで書き換える
-    val lockSetting = RockSetting(
+    val lockSetting = LockSetting(
         beginTime = LocalTime.of(20, 51),
         endTime = LocalTime.of(2, 0),
 //        usableTime = Duration.ofMinutes(20),

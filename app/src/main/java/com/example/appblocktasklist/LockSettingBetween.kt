@@ -15,6 +15,7 @@ import android.widget.ToggleButton
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import java.time.LocalTime
 
 
 class LockSettingBetween : Fragment() {
@@ -32,6 +33,14 @@ class LockSettingBetween : Fragment() {
         val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         val navController = navHostFragment.navController
 
+        val timeLabelStart = view.findViewById<TextInputLayout>(R.id.time_label_start)
+        val timeViewStart = view.findViewById<TextInputEditText>(R.id.time_start)
+        val timePickerActionsStart = view.findViewById<ImageButton>(R.id.time_picker_actions_start)
+
+        val timeLabelEnd = view.findViewById<TextInputLayout>(R.id.time_label_end)
+        val timeViewEnd = view.findViewById<TextInputEditText>(R.id.time_end)
+        val timePickerActionsEnd = view.findViewById<ImageButton>(R.id.time_picker_actions_end)
+
         view.findViewById<Button>(R.id.button3).setOnClickListener{
             // val 変数名(好きなの)　= view.findViewById<型名>(R.id.型名の名前ID)　val = view.findViewById<>(R.id.)
             val sunday = view.findViewById<ToggleButton>(R.id.SundayToggleButton).isChecked
@@ -41,6 +50,10 @@ class LockSettingBetween : Fragment() {
             val thursday = view.findViewById<ToggleButton>(R.id.ThursdayToggleButton).isChecked
             val friday = view.findViewById<ToggleButton>(R.id.FridayToggleButton).isChecked
             val saturday = view.findViewById<ToggleButton>(R.id.SaturdayToggleButton).isChecked
+
+            val startTime = LocalTime.parse(timeViewStart.text)
+            val endTime = LocalTime.parse(timeViewEnd.text)
+
             val action = LockSettingBetweenDirections.actionLockSettingBetweenFragmentToLockSettingTargetFragment()
             navController.navigate(action)
         }
@@ -48,10 +61,6 @@ class LockSettingBetween : Fragment() {
 
 
         //開始時刻の時刻設定ダイアログ設定
-        val timeLabelStart = view.findViewById<TextInputLayout>(R.id.time_label_start)
-        val timeViewStart = view.findViewById<TextInputEditText>(R.id.time_start)
-        val timePickerActionsStart = view.findViewById<ImageButton>(R.id.time_picker_actions_start)
-
         timePickerActionsStart.setOnClickListener {
             val currentHour = 12
             val currentMinute = 0
@@ -70,15 +79,7 @@ class LockSettingBetween : Fragment() {
             dialog.show()
         }
 
-
-
-
-
         //終了時刻の時刻設定ダイアログ設定
-        val timeLabelEnd = view.findViewById<TextInputLayout>(R.id.time_label_end)
-        val timeViewEnd = view.findViewById<TextInputEditText>(R.id.time_end)
-        val timePickerActionsEnd = view.findViewById<ImageButton>(R.id.time_picker_actions_end)
-
         timePickerActionsEnd.setOnClickListener {
             val currentHour = 12
             val currentMinute = 0
