@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioGroup
+import androidx.core.view.get
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.example.appblocktasklist.roomdb.TasksDB.Task
@@ -35,6 +36,7 @@ class TaskSettingWan : Fragment() {
         val titleReasonEditText = view.findViewById<EditText>(R.id.title_reason)
         val reasonOfReasonEditText = view.findViewById<EditText>(R.id.reason_of_reason)
         val memoEditText = view.findViewById<EditText>(R.id.memo)
+        val editpriority = view.findViewById<RadioGroup>(R.id.priorityRadioGroup)
 
         if (args.taskID == -1) {
             view.findViewById<Button>(R.id.button7).setOnClickListener{
@@ -57,7 +59,8 @@ class TaskSettingWan : Fragment() {
                             Task(
                                 taskName = title,
                                 memo = memo,
-                                reason = "$titleReason, $reasonOfReason"
+                                reason = "$titleReason, $reasonOfReason",
+                                priority = priority
                             )
                         )
                     }
@@ -75,6 +78,11 @@ class TaskSettingWan : Fragment() {
                 titleReasonEditText.setText(reasons[0])
                 reasonOfReasonEditText.setText(reasons[1])
                 memoEditText.setText(task.memo)
+                when (task.priority) {
+                    1 -> editpriority.check(R.id.radioLowPriority)// 低い優先度を選択した場合
+                    5 -> editpriority.check(R.id.radioMediumPriority) // 中程度の優先度を選択した場合
+                    10 ->editpriority.check(R.id.radioHighPriority)
+                }
 
                 view.findViewById<Button>(R.id.button7).setOnClickListener{
                     val title = titleEditText.text.toString()
