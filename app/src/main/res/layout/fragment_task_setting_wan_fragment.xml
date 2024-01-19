@@ -170,27 +170,27 @@
 
 
             <RadioButton
+                android:id="@+id/radioLowPriority"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Low"
+                tools:layout_editor_absoluteX="159dp"
+                tools:layout_editor_absoluteY="554dp" />
+
+            <RadioButton
                 android:id="@+id/radioMediumPriority"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Medium"
-                tools:layout_editor_absoluteX="159dp"
+                tools:layout_editor_absoluteX="244dp"
                 tools:layout_editor_absoluteY="554dp" />
 
             <RadioButton
                 android:id="@+id/radioHighPriority"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="High"
-                tools:layout_editor_absoluteX="244dp"
-                tools:layout_editor_absoluteY="554dp" />
-
-            <RadioButton
-                android:id="@+id/radioLowPriority"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="Low"
+                android:text="High"
                 tools:layout_editor_absoluteX="100dp"
                 tools:layout_editor_absoluteY="554dp" />
         </RadioGroup>
