@@ -30,16 +30,15 @@
 
         <TextView
             android:id="@+id/frame"
-            android:layout_width="312dp"
-            android:layout_height="387dp"
+            android:layout_width="311dp"
+            android:layout_height="481dp"
             android:background="@drawable/wakusen"
             android:backgroundTint="@color/title"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.459" />
+            app:layout_constraintVertical_bias="0.588" />
 
         <TextView
             android:id="@+id/text_view_title"
@@ -161,12 +160,12 @@
             android:layout_width="220dp"
             android:layout_height="65dp"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.445"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.845"
+            app:layout_constraintBottom_toBottomOf="@+id/frame"
+            app:layout_constraintEnd_toEndOf="@+id/frame"
+            app:layout_constraintHorizontal_bias="0.197"
+            app:layout_constraintStart_toStartOf="@+id/frame"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_memo1"
+            app:layout_constraintVertical_bias="0.227"
             tools:ignore="MissingConstraints">
 
 
@@ -195,6 +194,17 @@
                 tools:layout_editor_absoluteX="100dp"
                 tools:layout_editor_absoluteY="554dp" />
         </RadioGroup>
+
+        <TextView
+            android:id="@+id/text_view_memo1"
+            android:layout_width="88dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="・優先度"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/frame"
+            app:layout_constraintTop_toBottomOf="@+id/memo" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

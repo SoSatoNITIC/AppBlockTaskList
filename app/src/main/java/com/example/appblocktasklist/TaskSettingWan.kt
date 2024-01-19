@@ -89,12 +89,19 @@ class TaskSettingWan : Fragment() {
                     val titleReason = titleReasonEditText.text.toString()
                     val reasonOfReason = reasonOfReasonEditText.text.toString()
                     val memo = memoEditText.text.toString()
+                    val priority = when (editpriority.checkedRadioButtonId) {
+                        R.id.radioLowPriority -> 1 // 低い優先度を選択した場合
+                        R.id.radioMediumPriority -> 5 // 中程度の優先度を選択した場合
+                        R.id.radioHighPriority -> 10 // 高い優先度を選択した場合
+                        else -> 1 // デフォルトは低い優先度
+                    }
 
                     if (title != ""){
                         GlobalScope.launch {
                             task.taskName = title
                             task.reason = "${titleReason}, ${reasonOfReason}"
                             task.memo = memo
+                            task.priority = priority
                             MyApplication.database.tasksDao().update(
                                 task
                             )
