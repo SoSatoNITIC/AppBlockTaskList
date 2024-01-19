@@ -49,12 +49,16 @@ class SystemAdvancedSetting : Fragment() {
                 { _, hourOfDay, minute ->
                     // 選択した時間をArrayListに追加
                     val displayTime = String.format("%d時間%d分前", hourOfDay, minute)
-                    notificationTimings.add(displayTime)
-                    // ArrayAdapterを使用してListViewを更新
-                    val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, notificationTimings)
-                    notificationTimingList.adapter = adapter
+                    //タイミングが重複してなかったら追加
+                    if (!notificationTimings.contains(displayTime)) {
+                        notificationTimings.add(displayTime)
+                        // ArrayAdapterを使用してListViewを更新
+                        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, notificationTimings)
+                        notificationTimingList.adapter = adapter
+                    }
                 }, 0, 0, true)
             timePickerDialog.show()
+
         }
 
         notificationTimingList.setOnItemLongClickListener { _, _, position, _ ->
