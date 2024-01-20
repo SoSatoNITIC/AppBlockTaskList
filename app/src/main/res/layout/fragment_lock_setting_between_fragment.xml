@@ -31,8 +31,8 @@
 
         <Button
             android:id="@+id/button3"
-            android:layout_width="103dp"
-            android:layout_height="42dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:backgroundTint="@color/toggle"
             android:text="次へ"
             android:textColor="@color/w1"

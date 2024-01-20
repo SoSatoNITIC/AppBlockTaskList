@@ -25,32 +25,9 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.976" />
 
-        <TextView
-            android:id="@+id/textView13"
-            android:layout_width="289dp"
-            android:layout_height="147dp"
-            android:background="@color/title"
-            android:text="使用禁止時間"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.522" />
 
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="239dp"
-            android:layout_height="23dp"
-            android:background="@color/toggle"
-            android:text="1時間"
-            android:textAlignment="textEnd"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.395"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+
+
 
         <TextView
             android:id="@+id/textView8"
@@ -58,7 +35,7 @@
             android:layout_height="47dp"
             android:background="@color/title"
             android:gravity="center_vertical|center_horizontal"
-            android:text="詳細設定"
+            android:text="通知タイミング"
             android:textColor="@color/w1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -70,79 +47,40 @@
 
         <TextView
             android:id="@+id/textView9"
-            android:layout_width="289dp"
-            android:layout_height="147dp"
+            android:layout_width="343dp"
+            android:layout_height="576dp"
             android:background="@color/title"
-            android:text="通知のタイミング"
+            android:text="使用制限の何分前に通知を送るか"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.16" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="239dp"
-            android:layout_height="26dp"
-            android:background="@color/toggle"
-            android:text="30分"
-            android:textAlignment="textEnd"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.383"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.217" />
 
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="239dp"
-            android:layout_height="23dp"
-            android:background="@color/toggle"
-            android:text="45分"
-            android:textAlignment="textEnd"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.379"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.278" />
+        <ListView
+            android:id="@+id/notificationTimingList"
+            android:layout_width="303dp"
+            android:layout_height="457dp"
+            android:layout_marginTop="36dp"
+            app:layout_constraintEnd_toEndOf="@+id/textView9"
+            app:layout_constraintHorizontal_bias="0.488"
+            app:layout_constraintStart_toStartOf="@+id/textView9"
+            app:layout_constraintTop_toTopOf="@+id/textView9" />
 
-        <Switch
-            android:id="@+id/SystemAdvancedSettingNoticeSwitch1"
-            android:layout_width="43dp"
-            android:layout_height="26dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.834"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.215" />
+        <Button
+            android:id="@+id/notificationTimingButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/toggle"
+            android:text="通知タイミングを追加"
+            app:layout_constraintBottom_toBottomOf="@+id/textView9"
+            app:layout_constraintEnd_toEndOf="@+id/textView9"
+            app:layout_constraintHorizontal_bias="0.941"
+            app:layout_constraintStart_toStartOf="@+id/textView9"
+            app:layout_constraintTop_toBottomOf="@+id/notificationTimingList"
+            app:layout_constraintVertical_bias="0.875" />
 
-        <Switch
-            android:id="@+id/SystemAdvancedSettingNoticeSwitch2"
-            android:layout_width="44dp"
-            android:layout_height="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.831"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.274" />
-
-        <Switch
-            android:id="@+id/SystemAdvancedSettingtTimeSwitch1"
-            android:layout_width="42dp"
-            android:layout_height="25dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.834"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.502" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
