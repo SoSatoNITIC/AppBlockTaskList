@@ -159,19 +159,8 @@
             app:layout_constraintTop_toTopOf="@+id/frame"
             app:layout_constraintVertical_bias="0.679" />
 
-        <EditText
-            android:id="@+id/deadline"
-            android:layout_width="280dp"
-            android:layout_height="43dp"
-            android:ems="10"
-            android:hint="ここに入力"
-            android:inputType="text"
-            app:layout_constraintBottom_toBottomOf="@+id/frame"
-            app:layout_constraintEnd_toEndOf="@+id/frame"
-            app:layout_constraintHorizontal_bias="0.333"
-            app:layout_constraintStart_toStartOf="@+id/frame"
-            app:layout_constraintTop_toTopOf="@+id/frame"
-            app:layout_constraintVertical_bias="0.781" />
+
+
 
         <Button
             android:id="@+id/button3"
@@ -186,6 +175,32 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.976" />
+
+        <Button
+            android:id="@+id/dateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="期限設定"
+            android:textColor="@color/w1"
+            android:backgroundTint="@color/toggle"
+            app:layout_constraintBottom_toBottomOf="@+id/frame"
+            app:layout_constraintEnd_toEndOf="@+id/frame"
+            app:layout_constraintHorizontal_bias="0.89"
+            app:layout_constraintStart_toStartOf="@+id/frame"
+            app:layout_constraintTop_toBottomOf="@+id/textView7"
+            app:layout_constraintVertical_bias="0.819" />
+
+        <TextView
+            android:id="@+id/textViewDeadline"
+            android:layout_width="254dp"
+            android:layout_height="45dp"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/dateButton"
+            app:layout_constraintEnd_toEndOf="@+id/frame"
+            app:layout_constraintHorizontal_bias="0.17"
+            app:layout_constraintStart_toStartOf="@+id/frame"
+            app:layout_constraintTop_toBottomOf="@+id/textView7"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ListView
 import androidx.navigation.fragment.NavHostFragment
@@ -50,7 +51,7 @@ class SystemTaskMenu : Fragment() {
         val tasksMust: ArrayList<Task> = arrayListOf()
 
         val adapterWant = TaskAdapter(requireContext(), tasksWant)
-        val adapterMust = TaskAdapter(requireContext(), tasksMust)
+        val adapterMust = TaskMustAdapter(requireContext(), tasksMust)
 
         listViewWant.adapter = adapterWant
         listViewMust.adapter = adapterMust
@@ -83,7 +84,7 @@ class SystemTaskMenu : Fragment() {
 
     }
 
-    private fun setupLongClickListenerOnListView(listView: ListView, tasks: ArrayList<Task>, adapter: TaskAdapter) {
+    private fun setupLongClickListenerOnListView(listView: ListView, tasks: ArrayList<Task>, adapter: BaseAdapter) {
         listView.setOnItemLongClickListener { parent, view, position, id ->
             val builder = AlertDialog.Builder(requireContext())
             builder.setMessage("削除しますか？")
@@ -102,4 +103,5 @@ class SystemTaskMenu : Fragment() {
             true
         }
     }
+
 }

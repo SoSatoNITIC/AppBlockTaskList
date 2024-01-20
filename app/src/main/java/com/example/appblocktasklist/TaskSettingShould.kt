@@ -1,5 +1,7 @@
 package com.example.appblocktasklist
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,11 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.example.appblocktasklist.roomdb.TasksDB.Task
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 
 class TaskSettingShould : Fragment() {
@@ -34,7 +40,67 @@ class TaskSettingShould : Fragment() {
         val titleReasonEditText = view.findViewById<EditText>(R.id.title_reason)
         val reasonOfReasonEditText = view.findViewById<EditText>(R.id.reason_of_reason)
         val memoEditText = view.findViewById<EditText>(R.id.memo)
-        val deadlineEditText = view.findViewById<EditText>(R.id.deadline)
+        var selectedDateTime: String = ""
+        val deadlineTextView: TextView = view.findViewById(R.id.textViewDeadline)
+
+
+
+        view.findViewById<Button>(R.id.dateButton).setOnClickListener{
+
+            deadlineTextView.text = ""
+            var notYesterday = true
+            //時刻設定
+            val calendartime = Calendar.getInstance()
+            val hour = calendartime.get(Calendar.HOUR_OF_DAY)
+            val minute = calendartime.get(Calendar.MINUTE)
+
+            val timePickerDialog = TimePickerDialog(requireContext(),
+                TimePickerDialog.OnTimeSetListener { _, h, m ->
+                    // ユーザーが選択した時間をここで処理
+                    val selectedTime = Calendar.getInstance()
+                    selectedTime.set(Calendar.HOUR_OF_DAY, h)
+                    selectedTime.set(Calendar.MINUTE, m)
+
+                    val simpleDateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+                    val timeStr = simpleDateFormat.format(selectedTime.time)
+
+                    //deadlineTextView.text = timeStr
+                    if(notYesterday){
+                        deadlineTextView.append(" $timeStr")
+                    }
+
+                }, hour, minute, true)
+            timePickerDialog.show()
+
+
+
+            //日付設定
+            val yesterdayCalendar = Calendar.getInstance().apply { add(Calendar.DATE, -1) }//昨日の日付を取得
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            val datePickerDialog = DatePickerDialog(requireContext(),
+                DatePickerDialog.OnDateSetListener { _, y, m, d ->
+                    val selectedDate = Calendar.getInstance()
+                    selectedDate.set(y, m, d)
+
+                    if (!selectedDate.before(yesterdayCalendar)) {
+                        // 選択された日付が現在の日付以降である場合の処理
+                        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                        val dateStr = simpleDateFormat.format(selectedDate.time)
+
+                        //deadlineTextView.text = " $dateStr"
+                        deadlineTextView.append("$dateStr")
+                    }else{
+                        notYesterday = false
+                    }
+                }, year, month, day)
+            datePickerDialog.show()
+
+        }
+        val deadlineEditText = view.findViewById<TextView>(R.id.textViewDeadline)
 
         if (args.taskID == -1) {
             view.findViewById<Button>(R.id.button3).setOnClickListener{
