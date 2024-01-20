@@ -15,6 +15,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.appblocktasklist.roomdb.TasksDB.Task
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -45,34 +46,14 @@ class TaskSettingShould : Fragment() {
 
 
 
+
+
         view.findViewById<Button>(R.id.dateButton).setOnClickListener{
 
             deadlineTextView.text = ""
-            var notYesterday = true
-            //時刻設定
-            val calendartime = Calendar.getInstance()
-            val hour = calendartime.get(Calendar.HOUR_OF_DAY)
-            val minute = calendartime.get(Calendar.MINUTE)
 
-            val timePickerDialog = TimePickerDialog(requireContext(),
-                TimePickerDialog.OnTimeSetListener { _, h, m ->
-                    // ユーザーが選択した時間をここで処理
-                    val selectedTime = Calendar.getInstance()
-                    selectedTime.set(Calendar.HOUR_OF_DAY, h)
-                    selectedTime.set(Calendar.MINUTE, m)
-
-                    val simpleDateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-                    val timeStr = simpleDateFormat.format(selectedTime.time)
-
-                    //deadlineTextView.text = timeStr
-                    if(notYesterday){
-                        deadlineTextView.append(" $timeStr")
-                    }
-
-                }, hour, minute, true)
-            timePickerDialog.show()
-
-
+            //現在の日付と時間を取得
+            val now = Calendar.getInstance()
 
             //日付設定
             val yesterdayCalendar = Calendar.getInstance().apply { add(Calendar.DATE, -1) }//昨日の日付を取得
@@ -91,17 +72,76 @@ class TaskSettingShould : Fragment() {
                         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                         val dateStr = simpleDateFormat.format(selectedDate.time)
 
-                        //deadlineTextView.text = " $dateStr"
-                        deadlineTextView.append("$dateStr")
-                    }else{
-                        notYesterday = false
+                        val today = SimpleDateFormat("yyyy-MM-dd").format(now.time)
+
+                        if (dateStr == today){//今日なら、過去の時間選べないようにする
+                            //println("today")
+
+                            //時刻設定
+                            val calendartime = Calendar.getInstance()
+                            val hour = calendartime.get(Calendar.HOUR_OF_DAY)
+                            val minute = calendartime.get(Calendar.MINUTE)
+
+                            val now = Calendar.getInstance()
+
+                            val timePickerDialog = TimePickerDialog(requireContext(),
+                                TimePickerDialog.OnTimeSetListener { _, h, m ->
+                                    // ユーザーが選択した時間をここで処理
+                                    val selectedTime = Calendar.getInstance()
+                                    selectedTime.set(Calendar.HOUR_OF_DAY, h)
+                                    selectedTime.set(Calendar.MINUTE, m)
+
+                                    if (!selectedTime.before(now)) {
+                                        val simpleDateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+                                        val timeStr = simpleDateFormat.format(selectedTime.time)
+
+                                        deadlineTextView.append("$dateStr $timeStr")
+                                    }
+                                }, hour, minute, true)
+                            timePickerDialog.show()
+
+
+                        }else{
+                            //時刻設定
+                            val calendartime = Calendar.getInstance()
+                            val hour = calendartime.get(Calendar.HOUR_OF_DAY)
+                            val minute = calendartime.get(Calendar.MINUTE)
+
+                            val timePickerDialog = TimePickerDialog(requireContext(),
+                                TimePickerDialog.OnTimeSetListener { _, h, m ->
+                                    // ユーザーが選択した時間をここで処理
+                                    val selectedTime = Calendar.getInstance()
+                                    selectedTime.set(Calendar.HOUR_OF_DAY, h)
+                                    selectedTime.set(Calendar.MINUTE, m)
+
+                                    val simpleDateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+                                    val timeStr = simpleDateFormat.format(selectedTime.time)
+
+                                    deadlineTextView.append("$dateStr $timeStr")
+                                }, hour, minute, true)
+                            timePickerDialog.show()
+                        }
+
+
+
                     }
                 }, year, month, day)
+
+
+            // 現在の日付をDatePickerDialogの最小日付として設定
+            datePickerDialog.datePicker.minDate = now.timeInMillis
             datePickerDialog.show()
-
         }
-        val deadlineEditText = view.findViewById<TextView>(R.id.textViewDeadline)
 
+
+
+
+
+
+
+
+
+        val deadlineEditText = view.findViewById<TextView>(R.id.textViewDeadline)
         if (args.taskID == -1) {
             view.findViewById<Button>(R.id.button3).setOnClickListener{
                 val title = titleEditText.text.toString()
@@ -110,7 +150,7 @@ class TaskSettingShould : Fragment() {
                 val memo = memoEditText.text.toString()
                 val deadline = deadlineEditText.text.toString()
 
-                if (title != ""){
+                if (title != "" && deadline != ""){
                     GlobalScope.launch {
                         MyApplication.database.tasksDao().insertAll(
                             Task(
@@ -144,7 +184,7 @@ class TaskSettingShould : Fragment() {
                     val memo = memoEditText.text.toString()
                     val deadline = deadlineEditText.text.toString()
 
-                    if (title != ""){
+                    if (title != "" && deadline != ""){
                         GlobalScope.launch {
                             task.taskName = title
                             task.reason = "${titleReason}, ${reasonOfReason}"
