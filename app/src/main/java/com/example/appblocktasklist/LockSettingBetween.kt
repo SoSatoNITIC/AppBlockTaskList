@@ -19,6 +19,7 @@ import java.time.LocalTime
 
 
 class LockSettingBetween : Fragment() {
+    private val sharedViewModel: LockViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

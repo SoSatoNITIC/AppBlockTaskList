@@ -18,12 +18,14 @@ import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
 import com.example.appblocktasklist.applist.AppListAdapter
 
 
 
 class LockSettingTarget : Fragment() {
+    private val sharedViewModel: LockViewModel by activityViewModels()
 
 
     // chosenAppIconsとchosenAppNamesをフラグメントのプロパティとして定義

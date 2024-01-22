@@ -13,12 +13,14 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ToggleButton
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 
 class LockSettingUseAble : Fragment() {
+    private val sharedViewModel: LockViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
