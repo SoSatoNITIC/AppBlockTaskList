@@ -92,8 +92,8 @@
             app:layout_constraintStart_toStartOf="@+id/textView5"
             app:layout_constraintTop_toBottomOf="@+id/choosed_App" />
 
-        <TextView
-            android:id="@+id/詳細設定u"
+        <ListView
+            android:id="@+id/notifyList"
             android:layout_width="340dp"
             android:layout_height="100dp"
 

@@ -9,12 +9,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import com.example.appblocktasklist.applist.AppListAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 class LockSettingDetails : Fragment() {
@@ -23,6 +29,8 @@ class LockSettingDetails : Fragment() {
     // chosenAppIconsとchosenAppNamesをフラグメントのプロパティとして定義
     private val chosenAppIcons = ArrayList<Drawable>()
     private val chosenAppNames = ArrayList<String>()
+
+
 
 
 
@@ -37,6 +45,41 @@ class LockSettingDetails : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val notificationTimings: ArrayList<String> = ArrayList()
+        val notificationTimingList: ListView = view.findViewById(R.id.notifyList)
+
+
+
+
+        sharedViewModel.preNoticeTiming.observe(viewLifecycleOwner, Observer { preNoticeTimings ->
+            // preNoticeTimingsが更新されたときの処理を書く
+            // 例えば、preNoticeTimingsをログに出力する
+            println(preNoticeTimings)
+
+            // preNoticeTimingsから時間と分を取得し、指定した形式に変換し、リストに追加
+            preNoticeTimings.forEach { duration ->
+                val hours = duration.toHoursPart()//バージョン差分で赤線出るかも
+                val minutes = duration.toMinutesPart() % 60
+                val displayTime = String.format("%d時間%d分前", hours, minutes)
+                notificationTimings.add(displayTime)
+            }
+
+
+            val coroutineScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
+
+
+            // 画面遷移後にListViewを更新
+            coroutineScope.launch {
+                delay(100L) // 0.1秒待機
+                val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, notificationTimings)
+                notificationTimingList.adapter = adapter
+            }
+        })
+
+
+
+
 
         //NavHostの取得
         val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
