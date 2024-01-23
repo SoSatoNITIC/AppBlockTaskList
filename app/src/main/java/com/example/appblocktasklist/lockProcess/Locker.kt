@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.appblocktasklist.MyApplication
-import com.example.appblocktasklist.roomdb.rocksettingDB.RockSetting
+import com.example.appblocktasklist.roomdb.rocksettingDB.LockSetting
 import java.time.DayOfWeek
 import java.time.Duration
 import java.time.LocalTime
@@ -13,13 +13,21 @@ import java.util.concurrent.TimeUnit
 
 fun calcRemaining(packageName: String):Duration? {
 //    TODO:データベースからデータをとってくる処理にあとで書き換える
-    val lockSetting = RockSetting(
+    val lockSetting = LockSetting(
         beginTime = LocalTime.of(20, 51),
         endTime = LocalTime.of(2, 0),
 //        usableTime = Duration.ofMinutes(20),
         usableTime = null,
-        dayOfWeek = listOf<DayOfWeek>(DayOfWeek.MONDAY, DayOfWeek.SATURDAY),
-        targetApp = "com.google.android.youtube",
+        dayOfWeek = mapOf<DayOfWeek, Boolean>(
+            DayOfWeek.MONDAY to false,
+            DayOfWeek.TUESDAY to false,
+            DayOfWeek.WEDNESDAY to false,
+            DayOfWeek.THURSDAY to false,
+            DayOfWeek.FRIDAY to false,
+            DayOfWeek.SATURDAY to false,
+            DayOfWeek.SUNDAY to false
+        ),
+        targetApp = listOf("com.google.android.youtube"),
         unUsableTime = Duration.ofMinutes(60),
         preNoticeTiming = listOf(Duration.ofMinutes(10)),
         activeDate = null
@@ -31,7 +39,7 @@ fun calcRemaining(packageName: String):Duration? {
         remainingTime = calcReminingByTimeRange(lockSetting.beginTime, lockSetting.endTime)
     } else if (lockSetting.usableTime != null){
         val usedTime = MyApplication.usageGetter.
-            getUsageStatsKeyPackageName(lockSetting.targetApp, 60)?.totalTimeInForeground
+            getUsageStatsKeyPackageName(lockSetting.targetApp[0], 60)?.totalTimeInForeground
         if (usedTime != null) {
             remainingTime = calcReminingByUsableTime(lockSetting.usableTime, usedTime)
         }

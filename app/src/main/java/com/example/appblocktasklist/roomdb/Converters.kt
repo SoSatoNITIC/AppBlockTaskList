@@ -1,6 +1,8 @@
 package com.example.appblocktasklist.roomdb
 
 import androidx.room.TypeConverter
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import java.time.DayOfWeek
 import java.time.Duration
 import java.time.LocalDate
@@ -57,5 +59,29 @@ class Converters {
     @TypeConverter
     fun durationsToString(durations: List<Duration>?): String? {
         return durations?.joinToString(",") { it.toString() }
+    }
+
+    //Stringのリストを変換する
+    @TypeConverter
+    fun fromStringToStringList(value: String?): List<String>? {
+        return value?.split(",")
+    }
+    @TypeConverter
+    fun stringListToString(strings: List<String>?): String? {
+        return strings?.joinToString(",")
+    }
+
+    //Map<DayOfWeek, Boolean>を変換する
+    @TypeConverter
+    fun fromStringToMap(value: String): Map<DayOfWeek, Boolean>? {
+        val gson = Gson()
+        val type = object : TypeToken<Map<DayOfWeek, Boolean>>() {}.type
+        return gson.fromJson(value, type)
+    }
+
+    @TypeConverter
+    fun fromMapToString(map: Map<DayOfWeek, Boolean>): String {
+        val gson = Gson()
+        return gson.toJson(map)
     }
 }

@@ -18,12 +18,14 @@ import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
 import com.example.appblocktasklist.applist.AppListAdapter
 
 
 
 class LockSettingTarget : Fragment() {
+    private val sharedViewModel: LockViewModel by activityViewModels()
 
 
     // chosenAppIconsとchosenAppNamesをフラグメントのプロパティとして定義
@@ -127,8 +129,13 @@ class LockSettingTarget : Fragment() {
         val navController = navHostFragment.navController
 
         view.findViewById<Button>(R.id.button3).setOnClickListener{
-            val action = LockSettingTargetDirections.actionLockSettingTargetFragmentToSystemAdvancedSettingFragment()
-            navController.navigate(action)
+            if (chosenApps.isEmpty()) {
+                Toast.makeText(requireActivity(), "アプリが選択されていません", Toast.LENGTH_SHORT).show()
+            } else {
+                sharedViewModel.setTargetApp(chosenApps)
+                val action = LockSettingTargetDirections.actionLockSettingTargetFragmentToSystemAdvancedSettingFragment()
+                navController.navigate(action)
+            }
         }
     }
 }

@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
 
 
 class LockSettingDetails : Fragment() {
+    private val sharedViewModel: LockViewModel by activityViewModels()
 
 
     override fun onCreateView(
