@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.app.TimePickerDialog
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,10 +12,15 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.Switch
+import android.widget.Toast
 import android.widget.ToggleButton
 import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
+import java.time.DayOfWeek
+import java.time.Duration
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -40,15 +46,57 @@ class LockSettingUseAble : Fragment() {
         val navController = navHostFragment.navController
 
         view.findViewById<Button>(R.id.button3).setOnClickListener{
-            val sunday = view.findViewById<ToggleButton>(R.id.SundayToggleButton).isChecked
-            val monday = view.findViewById<ToggleButton>(R.id.MondayToggleButton).isChecked
-            val tuesday = view.findViewById<ToggleButton>(R.id.TuesdayToggleButton).isChecked
-            val wednesday = view.findViewById<ToggleButton>(R.id.WednesdayToggleButton).isChecked
-            val thursday = view.findViewById<ToggleButton>(R.id.ThursdayToggleButton).isChecked
-            val friday = view.findViewById<ToggleButton>(R.id.FridayToggleButton).isChecked
-            val saturday = view.findViewById<ToggleButton>(R.id.SaturdayToggleButton).isChecked
-            val action = LockSettingUseAbleDirections.actionLockSettingUseabletimeFragmentToLockSettingTargetFragment()
-            navController.navigate(action)
+            val sunday = view.findViewById<Switch>(R.id.Sundayswitch)
+            val monday = view.findViewById<Switch>(R.id.Mondayswitch)
+            val tuesday = view.findViewById<Switch>(R.id.Tuesdayswitch)
+            val wednesday = view.findViewById<Switch>(R.id.Wednesdayswitch)
+            val thursday = view.findViewById<Switch>(R.id.Thursdayswitch)
+            val friday = view.findViewById<Switch>(R.id.Fridayswitch)
+            val saturday = view.findViewById<Switch>(R.id.Saturdayswitch)
+
+            val dayOfWeeks = mapOf<DayOfWeek, Boolean>(
+                DayOfWeek.MONDAY to monday.isChecked,
+                DayOfWeek.TUESDAY to tuesday.isChecked,
+                DayOfWeek.WEDNESDAY to wednesday.isChecked,
+                DayOfWeek.THURSDAY to thursday.isChecked,
+                DayOfWeek.FRIDAY to friday.isChecked,
+                DayOfWeek.SATURDAY to saturday.isChecked,
+                DayOfWeek.SUNDAY to sunday.isChecked
+            )
+            for (i in dayOfWeeks.values) {
+                println(i)
+            }
+            println(!dayOfWeeks.values.any { it })
+            val timeInput = view.findViewById<EditText>(R.id.time_timer)
+
+            //曜日が一つ以上選択されているかチェック
+            if (!dayOfWeeks.values.any{ it }){
+                Toast.makeText(requireContext(), "曜日を選択してください", Toast.LENGTH_SHORT).show()
+            }else if (timeInput.text == null || timeInput.text!!.isEmpty()) {
+                Toast.makeText(requireContext(), "時間を設定してください", Toast.LENGTH_SHORT).show()
+            } else {
+                sharedViewModel.setDayOfWeek(dayOfWeeks)
+
+                //Duration型に合うように変換
+                val timeStr = timeInput.text.toString()
+                val parts = timeStr.split("時間")
+                val partsMinuts = parts.last().split("分")
+                println(parts)
+                val hours = parts.first().trim().toInt()
+                val minutes = partsMinuts.first().trim().toInt()
+                val durationStr = "PT${hours}H${minutes}M"
+                val duration = Duration.parse(durationStr)
+                sharedViewModel.setUsableTime(duration)
+
+                println(duration)
+
+                val action = LockSettingUseAbleDirections.actionLockSettingUseabletimeFragmentToLockSettingTargetFragment()
+                navController.navigate(action)
+
+
+            }
+
+
         }
 
 
@@ -74,7 +122,16 @@ class LockSettingUseAble : Fragment() {
             timeInput.rootView.context,
             AlertDialog.THEME_HOLO_LIGHT,
             { _, getHour, getMinutes ->
-                timeInput.setText(String.format("%02d時間　%02d分", getHour, getMinutes))
+                println(hourOfDay)
+                // 時刻設定が完了したときの処理をここに書く
+                if(getHour!=0 || getMinutes!=0){
+
+                    timeInput.setText(String.format("%02d時間%02d分", getHour, getMinutes))
+                }else{
+                    Toast.makeText(requireContext(), "0分以上の時間を指定してください", Toast.LENGTH_SHORT).show()
+                }
+
+                //timeInput.setText(String.format("%02d時間%02d分", getHour, getMinutes))
             },
             hourOfDay,
             minutes,

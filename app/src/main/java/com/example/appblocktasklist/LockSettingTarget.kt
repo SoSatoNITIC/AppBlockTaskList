@@ -129,8 +129,13 @@ class LockSettingTarget : Fragment() {
         val navController = navHostFragment.navController
 
         view.findViewById<Button>(R.id.button3).setOnClickListener{
-            val action = LockSettingTargetDirections.actionLockSettingTargetFragmentToSystemAdvancedSettingFragment()
-            navController.navigate(action)
+            if (chosenApps.isEmpty()) {
+                Toast.makeText(requireActivity(), "アプリが選択されていません", Toast.LENGTH_SHORT).show()
+            } else {
+                sharedViewModel.setTargetApp(chosenApps)
+                val action = LockSettingTargetDirections.actionLockSettingTargetFragmentToSystemAdvancedSettingFragment()
+                navController.navigate(action)
+            }
         }
     }
 }

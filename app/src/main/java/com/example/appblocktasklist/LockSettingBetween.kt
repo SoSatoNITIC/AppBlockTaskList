@@ -53,7 +53,15 @@ class LockSettingBetween : Fragment() {
                 requireContext(),
                 { _, hourOfDay, minute ->
                     // 時刻設定が完了したときの処理をここに書く
-                    timeViewStart.text = Editable.Factory.getInstance().newEditable(String.format("%02d:%02d", hourOfDay, minute))
+
+                    if(hourOfDay!=0 || minute!=0){
+
+                        timeViewStart.text = Editable.Factory.getInstance().newEditable(String.format("%02d:%02d", hourOfDay, minute))
+                    }else{
+                        Toast.makeText(requireContext(), "0分以上の時間を指定してください", Toast.LENGTH_SHORT).show()
+                    }
+
+
 
                 },
                 currentHour,
@@ -71,8 +79,18 @@ class LockSettingBetween : Fragment() {
             val dialog = TimePickerDialog(
                 requireContext(),
                 { _, hourOfDay, minute ->
+
+
+
+                    //println(hourOfDay)
                     // 時刻設定が完了したときの処理をここに書く
-                    timeViewEnd.text = Editable.Factory.getInstance().newEditable(String.format("%02d:%02d", hourOfDay, minute))
+                    if(hourOfDay!=0 || minute!=0){
+
+                        timeViewEnd.text = Editable.Factory.getInstance().newEditable(String.format("%02d:%02d", hourOfDay, minute))
+                    }else{
+                        Toast.makeText(requireContext(), "0分以上の時間を指定してください", Toast.LENGTH_SHORT).show()
+                    }
+
 
                 },
                 currentHour,
@@ -122,7 +140,7 @@ class LockSettingBetween : Fragment() {
                 // 全ての条件が満たされている場合、次のアクションを実行
                 sharedViewModel.setDayOfWeek(dayOfWeeks)
                 sharedViewModel.setBeginTime(LocalTime.parse(timeViewStart.text))
-                sharedViewModel.setBeginTime(LocalTime.parse(timeViewEnd.text))
+                sharedViewModel.setEndTime(LocalTime.parse(timeViewEnd.text))
                 val action = LockSettingBetweenDirections.actionLockSettingBetweenFragmentToLockSettingTargetFragment()
                 navController.navigate(action)
             }
