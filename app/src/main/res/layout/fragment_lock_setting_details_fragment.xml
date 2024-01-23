@@ -62,7 +62,7 @@
             app:layout_constraintTop_toBottomOf="@+id/ロック設定a" />
 
         <TextView
-            android:id="@+id/アプリ一覧a"
+            android:id="@+id/appText"
             android:layout_width="340dp"
             android:layout_height="48dp"
             android:layout_marginTop="40dp"
@@ -72,15 +72,15 @@
             app:layout_constraintStart_toStartOf="@+id/textView5"
             app:layout_constraintTop_toBottomOf="@+id/ロック設定u" />
 
-        <TextView
-            android:id="@+id/アプリ一覧u"
+        <ListView
+            android:id="@+id/choosed_App"
             android:layout_width="340dp"
             android:layout_height="100dp"
 
             app:layout_constraintEnd_toEndOf="@+id/textView5"
             app:layout_constraintHorizontal_bias="0.507"
             app:layout_constraintStart_toStartOf="@+id/textView5"
-            app:layout_constraintTop_toBottomOf="@+id/アプリ一覧a" />
+            app:layout_constraintTop_toBottomOf="@+id/appText" />
 
         <TextView
             android:id="@+id/詳細設定a"
@@ -90,7 +90,7 @@
             android:background="@color/title"
             app:layout_constraintEnd_toEndOf="@+id/textView5"
             app:layout_constraintStart_toStartOf="@+id/textView5"
-            app:layout_constraintTop_toBottomOf="@+id/アプリ一覧u" />
+            app:layout_constraintTop_toBottomOf="@+id/choosed_App" />
 
         <TextView
             android:id="@+id/詳細設定u"
@@ -132,8 +132,8 @@
             android:text="→"
             android:textColor="@color/w1"
             android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="@+id/アプリ一覧a"
-            app:layout_constraintTop_toTopOf="@+id/アプリ一覧a" />
+            app:layout_constraintEnd_toEndOf="@+id/appText"
+            app:layout_constraintTop_toTopOf="@+id/appText" />
 
         <TextView
             android:id="@+id/ロック設定"
@@ -152,8 +152,8 @@
             android:text="制限アプリ一覧"
             android:textColor="@color/w1"
             android:textSize="23sp"
-            app:layout_constraintStart_toStartOf="@+id/アプリ一覧a"
-            app:layout_constraintTop_toTopOf="@+id/アプリ一覧a" />
+            app:layout_constraintStart_toStartOf="@+id/appText"
+            app:layout_constraintTop_toTopOf="@+id/appText" />
 
         <TextView
             android:id="@+id/詳細設定"
