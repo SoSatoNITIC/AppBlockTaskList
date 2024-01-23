@@ -54,12 +54,9 @@ class LockSettingBetween : Fragment() {
                 { _, hourOfDay, minute ->
                     // 時刻設定が完了したときの処理をここに書く
 
-                    if(hourOfDay!=0 || minute!=0){
 
-                        timeViewStart.text = Editable.Factory.getInstance().newEditable(String.format("%02d:%02d", hourOfDay, minute))
-                    }else{
-                        Toast.makeText(requireContext(), "0分以上の時間を指定してください", Toast.LENGTH_SHORT).show()
-                    }
+                    timeViewStart.text = Editable.Factory.getInstance().newEditable(String.format("%02d:%02d", hourOfDay, minute))
+
 
 
 
@@ -84,12 +81,8 @@ class LockSettingBetween : Fragment() {
 
                     //println(hourOfDay)
                     // 時刻設定が完了したときの処理をここに書く
-                    if(hourOfDay!=0 || minute!=0){
+                    timeViewEnd.text = Editable.Factory.getInstance().newEditable(String.format("%02d:%02d", hourOfDay, minute))
 
-                        timeViewEnd.text = Editable.Factory.getInstance().newEditable(String.format("%02d:%02d", hourOfDay, minute))
-                    }else{
-                        Toast.makeText(requireContext(), "0分以上の時間を指定してください", Toast.LENGTH_SHORT).show()
-                    }
 
 
                 },
