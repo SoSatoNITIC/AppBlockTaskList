@@ -11,6 +11,9 @@ import android.widget.Button
 import android.widget.ListView
 import androidx.navigation.fragment.NavHostFragment
 import android.app.AlertDialog
+import android.widget.Toast
+import androidx.fragment.app.viewModels
+import java.time.Duration
 
 import java.util.Calendar
 
@@ -47,15 +50,20 @@ class SystemAdvancedSetting : Fragment() {
             // ユーザーが設定した時間を返す新しいTimePickerDialogのインスタンスを作成
             val timePickerDialog = TimePickerDialog(requireContext(),
                 { _, hourOfDay, minute ->
-                    // 選択した時間をArrayListに追加
-                    val displayTime = String.format("%d時間%d分前", hourOfDay, minute)
-                    //タイミングが重複してなかったら追加
-                    if (!notificationTimings.contains(displayTime)) {
-                        notificationTimings.add(displayTime)
-                        // ArrayAdapterを使用してListViewを更新
-                        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, notificationTimings)
-                        notificationTimingList.adapter = adapter
+                    if(hourOfDay!=0 || minute !=0){
+                        // 選択した時間をArrayListに追加
+                        val displayTime = String.format("%d時間%d分前", hourOfDay, minute)
+                        //タイミングが重複してなかったら追加
+                        if (!notificationTimings.contains(displayTime)) {
+                            notificationTimings.add(displayTime)
+                            // ArrayAdapterを使用してListViewを更新
+                            val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, notificationTimings)
+                            notificationTimingList.adapter = adapter
+                        }
+                    }else{
+                        Toast.makeText(requireContext(), "0分以上の時間を指定してください", Toast.LENGTH_SHORT).show()
                     }
+
                 }, 0, 0, true)
             timePickerDialog.show()
 
@@ -79,6 +87,25 @@ class SystemAdvancedSetting : Fragment() {
 
 
         view.findViewById<Button>(R.id.systemAdvancedSettingNextBottun).setOnClickListener{
+
+            val lockViewModel: LockViewModel by viewModels()
+
+
+
+
+            val preNoticeTimings: List<Duration> = notificationTimings.map { timeStr ->
+                val parts = timeStr.split("時間")
+                val partsMinutes = parts.last().split("分前")
+                val hours = parts.first().toLong()
+                val minutes = partsMinutes.first().toLong()
+                Duration.ofHours(hours).plusMinutes(minutes)
+            }
+
+            println(preNoticeTimings)
+
+            lockViewModel.setPreNoticeTiming(preNoticeTimings)
+
+
             val action = SystemAdvancedSettingDirections.actionSystemAdvancedSettingFragmentToLockSettingDetailsFragment()
             navController.navigate(action)
         }

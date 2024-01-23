@@ -82,10 +82,13 @@ class LockSettingUseAble : Fragment() {
                 val parts = timeStr.split("時間")
                 val partsMinuts = parts.last().split("分")
                 println(parts)
-                val hours = parts.first().trim().toInt()
-                val minutes = partsMinuts.first().trim().toInt()
-                val durationStr = "PT${hours}H${minutes}M"
-                val duration = Duration.parse(durationStr)
+                //val hours = parts.first().trim().toInt()
+                //val minutes = partsMinuts.first().trim().toInt()
+                val hours = parts.first().trim().toLong()
+                val minutes = partsMinuts.first().trim().toLong()
+                //val durationStr = "PT${hours}H${minutes}M"
+                //val duration = Duration.parse(durationStr)
+                val duration = Duration.ofHours(hours).plusMinutes(minutes)//Duration微修正
                 sharedViewModel.setUsableTime(duration)
 
                 println(duration)
