@@ -35,7 +35,10 @@ class LockViewModel: ViewModel() {
     private var _unUsableTime= MutableLiveData<Duration>(Duration.ofMinutes(60))
     val unUsableTime: LiveData<Duration> = _unUsableTime
 
-    private var _preNoticeTiming= MutableLiveData<List<Duration>>(listOf(Duration.ofMinutes(15), Duration.ofMinutes(30)))
+    //private var _preNoticeTiming= MutableLiveData<List<Duration>>(listOf(Duration.ofMinutes(15), Duration.ofMinutes(30)))
+    //val preNoticeTiming: LiveData<List<Duration>> = _preNoticeTiming
+
+    private var _preNoticeTiming= MutableLiveData<List<Duration>>()
     val preNoticeTiming: LiveData<List<Duration>> = _preNoticeTiming
 
     private var _activeDate= MutableLiveData<LocalDate?>(null)
@@ -88,7 +91,8 @@ class LockViewModel: ViewModel() {
         ))
         setTargetApp(listOf(""))
         setUnUsableTime(Duration.ofMinutes(60))
-        setPreNoticeTiming(listOf(Duration.ofMinutes(15), Duration.ofMinutes(30)))
+        //setPreNoticeTiming(listOf(Duration.ofMinutes(15), Duration.ofMinutes(30)))
+        //setPreNoticeTiming(listOf())
         setActiveDate(null)
     }
 
