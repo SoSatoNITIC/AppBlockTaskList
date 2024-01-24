@@ -11,7 +11,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ListView
+import android.widget.ScrollView
+import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
@@ -21,6 +24,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.time.DayOfWeek
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 
 class LockSettingDetails : Fragment() {
@@ -29,6 +35,26 @@ class LockSettingDetails : Fragment() {
     // chosenAppIconsとchosenAppNamesをフラグメントのプロパティとして定義
     private val chosenAppIcons = ArrayList<Drawable>()
     private val chosenAppNames = ArrayList<String>()
+
+
+
+
+    fun convertEnglishDayToJapanese(day: String): String {
+        return when (day.toUpperCase()) {
+            "MONDAY" -> "月"
+            "TUESDAY" -> "火"
+            "WEDNESDAY" -> "水"
+            "THURSDAY" -> "木"
+            "FRIDAY" -> "金"
+            "SATURDAY" -> "土"
+            "SUNDAY" -> "日"
+            else -> "不明な曜日"
+        }
+    }
+
+    fun convertEnglishDaysToJapanese(days: String): String {
+        return days.split(",").map { convertEnglishDayToJapanese(it.trim()) }.joinToString(", ")
+    }
 
 
 
@@ -133,13 +159,60 @@ class LockSettingDetails : Fragment() {
 
 
 
+        sharedViewModel.usableTime.observe(viewLifecycleOwner, { usableTime ->
+            if(usableTime == null){
+                println("Usable null")
+                val lockset = "時間帯型ロック"
+                var timeString = " "
+                sharedViewModel.beginTime.observe(viewLifecycleOwner, { beginTime ->
+                    val begintime = beginTime?.format(DateTimeFormatter.ofPattern("HH:mm"))
+                    sharedViewModel.endTime.observe(viewLifecycleOwner, { endTime ->
+                        val endtime = endTime?.format(DateTimeFormatter.ofPattern("HH:mm"))
+                        timeString += "時間帯型ロック\n開始時間：$begintime\n終了時間：$endtime\n"
+
+                        sharedViewModel.dayOfWeek.observe(viewLifecycleOwner, { dayOfWeek ->
+                            val selectedDays = dayOfWeek.entries.filter { it.value }.joinToString(", ") { it.key.name }
+                            println(selectedDays)
+                            val japaneseDays = convertEnglishDaysToJapanese(selectedDays)
+                            timeString += "制限する曜日：$japaneseDays\n"
 
 
 
+                            val textView = view.findViewById<TextView>(R.id.locksettingtexts)
+                            textView.text = timeString
+
+                        })
+
+                        println(timeString)
+                        //val textView = view.findViewById<TextView>(R.id.lockSetting)
+                        //textView.text = timeString
+
+                    })
+                })
+
+                
+            }else{
+                println("Begin and End Time null")
+                var timeString = " "
+                sharedViewModel.usableTime.observe(viewLifecycleOwner, { usableTime ->
+                    val hours = usableTime?.toHours() ?: 0
+                    val minutes = usableTime?.toMinutesPart() ?: 0
+                    val usableTimes = String.format("%02d時間%02d分", hours, minutes)
+                    timeString += "使用時間型ロック\n使用時間：$usableTimes　経過したら制限\n"
+                    sharedViewModel.dayOfWeek.observe(viewLifecycleOwner, { dayOfWeek ->
+                        val selectedDays = dayOfWeek.entries.filter { it.value }.joinToString(", ") { it.key.name }
+                        println(selectedDays)
+                        val japaneseDays = convertEnglishDaysToJapanese(selectedDays)
+                        timeString += "選択された曜日：$japaneseDays\n"
 
 
+                        val textView = view.findViewById<TextView>(R.id.locksettingtexts)
+                        textView.text = timeString
 
-
+                    })
+                })
+            }
+        })
 
 
 

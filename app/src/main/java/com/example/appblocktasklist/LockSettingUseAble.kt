@@ -114,6 +114,9 @@ class LockSettingUseAble : Fragment() {
                 //val duration = Duration.parse(durationStr)
                 val duration = Duration.ofHours(hours).plusMinutes(minutes)//Duration微修正
                 sharedViewModel.setUsableTime(duration)
+                //一方のtimeをnullにする
+                sharedViewModel.setBeginTime(null)
+                sharedViewModel.setEndTime(null)
 
                 println(duration)
 

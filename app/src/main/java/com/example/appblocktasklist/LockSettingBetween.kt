@@ -169,6 +169,9 @@ class LockSettingBetween : Fragment() {
                 sharedViewModel.setDayOfWeek(dayOfWeeks)
                 sharedViewModel.setBeginTime(LocalTime.parse(timeViewStart.text))
                 sharedViewModel.setEndTime(LocalTime.parse(timeViewEnd.text))
+                //別の方のtimeをnullにする
+                sharedViewModel.setUsableTime(null)
+
                 val action = LockSettingBetweenDirections.actionLockSettingBetweenFragmentToLockSettingTargetFragment()
                 navController.navigate(action)
             }

@@ -51,15 +51,26 @@
             app:layout_constraintStart_toStartOf="@+id/textView5"
             app:layout_constraintTop_toTopOf="@+id/textView5" />
 
-        <TextView
-            android:id="@+id/ロック設定u"
+        <ScrollView
+            android:id="@+id/lockSetting"
             android:layout_width="340dp"
             android:layout_height="100dp"
 
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/textView5"
             app:layout_constraintHorizontal_bias="0.521"
             app:layout_constraintStart_toStartOf="@+id/textView5"
-            app:layout_constraintTop_toBottomOf="@+id/ロック設定a" />
+            app:layout_constraintTop_toBottomOf="@+id/ロック設定a" >
+
+            <TextView
+                android:id="@+id/locksettingtexts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="" />
+        </ScrollView>
+
+
 
         <TextView
             android:id="@+id/appText"
@@ -70,7 +81,7 @@
             app:layout_constraintEnd_toEndOf="@+id/textView5"
             app:layout_constraintHorizontal_bias="0.507"
             app:layout_constraintStart_toStartOf="@+id/textView5"
-            app:layout_constraintTop_toBottomOf="@+id/ロック設定u" />
+            app:layout_constraintTop_toBottomOf="@+id/lockSetting" />
 
         <ListView
             android:id="@+id/choosed_App"
