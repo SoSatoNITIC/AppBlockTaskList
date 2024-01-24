@@ -19,6 +19,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import com.example.appblocktasklist.applist.AppListAdapter
+import com.example.appblocktasklist.roomdb.rocksettingDB.LockSetting
+import com.example.appblocktasklist.roomdb.rocksettingDB.lockSettingDao
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -221,6 +223,12 @@ class LockSettingDetails : Fragment() {
 
 
         view.findViewById<Button>(R.id.button5).setOnClickListener{
+
+
+            //sharedViewModel.saveSettings()
+            CoroutineScope(Dispatchers.IO).launch {
+                sharedViewModel.saveSettings()
+            }
             val action = LockSettingDetailsDirections.actionLockSettingDetailsFragmentToSystemLockmenuFragment()
             navController.navigate(action)
         }
