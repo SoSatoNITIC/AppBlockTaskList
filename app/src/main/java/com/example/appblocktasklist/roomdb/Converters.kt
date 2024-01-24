@@ -10,24 +10,42 @@ import java.time.LocalTime
 
 class Converters {
     //LocalDate(タイムゾーンなし日付情報)を文字列に変換
+    //@TypeConverter
+    //fun fromStringToLocalDate(value: String?): LocalDate? {
+    //    return LocalDate.parse(value)
+    //}
+    //@TypeConverter
+    //fun LocalDateToString(date: LocalDate?): String? {
+    //    return "%04d-%02d-%02d".format(date?.year, date?.monthValue, date?.dayOfMonth)
+    //}
     @TypeConverter
     fun fromStringToLocalDate(value: String?): LocalDate? {
-        return LocalDate.parse(value)
+        return if (value == null || value == "null") null else LocalDate.parse(value)
     }
     @TypeConverter
     fun LocalDateToString(date: LocalDate?): String? {
-        return "%04d-%02d-%02d".format(date?.year, date?.monthValue, date?.dayOfMonth)
+        return if (date == null) null else "%04d-%02d-%02d".format(date?.year, date?.monthValue, date?.dayOfMonth)
     }
 
+
     // LocalTime(タイムゾーンなし時間情報)を文字列に変換
+    //@TypeConverter
+    //fun fromStringToLocalTime(value: String?): LocalTime? {
+    //    return LocalTime.parse(value)
+    //}
+    //@TypeConverter
+    //fun LocalTimeToString(date: LocalTime?): String? {
+    //    return "%02d:%02d:%02d".format(date?.hour, date?.minute, date?.second)
+    //}
     @TypeConverter
     fun fromStringToLocalTime(value: String?): LocalTime? {
-        return LocalTime.parse(value)
+        return if (value == null || value == "null") null else LocalTime.parse(value)
     }
     @TypeConverter
     fun LocalTimeToString(date: LocalTime?): String? {
-        return "%02d:%02d:%02d".format(date?.hour, date?.minute, date?.second)
+        return if (date == null) null else "%02d:%02d:%02d".format(date.hour, date.minute, date.second)
     }
+
 
     //DayOfWeekのリストを変換する
     @TypeConverter

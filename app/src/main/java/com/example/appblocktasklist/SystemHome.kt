@@ -19,6 +19,7 @@ import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.appblocktasklist.roomdb.TasksDB.Task
+import com.example.appblocktasklist.roomdb.rocksettingDB.lockSettingDao
 import com.example.appblocktasklist.worker.UsedApp
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -49,6 +50,13 @@ class SystemHome : Fragment() {
 
             val adapter = ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, taskNames)
             listView.adapter = adapter
+        }
+
+        GlobalScope.launch {
+            val listView_lock = view.findViewById<ListView>(R.id.SystemLockList)
+            val tasks = MyApplication.database.rocksettingDao().getAll()
+
+            println(tasks)
         }
 
         if (Settings.canDrawOverlays(requireContext())) {
