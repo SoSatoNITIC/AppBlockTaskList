@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.appblocktasklist"
-        minSdk = 30
+        minSdk = 31//いままで30
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -72,6 +72,9 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.7.4")
 
     implementation("androidx.work:work-runtime-ktx:2.7.0")
+
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
 
 
     testImplementation("junit:junit:4.13.2")

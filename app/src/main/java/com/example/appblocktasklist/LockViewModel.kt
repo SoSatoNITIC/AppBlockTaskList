@@ -3,6 +3,7 @@ package com.example.appblocktasklist
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.appblocktasklist.roomdb.rocksettingDB.LockSetting
 import java.time.DayOfWeek
 import java.time.Duration
 import java.time.LocalDate
@@ -35,7 +36,10 @@ class LockViewModel: ViewModel() {
     private var _unUsableTime= MutableLiveData<Duration>(Duration.ofMinutes(60))
     val unUsableTime: LiveData<Duration> = _unUsableTime
 
-    private var _preNoticeTiming= MutableLiveData<List<Duration>>(listOf(Duration.ofMinutes(15), Duration.ofMinutes(30)))
+    //private var _preNoticeTiming= MutableLiveData<List<Duration>>(listOf(Duration.ofMinutes(15), Duration.ofMinutes(30)))
+    //val preNoticeTiming: LiveData<List<Duration>> = _preNoticeTiming
+
+    private var _preNoticeTiming= MutableLiveData<List<Duration>>()
     val preNoticeTiming: LiveData<List<Duration>> = _preNoticeTiming
 
     private var _activeDate= MutableLiveData<LocalDate?>(null)
@@ -88,8 +92,29 @@ class LockViewModel: ViewModel() {
         ))
         setTargetApp(listOf(""))
         setUnUsableTime(Duration.ofMinutes(60))
-        setPreNoticeTiming(listOf(Duration.ofMinutes(15), Duration.ofMinutes(30)))
+        //setPreNoticeTiming(listOf(Duration.ofMinutes(15), Duration.ofMinutes(30)))
+        setPreNoticeTiming(listOf())
         setActiveDate(null)
+    }
+
+
+    fun saveSettings() {
+        println("insertData!!!!!!!!")
+        val setting = LockSetting(
+            beginTime = beginTime.value,
+            endTime = endTime.value,
+            usableTime = usableTime.value,
+            dayOfWeek = dayOfWeek.value ?: mapOf(),
+            targetApp = targetApp.value ?: listOf(),
+            unUsableTime = Duration.ofMinutes(60),
+            preNoticeTiming = preNoticeTiming.value ?: listOf(),
+            activeDate = activeDate.value
+        )
+        // lockSettingDaoインスタンスを取得します
+        val dao = MyApplication.database.rocksettingDao() // ここでdaoインスタンスを取得します
+        // データベースに保存します
+        dao.insertAll(setting)
+        println("Complete!!!!!!!!!!!!!")
     }
 
 }

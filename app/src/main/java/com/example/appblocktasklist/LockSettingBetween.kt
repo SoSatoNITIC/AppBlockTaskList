@@ -18,6 +18,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import java.time.DayOfWeek
 import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 
 class LockSettingBetween : Fragment() {
@@ -44,6 +45,39 @@ class LockSettingBetween : Fragment() {
         val timeViewEnd = view.findViewById<TextInputEditText>(R.id.time_end)
         val timePickerActionsEnd = view.findViewById<ImageButton>(R.id.time_picker_actions_end)
 
+
+
+        //ViewModel更新
+        sharedViewModel.beginTime.observe(viewLifecycleOwner, { beginTime ->
+            timeViewStart.setText(beginTime?.format(DateTimeFormatter.ofPattern("HH:mm")))
+        })
+        sharedViewModel.endTime.observe(viewLifecycleOwner, { endTime ->
+            timeViewEnd.setText(endTime?.format(DateTimeFormatter.ofPattern("HH:mm")))
+        })
+
+
+        sharedViewModel.dayOfWeek.observe(viewLifecycleOwner, { states ->
+            states?.forEach { (dayOfWeek, isChecked) ->
+                when (dayOfWeek) {
+                    // Switchの状態を更新
+                    DayOfWeek.SUNDAY -> view.findViewById<Switch>(R.id.Sundayswitch).isChecked = isChecked
+                    DayOfWeek.MONDAY -> view.findViewById<Switch>(R.id.Mondayswitch).isChecked = isChecked
+                    DayOfWeek.TUESDAY -> view.findViewById<Switch>(R.id.Tuesdayswitch).isChecked = isChecked
+                    DayOfWeek.WEDNESDAY -> view.findViewById<Switch>(R.id.Wednesdayswitch).isChecked = isChecked
+                    DayOfWeek.THURSDAY -> view.findViewById<Switch>(R.id.Thursdayswitch).isChecked = isChecked
+                    DayOfWeek.FRIDAY -> view.findViewById<Switch>(R.id.Fridayswitch).isChecked = isChecked
+                    DayOfWeek.SATURDAY -> view.findViewById<Switch>(R.id.Saturdayswitch).isChecked = isChecked
+
+                }
+            }
+        })
+
+
+
+
+
+
+
         //開始時刻の時刻設定ダイアログ設定
         timePickerActionsStart.setOnClickListener {
             val currentHour = 12
@@ -56,8 +90,6 @@ class LockSettingBetween : Fragment() {
 
 
                     timeViewStart.text = Editable.Factory.getInstance().newEditable(String.format("%02d:%02d", hourOfDay, minute))
-
-
 
 
                 },
@@ -129,11 +161,17 @@ class LockSettingBetween : Fragment() {
 
                 Toast.makeText(requireContext(), "終了時間を入力してください", Toast.LENGTH_SHORT).show()
 
+            } else if(timeViewStart.text.toString() == timeViewEnd.text.toString()){
+                //はじめと終わりが違うか　　これ要らない気もする
+                Toast.makeText(requireContext(), "違う時間を設定してください", Toast.LENGTH_SHORT).show()
             } else {
                 // 全ての条件が満たされている場合、次のアクションを実行
                 sharedViewModel.setDayOfWeek(dayOfWeeks)
                 sharedViewModel.setBeginTime(LocalTime.parse(timeViewStart.text))
                 sharedViewModel.setEndTime(LocalTime.parse(timeViewEnd.text))
+                //別の方のtimeをnullにする
+                sharedViewModel.setUsableTime(null)
+
                 val action = LockSettingBetweenDirections.actionLockSettingBetweenFragmentToLockSettingTargetFragment()
                 navController.navigate(action)
             }

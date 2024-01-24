@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
 
 
 class SystemLockMenu : Fragment() {
+    private val sharedViewModel: LockViewModel by activityViewModels()
 
 
     override fun onCreateView(
@@ -28,6 +30,9 @@ class SystemLockMenu : Fragment() {
         val navController = navHostFragment.navController
 
         view.findViewById<Button>(R.id.button3).setOnClickListener{
+            //ViewModel初期化
+            sharedViewModel.reset()
+
             val action = SystemLockMenuDirections.actionSystemLockmenuFragmentToLockSettingTrigerFragment()
             navController.navigate(action)
         }
