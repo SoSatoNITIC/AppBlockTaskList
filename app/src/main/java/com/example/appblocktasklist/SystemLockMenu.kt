@@ -136,6 +136,8 @@ class SystemLockMenu : Fragment() {
 
 
 
+
+        // TODOリストビュー更新出来てない
         listView_lock.setOnItemLongClickListener { parent, view, position, id ->
             val builder = AlertDialog.Builder(requireContext())
             builder.setMessage("削除しますか？")
