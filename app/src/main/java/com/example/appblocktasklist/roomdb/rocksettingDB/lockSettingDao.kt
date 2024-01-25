@@ -17,6 +17,8 @@ interface lockSettingDao {
     @Delete
     fun delete(user: LockSetting)
 
+    //@Update
+    //fun update(task: Task)
     @Update
-    fun update(task: Task)
+    fun update(lockSetting: LockSetting)
 }

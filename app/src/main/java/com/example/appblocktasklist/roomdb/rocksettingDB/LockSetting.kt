@@ -9,7 +9,7 @@ import java.time.LocalTime
 @Entity
 data class LockSetting(
     @PrimaryKey(autoGenerate = true)
-    val id: Int=0,
+    val id: Int? =0,
 //    val timeRange: String,
     val beginTime: LocalTime?,
     val endTime: LocalTime?,
