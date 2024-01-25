@@ -3,41 +3,24 @@ package com.example.appblocktasklist
 
 
 import android.app.AlertDialog
-import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.BaseAdapter
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.ListView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isEmpty
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import com.example.appblocktasklist.applist.AppListAdapter
 
 
-
 class LockSettingTarget : Fragment() {
     private val sharedViewModel: LockViewModel by activityViewModels()
-
-
-    // chosenAppIconsとchosenAppNamesをフラグメントのプロパティとして定義
-    private val chosenAppIcons = ArrayList<Drawable>()
-    private val chosenAppNames = ArrayList<String>()
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,104 +33,57 @@ class LockSettingTarget : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val packageManager: PackageManager = requireContext().packageManager
 
+        val appListView = view.findViewById<ListView>(R.id.app_list)
         val appListViewChoose = view.findViewById<ListView>(R.id.choose_appList)
 
-        val packageManager: PackageManager = requireActivity().packageManager
-
-        val installedApplications = packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
-
         // システムアプリを除外する Youtube関係は保持
-        val userApps = installedApplications.filter { appInfo ->
-            (appInfo.flags and ApplicationInfo.FLAG_SYSTEM) == 0 ||
-                    appInfo.packageName == "com.google.android.youtube" ||
-                    appInfo.packageName == "com.google.android.apps.youtube.music" ||
-                    appInfo.packageName == "com.android.chrome"
-        }
-        //AppNameとIcon表示
-        val appNames = userApps.map { it.loadLabel(packageManager).toString() }
+        val installedApps = ArrayList<ApplicationInfo>(getInstalledNotSystemApp())
+        // appListViewChooseのデータを保持するためのArrayListを作成
+        val chosenApps = ArrayList<ApplicationInfo>()
 
-        val appIcons = userApps.map { it.loadIcon(packageManager) }
-
-        val appKey = appNames.zip(appIcons).toMap()
-
-        sharedViewModel.targetApp.observe(viewLifecycleOwner, Observer { apps ->
-            // appsは更新された値
-            // ここでappsを使ってUIを更新する
-
-            // 選択されたアプリの名前とアイコンを取得
-            val appNames = apps.map { appName -> appName }
-            val appIcons = apps.map { appName -> appKey[appName] ?: ColorDrawable() }
-
-
-            // chosenAppNamesとchosenAppIconsを更新
-            chosenAppNames.clear()
-            chosenAppNames.addAll(appNames)
-            chosenAppIcons.clear()
-            chosenAppIcons.addAll(appIcons)
-
-            // ListViewのアダプターを更新
-            val adapterChoose = AppListAdapter(requireActivity(), chosenAppIcons, chosenAppNames)
-            appListViewChoose.adapter = adapterChoose
-
-
-            println(appListViewChoose)
-        })
-
-
-        //val packageManager: PackageManager = requireActivity().packageManager
-
-        //val installedApplications = packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
-
-        // システムアプリを除外する Youtube関係は保持
-        //val userApps = installedApplications.filter { appInfo ->
-        //    (appInfo.flags and ApplicationInfo.FLAG_SYSTEM) == 0 ||
-        //            appInfo.packageName == "com.google.android.youtube" ||
-        //            appInfo.packageName == "com.google.android.apps.youtube.music" ||
-        //            appInfo.packageName == "com.android.chrome"
-        //}
-        //AppNameとIcon表示
-        //val appNames = userApps.map { it.loadLabel(packageManager).toString() }
-
-        //val appIcons = userApps.map { it.loadIcon(packageManager) }
-
-
-        //val appKey = appNames.zip(appIcons).toMap()
-
-        val adapter = AppListAdapter(requireActivity(), appIcons, appNames)
+        // アダプター作成
+        val installedAppsAdapter = AppListAdapter(requireActivity(), installedApps)
+        val chosenAppsAdapter = AppListAdapter(requireActivity(), chosenApps)
 
         //app の一覧表示
-        val appListView = view.findViewById<ListView>(R.id.app_list)
-        appListView.adapter = adapter
+        appListView.adapter = installedAppsAdapter
+        appListViewChoose.adapter = chosenAppsAdapter
 
+        sharedViewModel.targetApp.observe(viewLifecycleOwner) { apps ->
+            // appsは更新された値
+            // ここでappsを使ってUIを更新する
+            chosenApps.clear()
+            chosenApps.addAll(apps.map { packageManager.getApplicationInfo(it, PackageManager.GET_META_DATA) })
 
+            chosenAppsAdapter.notifyDataSetChanged()
 
-        //val appListViewChoose = view.findViewById<ListView>(R.id.choose_appList)
-        // appListViewChooseのデータを保持するためのArrayListを作成
-        val chosenApps = ArrayList<String>()
+            println(appListViewChoose)
+        }
 
         //文字表示のみはこれでできた
         appListView.setOnItemClickListener { parent, view, position, id ->
             // 選択された要素を取得します。
-            val selectedItem = parent.getItemAtPosition(position).toString()
-
+            val appInfo = installedApps[position]
 
             // 選択された要素が既にArrayListに存在するかどうかを確認します。
-            if (!chosenApps.contains(selectedItem.toString())) {
+            if (!chosenApps.contains(appInfo)) {
+//                val appName = appInfo.loadLabel(packageManager)
+                chosenApps.add(appInfo)
+                chosenAppsAdapter.notifyDataSetChanged()
 
-
-                chosenAppIcons.add(0,appKey[selectedItem]!!)
-                chosenAppNames.add(0,selectedItem)
-
-
-                // ArrayAdapterを更新します。
-                val adapterChoose = AppListAdapter(requireActivity(), chosenAppIcons, chosenAppNames)
-                appListViewChoose.adapter = adapterChoose
-
-                //保持リストに追加
-                chosenApps.add(selectedItem)
-
-
+//                chosenAppIcons.add(0,appKey[selectedItem]!!)
+//                chosenAppNames.add(0,selectedItem)
+//
+//
+//                // ArrayAdapterを更新します。
+//                val adapterChoose = AppListAdapter(requireActivity(), chosenAppIcons, chosenAppNames)
+//
+//
+//                //保持リストに追加
+//                chosenApps.add(selectedItem)
+//
 
             }else{
                 Toast.makeText(requireActivity(), "すでに選択されています", Toast.LENGTH_SHORT).show()
@@ -167,21 +103,14 @@ class LockSettingTarget : Fragment() {
                     //保持リストからも削除
                     //chosenApps.removeAt(position)
 
-                    if (position >= 0 && position < chosenAppIcons.size) {
-                        chosenAppIcons.removeAt(position)
-                    }
-                    if (position >= 0 && position < chosenAppNames.size) {
-                        chosenAppNames.removeAt(position)
-                    }
                     if (position >= 0 && position < chosenApps.size) {
                         chosenApps.removeAt(position)
                     }
 
-
-
                     // update ListView
-                    val adapterChoose = AppListAdapter(requireActivity(), chosenAppIcons, chosenAppNames)
-                    appListViewChoose.adapter = adapterChoose
+//                    val adapterChoose = AppListAdapter(requireActivity(), chosenAppIcons, chosenAppNames)
+//                    appListViewChoose.adapter = adapterChoose
+                    chosenAppsAdapter.notifyDataSetChanged()
                     //Toast.makeText(requireActivity(), "削除しました", Toast.LENGTH_SHORT).show()
                 }
                 .setNegativeButton("キャンセル", null)
@@ -201,31 +130,29 @@ class LockSettingTarget : Fragment() {
             } else {
                 println(appListViewChoose)
 
-                val adapter = appListViewChoose.adapter as ArrayAdapter<String>
-                val listData = mutableListOf<String>()
-                for (i in 0 until adapter.count) {
-                    val item = adapter.getItem(i)
-                    if (item != null) {
-                        listData.add(item)
-                    }
-                }
-
                 //重複判定　　もっとうまい方法あるはず...
-                var setData = listData.toSet()
-                var uniqueListData = setData.toList()
 
+                val uniqueListData = chosenApps.distinct()
 
-                if (uniqueListData.last() == ""){
-                    sharedViewModel.setTargetApp(uniqueListData.slice(0 until uniqueListData.size - 1))//なんか後ろにキモイの入ってるから消す
-                }else{
-                    sharedViewModel.setTargetApp(uniqueListData)
-                }
+                val packageNames = uniqueListData.map { it.packageName }
 
-
+                sharedViewModel.setTargetApp(packageNames)
 
                 val action = LockSettingTargetDirections.actionLockSettingTargetFragmentToSystemAdvancedSettingFragment()
                 navController.navigate(action)
             }
+        }
+    }
+
+    private fun getInstalledNotSystemApp(): List<ApplicationInfo> {
+        val packageManager: PackageManager = requireActivity().packageManager
+
+        val installedApplications = packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
+        return installedApplications.filter { appInfo ->
+            (appInfo.flags and ApplicationInfo.FLAG_SYSTEM) == 0 ||
+                    appInfo.packageName == "com.google.android.youtube" ||
+                    appInfo.packageName == "com.google.android.apps.youtube.music" ||
+                    appInfo.packageName == "com.android.chrome"
         }
     }
 
