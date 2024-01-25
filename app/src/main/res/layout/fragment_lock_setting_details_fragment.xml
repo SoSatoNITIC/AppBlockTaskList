@@ -33,9 +33,13 @@
             android:layout_width="364dp"
             android:layout_height="548dp"
 
+            android:background="@color/title"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.489"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="116dp" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.557" />
 
         <TextView
             android:id="@+id/ロック設定a"
@@ -47,18 +51,29 @@
             app:layout_constraintStart_toStartOf="@+id/textView5"
             app:layout_constraintTop_toTopOf="@+id/textView5" />
 
-        <TextView
-            android:id="@+id/ロック設定u"
+        <ScrollView
+            android:id="@+id/lockSetting"
             android:layout_width="340dp"
             android:layout_height="100dp"
 
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/textView5"
             app:layout_constraintHorizontal_bias="0.521"
             app:layout_constraintStart_toStartOf="@+id/textView5"
-            app:layout_constraintTop_toBottomOf="@+id/ロック設定a" />
+            app:layout_constraintTop_toBottomOf="@+id/ロック設定a" >
+
+            <TextView
+                android:id="@+id/locksettingtexts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="" />
+        </ScrollView>
+
+
 
         <TextView
-            android:id="@+id/アプリ一覧a"
+            android:id="@+id/appText"
             android:layout_width="340dp"
             android:layout_height="48dp"
             android:layout_marginTop="40dp"
@@ -66,17 +81,17 @@
             app:layout_constraintEnd_toEndOf="@+id/textView5"
             app:layout_constraintHorizontal_bias="0.507"
             app:layout_constraintStart_toStartOf="@+id/textView5"
-            app:layout_constraintTop_toBottomOf="@+id/ロック設定u" />
+            app:layout_constraintTop_toBottomOf="@+id/lockSetting" />
 
-        <TextView
-            android:id="@+id/アプリ一覧u"
+        <ListView
+            android:id="@+id/choosed_App"
             android:layout_width="340dp"
             android:layout_height="100dp"
 
             app:layout_constraintEnd_toEndOf="@+id/textView5"
             app:layout_constraintHorizontal_bias="0.507"
             app:layout_constraintStart_toStartOf="@+id/textView5"
-            app:layout_constraintTop_toBottomOf="@+id/アプリ一覧a" />
+            app:layout_constraintTop_toBottomOf="@+id/appText" />
 
         <TextView
             android:id="@+id/詳細設定a"
@@ -86,10 +101,10 @@
             android:background="@color/title"
             app:layout_constraintEnd_toEndOf="@+id/textView5"
             app:layout_constraintStart_toStartOf="@+id/textView5"
-            app:layout_constraintTop_toBottomOf="@+id/アプリ一覧u" />
+            app:layout_constraintTop_toBottomOf="@+id/choosed_App" />
 
-        <TextView
-            android:id="@+id/詳細設定u"
+        <ListView
+            android:id="@+id/notifyList"
             android:layout_width="340dp"
             android:layout_height="100dp"
 
@@ -128,8 +143,8 @@
             android:text="→"
             android:textColor="@color/w1"
             android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="@+id/アプリ一覧a"
-            app:layout_constraintTop_toTopOf="@+id/アプリ一覧a" />
+            app:layout_constraintEnd_toEndOf="@+id/appText"
+            app:layout_constraintTop_toTopOf="@+id/appText" />
 
         <TextView
             android:id="@+id/ロック設定"
@@ -143,19 +158,19 @@
 
         <TextView
             android:id="@+id/アプリ一覧"
-            android:layout_width="123dp"
-            android:layout_height="41dp"
-            android:text="アプリ一覧"
+            android:layout_width="236dp"
+            android:layout_height="44dp"
+            android:text="制限アプリ一覧"
             android:textColor="@color/w1"
             android:textSize="23sp"
-            app:layout_constraintStart_toStartOf="@+id/アプリ一覧a"
-            app:layout_constraintTop_toTopOf="@+id/アプリ一覧a" />
+            app:layout_constraintStart_toStartOf="@+id/appText"
+            app:layout_constraintTop_toTopOf="@+id/appText" />
 
         <TextView
             android:id="@+id/詳細設定"
-            android:layout_width="123dp"
+            android:layout_width="232dp"
             android:layout_height="41dp"
-            android:text="詳細設定"
+            android:text="通知タイミング"
             android:textColor="@color/w1"
             android:textSize="23sp"
             app:layout_constraintStart_toStartOf="@+id/詳細設定a"
@@ -168,7 +183,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
             android:backgroundTint="@color/toggle"
-            android:text="次へ→"
+            android:text="登録"
             android:textColor="@color/w1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

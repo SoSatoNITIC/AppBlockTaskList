@@ -2,22 +2,27 @@ package com.example.appblocktasklist
 
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.os.Looper
-import android.os.Handler
 import android.text.Editable
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.Switch
+import android.widget.Toast
 import android.widget.ToggleButton
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import java.time.DayOfWeek
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 
 class LockSettingBetween : Fragment() {
+    private val sharedViewModel: LockViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,26 +37,48 @@ class LockSettingBetween : Fragment() {
         val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         val navController = navHostFragment.navController
 
-        view.findViewById<Button>(R.id.button3).setOnClickListener{
-            // val 変数名(好きなの)　= view.findViewById<型名>(R.id.型名の名前ID)　val = view.findViewById<>(R.id.)
-            val sunday = view.findViewById<ToggleButton>(R.id.SundayToggleButton).isChecked
-            val monday = view.findViewById<ToggleButton>(R.id.MondayToggleButton).isChecked
-            val tuesday = view.findViewById<ToggleButton>(R.id.TuesdayToggleButton).isChecked
-            val wednesday = view.findViewById<ToggleButton>(R.id.WednesdayToggleButton).isChecked
-            val thursday = view.findViewById<ToggleButton>(R.id.ThursdayToggleButton).isChecked
-            val friday = view.findViewById<ToggleButton>(R.id.FridayToggleButton).isChecked
-            val saturday = view.findViewById<ToggleButton>(R.id.SaturdayToggleButton).isChecked
-            val action = LockSettingBetweenDirections.actionLockSettingBetweenFragmentToLockSettingTargetFragment()
-            navController.navigate(action)
-        }
-
-
-
-        //開始時刻の時刻設定ダイアログ設定
         val timeLabelStart = view.findViewById<TextInputLayout>(R.id.time_label_start)
         val timeViewStart = view.findViewById<TextInputEditText>(R.id.time_start)
         val timePickerActionsStart = view.findViewById<ImageButton>(R.id.time_picker_actions_start)
 
+        val timeLabelEnd = view.findViewById<TextInputLayout>(R.id.time_label_end)
+        val timeViewEnd = view.findViewById<TextInputEditText>(R.id.time_end)
+        val timePickerActionsEnd = view.findViewById<ImageButton>(R.id.time_picker_actions_end)
+
+
+
+        //ViewModel更新
+        sharedViewModel.beginTime.observe(viewLifecycleOwner, { beginTime ->
+            timeViewStart.setText(beginTime?.format(DateTimeFormatter.ofPattern("HH:mm")))
+        })
+        sharedViewModel.endTime.observe(viewLifecycleOwner, { endTime ->
+            timeViewEnd.setText(endTime?.format(DateTimeFormatter.ofPattern("HH:mm")))
+        })
+
+
+        sharedViewModel.dayOfWeek.observe(viewLifecycleOwner, { states ->
+            states?.forEach { (dayOfWeek, isChecked) ->
+                when (dayOfWeek) {
+                    // Switchの状態を更新
+                    DayOfWeek.SUNDAY -> view.findViewById<Switch>(R.id.Sundayswitch).isChecked = isChecked
+                    DayOfWeek.MONDAY -> view.findViewById<Switch>(R.id.Mondayswitch).isChecked = isChecked
+                    DayOfWeek.TUESDAY -> view.findViewById<Switch>(R.id.Tuesdayswitch).isChecked = isChecked
+                    DayOfWeek.WEDNESDAY -> view.findViewById<Switch>(R.id.Wednesdayswitch).isChecked = isChecked
+                    DayOfWeek.THURSDAY -> view.findViewById<Switch>(R.id.Thursdayswitch).isChecked = isChecked
+                    DayOfWeek.FRIDAY -> view.findViewById<Switch>(R.id.Fridayswitch).isChecked = isChecked
+                    DayOfWeek.SATURDAY -> view.findViewById<Switch>(R.id.Saturdayswitch).isChecked = isChecked
+
+                }
+            }
+        })
+
+
+
+
+
+
+
+        //開始時刻の時刻設定ダイアログ設定
         timePickerActionsStart.setOnClickListener {
             val currentHour = 12
             val currentMinute = 0
@@ -60,7 +87,10 @@ class LockSettingBetween : Fragment() {
                 requireContext(),
                 { _, hourOfDay, minute ->
                     // 時刻設定が完了したときの処理をここに書く
+
+
                     timeViewStart.text = Editable.Factory.getInstance().newEditable(String.format("%02d:%02d", hourOfDay, minute))
+
 
                 },
                 currentHour,
@@ -70,15 +100,7 @@ class LockSettingBetween : Fragment() {
             dialog.show()
         }
 
-
-
-
-
         //終了時刻の時刻設定ダイアログ設定
-        val timeLabelEnd = view.findViewById<TextInputLayout>(R.id.time_label_end)
-        val timeViewEnd = view.findViewById<TextInputEditText>(R.id.time_end)
-        val timePickerActionsEnd = view.findViewById<ImageButton>(R.id.time_picker_actions_end)
-
         timePickerActionsEnd.setOnClickListener {
             val currentHour = 12
             val currentMinute = 0
@@ -86,8 +108,14 @@ class LockSettingBetween : Fragment() {
             val dialog = TimePickerDialog(
                 requireContext(),
                 { _, hourOfDay, minute ->
+
+
+
+                    //println(hourOfDay)
                     // 時刻設定が完了したときの処理をここに書く
                     timeViewEnd.text = Editable.Factory.getInstance().newEditable(String.format("%02d:%02d", hourOfDay, minute))
+
+
 
                 },
                 currentHour,
@@ -97,9 +125,59 @@ class LockSettingBetween : Fragment() {
             dialog.show()
         }
 
+        view.findViewById<Button>(R.id.button3).setOnClickListener{
+            val sunday = view.findViewById<Switch>(R.id.Sundayswitch)
+            val monday = view.findViewById<Switch>(R.id.Mondayswitch)
+            val tuesday = view.findViewById<Switch>(R.id.Tuesdayswitch)
+            val wednesday = view.findViewById<Switch>(R.id.Wednesdayswitch)
+            val thursday = view.findViewById<Switch>(R.id.Thursdayswitch)
+            val friday = view.findViewById<Switch>(R.id.Fridayswitch)
+            val saturday = view.findViewById<Switch>(R.id.Saturdayswitch)
+
+            val dayOfWeeks = mapOf<DayOfWeek, Boolean>(
+                DayOfWeek.MONDAY to monday.isChecked,
+                DayOfWeek.TUESDAY to tuesday.isChecked,
+                DayOfWeek.WEDNESDAY to wednesday.isChecked,
+                DayOfWeek.THURSDAY to thursday.isChecked,
+                DayOfWeek.FRIDAY to friday.isChecked,
+                DayOfWeek.SATURDAY to saturday.isChecked,
+                DayOfWeek.SUNDAY to sunday.isChecked
+            )
+            for (i in dayOfWeeks.values) {
+                println(i)
+            }
+            println(!dayOfWeeks.values.any { it })
+            // 曜日が1つ以上選択されているかチェック
+            if (!dayOfWeeks.values.any { it }) {
+                Toast.makeText(requireContext(), "曜日を選択してください", Toast.LENGTH_SHORT).show()
+
+            } else if (timeViewStart.text == null || timeViewStart.text!!.isEmpty()) {
+                // timeViewStartのテキストが空でないかチェック
+
+                Toast.makeText(requireContext(), "開始時間を入力してください", Toast.LENGTH_SHORT).show()
+
+            } else if (timeViewEnd.text == null || timeViewEnd.text!!.isEmpty()) {
+                // timeViewEndのテキストがnullでないかチェック
+
+                Toast.makeText(requireContext(), "終了時間を入力してください", Toast.LENGTH_SHORT).show()
+
+            } else if(timeViewStart.text.toString() == timeViewEnd.text.toString()){
+                //はじめと終わりが違うか　　これ要らない気もする
+                Toast.makeText(requireContext(), "違う時間を設定してください", Toast.LENGTH_SHORT).show()
+            } else {
+                // 全ての条件が満たされている場合、次のアクションを実行
+                sharedViewModel.setDayOfWeek(dayOfWeeks)
+                sharedViewModel.setBeginTime(LocalTime.parse(timeViewStart.text))
+                sharedViewModel.setEndTime(LocalTime.parse(timeViewEnd.text))
+                //別の方のtimeをnullにする
+                sharedViewModel.setUsableTime(null)
+
+                val action = LockSettingBetweenDirections.actionLockSettingBetweenFragmentToLockSettingTargetFragment()
+                navController.navigate(action)
+            }
 
 
+
+        }
     }
-
-
 }

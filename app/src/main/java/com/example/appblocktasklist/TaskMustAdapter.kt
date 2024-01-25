@@ -8,8 +8,8 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.example.appblocktasklist.roomdb.TasksDB.Task
 
-class TaskAdapter(context: Context, taskList: List<Task>):
-    ArrayAdapter<Task>(context, R.layout.applistitem2, taskList) {
+class TaskMustAdapter (context: Context, taskList: List<Task>):
+    ArrayAdapter<Task>(context, R.layout.applistitem2, taskList){
     val taskList = taskList
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -21,15 +21,10 @@ class TaskAdapter(context: Context, taskList: List<Task>):
         textView.text = task.taskName
         val textView1 = view.findViewById<TextView>(R.id.minamotonoyositune)
 
-        val priorityString = when (task.priority) {
-            1 -> "低"
-            5 -> "中"
-            10 -> "高"
-            else -> "不明"
-        }
-        textView1.text = "優先度：$priorityString"
+        val deadline = task.deadline
+        textView1.text = "期限：$deadline"
 
         return view
     }
-}
+    }
 

@@ -6,7 +6,6 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.example.appblocktasklist.MyApplication
 import com.example.appblocktasklist.lockProcess.cancelWorker
-import com.example.appblocktasklist.lockProcess.setLockWorker
 
 class UsedApp(context: Context, params: WorkerParameters) : CoroutineWorker(context, params) {
     private var mostRecentlyUsedPackage: String? = null
@@ -27,7 +26,7 @@ class UsedApp(context: Context, params: WorkerParameters) : CoroutineWorker(cont
             // 過去2ヶ月の使用統計を取得し集計
             mostRecentlyUsedPackage = MyApplication.usageGetter.getLastUsedApp()
 
-//            val localMostRecentlyUsedPackage = mostRecentlyUsedPackage
+            val localMostRecentlyUsedPackage = mostRecentlyUsedPackage
 
             // 最後に使用されたパッケージが見つかった場合
             if (mostRecentlyUsedPackage != null) {
@@ -53,6 +52,7 @@ class UsedApp(context: Context, params: WorkerParameters) : CoroutineWorker(cont
 //
 //                // 最後に使用された時間をログに出力
 //                Log.i("Last Used Time", lastUsedTimeStr)
+
             }else{
                 println("最近のアプリ使用状況が見つかりませんでした。")
             }
