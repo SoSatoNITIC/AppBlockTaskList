@@ -27,10 +27,10 @@ fun calcRemaining(packageName: String):Duration? {
             DayOfWeek.SATURDAY to false,
             DayOfWeek.SUNDAY to false
         ),
-        targetApp = listOf("com.google.android.youtube"),
+        targetApp = listOf("YouTube"),
         unUsableTime = Duration.ofMinutes(60),
         preNoticeTiming = listOf(Duration.ofMinutes(10)),
-        activeDate = null
+        activeDate = null,
     )
 
     var remainingTime: Duration? = null
@@ -39,7 +39,7 @@ fun calcRemaining(packageName: String):Duration? {
         remainingTime = calcReminingByTimeRange(lockSetting.beginTime, lockSetting.endTime)
     } else if (lockSetting.usableTime != null){
         val usedTime = MyApplication.usageGetter.
-            getUsageStatsKeyPackageName(lockSetting.targetApp[0], 60)?.totalTimeInForeground
+            getUsageStatsKeyPackageName(packageName, 60)?.totalTimeInForeground
         if (usedTime != null) {
             remainingTime = calcReminingByUsableTime(lockSetting.usableTime, usedTime)
         }

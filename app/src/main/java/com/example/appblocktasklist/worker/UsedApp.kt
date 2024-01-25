@@ -1,75 +1,58 @@
 package com.example.appblocktasklist.worker
-import android.app.usage.UsageStatsManager
 import android.content.Context
-import android.app.ActivityManager
-import android.content.pm.ApplicationInfo
-import android.content.pm.PackageManager
 import android.util.Log
 import kotlinx.coroutines.delay
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import android.os.PowerManager
-import java.text.SimpleDateFormat
-import java.util.*
+import com.example.appblocktasklist.MyApplication
+import com.example.appblocktasklist.lockProcess.cancelWorker
 
 class UsedApp(context: Context, params: WorkerParameters) : CoroutineWorker(context, params) {
     private var mostRecentlyUsedPackage: String? = null
+    private var beforeUsedApp: String? = null
 
     // モニタリングするアプリのリスト
-    var appName = mutableListOf<String>("YouTube","com.google.android.apps.youtube.music","tv.abema")
+    var targetAppNames = mutableSetOf<String>("com.google.android.youtube","com.google.android.apps.youtube.music","tv.abema")
 
     override suspend fun doWork(): Result {
 
         // アプリの使用状況を継続的にチェック
         while (true){
-            // UsageStatsManagerサービスを取得
-            val usageStatsManager = applicationContext.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
-            val time = System.currentTimeMillis()
-
             // PowerManagerサービスを取得してスリープ中にはカウントしないようにする
-            val powerManager = applicationContext.getSystemService(Context.POWER_SERVICE) as PowerManager
 
             // 1秒待つ
             delay(1000L)
 
             // 過去2ヶ月の使用統計を取得し集計
-            val statsMap = usageStatsManager.queryAndAggregateUsageStats(time - 1000L * 60* 60 * 24 * 60, time)
-            mostRecentlyUsedPackage = if (powerManager.isInteractive) {
-                // 最後に使用されたアプリのパッケージ名を見つける
-                statsMap.values.maxByOrNull { it.lastTimeUsed }?.packageName
-            } else {
-                null
-            }
+            mostRecentlyUsedPackage = MyApplication.usageGetter.getLastUsedApp()
 
             val localMostRecentlyUsedPackage = mostRecentlyUsedPackage
 
             // 最後に使用されたパッケージが見つかった場合
-            if (localMostRecentlyUsedPackage != null) {
-//                Log.i("Most Recently Used App", localMostRecentlyUsedPackage)
+            if (mostRecentlyUsedPackage != null) {
+                Log.i("Most Recently Used App", mostRecentlyUsedPackage!!)
+                if (beforeUsedApp != mostRecentlyUsedPackage) {
+//                    ここに呼び出しを書く
+                    println("画面が切り替わりました")
 
-                // PackageManagerサービスを取得
-                val packageManager = applicationContext.packageManager
+                    cancelWorker(applicationContext)
+//                    setLockWorker(applicationContext, )
 
-                // アプリ情報を取得
-                var appInfo: ApplicationInfo? = null
-                try {
-                    appInfo = packageManager.getApplicationInfo(localMostRecentlyUsedPackage, 0)
-                } catch (e: PackageManager.NameNotFoundException) {
-                    Log.e("Package Manager Error", "Failed to get application info for $localMostRecentlyUsedPackage")
+                    beforeUsedApp = mostRecentlyUsedPackage
                 }
 
-                // アプリのラベルを取得
-                val appLabel = appInfo?.let { packageManager.getApplicationLabel(it).toString() }
+//                // 最後に使用されたパッケージの使用統計を取得
+//                val usageStats = statsMap[mostRecentlyUsedPackage]
+//                // 最後に使用された時間を取得
+//                val lastUsedTime = usageStats?.totalTimeInForeground ?: 0L
+//
+//                // 時間をフォーマットされた文字列に変換
+//                val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+//                val lastUsedTimeStr = sdf.format(Date(lastUsedTime))
+//
+//                // 最後に使用された時間をログに出力
+//                Log.i("Last Used Time", lastUsedTimeStr)
 
-                // これでlocalMostRecentlyUsedPackageの代わりにappLabelを使用できます
-                Log.i("Most Recently Used App", appLabel ?: localMostRecentlyUsedPackage)
-
-                // 最後に使用されたパッケージがモニタリングするアプリのリストにあるかチェック
-                for (i in appName){
-                    if(appLabel == i){
-                        hirakuFunction()
-                    }
-                }
             }else{
                 println("最近のアプリ使用状況が見つかりませんでした。")
             }
@@ -85,10 +68,22 @@ class UsedApp(context: Context, params: WorkerParameters) : CoroutineWorker(cont
             //    Log.i("Home Screen Status", "Home Screen is not visible")
             //}
 
-
+            // 最後に使用されたパッケージがモニタリングするアプリのリストにあるかチェック
+//            for (i in appName){
+//                if(localMostRecentlyUsedPackage == i){
+//                    hirakuFunction()
+//                }
+//            }
         }
 
         return Result.success()
+    }
+
+    fun updateTargetAppList() {
+        val lockList = MyApplication.database.rocksettingDao().getAll()
+        val packages = lockList.flatMap { it.targetApp }
+        targetAppNames = packages.toMutableSet()
+        print(packages)
     }
 
     // モニタリングするアプリがリストにある場合に実行する関数
