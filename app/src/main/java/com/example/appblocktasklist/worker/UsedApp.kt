@@ -80,7 +80,7 @@ class UsedApp(context: Context, params: WorkerParameters) : CoroutineWorker(cont
     }
 
     fun updateTargetAppList() {
-        val lockList = MyApplication.database.rocksettingDao().getAll()
+        val lockList = MyApplication.database.lockSettingDao().getAll()
         val packages = lockList.flatMap { it.targetApp }
         targetAppNames = packages.toMutableSet()
         print(packages)

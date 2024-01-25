@@ -111,7 +111,7 @@ class LockViewModel: ViewModel() {
             activeDate = activeDate.value
         )
         // lockSettingDaoインスタンスを取得します
-        val dao = MyApplication.database.rocksettingDao() // ここでdaoインスタンスを取得します
+        val dao = MyApplication.database.lockSettingDao() // ここでdaoインスタンスを取得します
         // データベースに保存します
         dao.insertAll(setting)
         println("Complete!!!!!!!!!!!!!")
