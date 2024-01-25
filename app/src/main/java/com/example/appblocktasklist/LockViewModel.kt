@@ -90,7 +90,7 @@ class LockViewModel: ViewModel() {
             DayOfWeek.SATURDAY to false,
             DayOfWeek.SUNDAY to false
         ))
-        setTargetApp(listOf(""))
+        setTargetApp(listOf())
         setUnUsableTime(Duration.ofMinutes(60))
         //setPreNoticeTiming(listOf(Duration.ofMinutes(15), Duration.ofMinutes(30)))
         setPreNoticeTiming(listOf())
