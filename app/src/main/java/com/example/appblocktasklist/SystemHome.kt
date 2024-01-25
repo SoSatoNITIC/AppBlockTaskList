@@ -19,9 +19,17 @@ import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.appblocktasklist.roomdb.TasksDB.Task
+import com.example.appblocktasklist.roomdb.rocksettingDB.LockSetting
+import com.example.appblocktasklist.roomdb.rocksettingDB.lockSettingDao
 import com.example.appblocktasklist.worker.UsedApp
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.time.DayOfWeek
+import java.time.Duration
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.util.concurrent.locks.Lock
 import java.util.concurrent.TimeUnit
 
@@ -50,6 +58,79 @@ class SystemHome : Fragment() {
             val adapter = ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, taskNames)
             listView.adapter = adapter
         }
+
+        //GlobalScope.launch {
+        //    val listView_lock = view.findViewById<ListView>(R.id.SystemLockList)
+        //    val locks: List<LockSetting> = MyApplication.database.rocksettingDao().getAll()
+//
+        //    withContext(Dispatchers.Main) {
+//
+        //        val lockStrings: List<String> = locks.map { "${it.usableTime}, ${it.dayOfWeek}" }
+//
+        //        val adapter = ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, lockStrings)
+        //        listView_lock.adapter = adapter
+        //    }
+        //}
+
+
+        //GlobalScope.launch {
+        //    val listView_lock = view.findViewById<ListView>(R.id.SystemLockList)
+        //    val locks: List<LockSetting> = MyApplication.database.rocksettingDao().getAll()
+//
+        //    withContext(Dispatchers.Main) {
+        //        val lockStrings: List<String> = locks.mapNotNull { lock ->
+        //            val days = lock.dayOfWeek.entries.filter { it.value }.joinToString(", ") { dayOfWeekToJapanese(it.key) }
+        //            val humanReadableTime = durationToString(lock.usableTime)
+        //            val targetApps = lock.targetApp.joinToString(", ") // Join the target apps into a single string
+        //            if (humanReadableTime != null) {
+        //                "$humanReadableTime\n 制限する曜日:$days\n 制限アプリ: $targetApps" // Include target apps in the string
+        //            } else {
+        //                null
+        //            }
+        //        }
+//
+        //        val adapter = ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, lockStrings)
+        //        listView_lock.adapter = adapter
+        //    }
+        //}
+
+        GlobalScope.launch {
+            val listView_lock = view.findViewById<ListView>(R.id.SystemLockList)
+            val locks: List<LockSetting> = MyApplication.database.rocksettingDao().getAll()
+
+            withContext(Dispatchers.Main) {
+                val lockStrings: List<String> = locks.mapNotNull { lock ->
+                    val days = lock.dayOfWeek.entries.filter { it.value }.joinToString(", ") { dayOfWeekToJapanese(it.key) }
+                    val humanReadableTime = if (lock.usableTime != null) {
+                        durationToString(lock.usableTime)
+                    } else if (lock.beginTime != null && lock.endTime != null) {
+                        "${localTimeToString(lock.beginTime)}～${localTimeToString(lock.endTime)}の間制限"
+                    } else {
+                        null
+                    }
+                    val targetApps = lock.targetApp.joinToString(", ") // Join the target apps into a single string
+                    if (humanReadableTime != null) {
+                        "$humanReadableTime\n 制限する曜日:$days\n 制限アプリ: $targetApps" // Include target apps in the string
+                    } else {
+                        null
+                    }
+                }
+
+                val adapter = ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, lockStrings)
+                listView_lock.adapter = adapter
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
 
         if (Settings.canDrawOverlays(requireContext())) {
             println("Work OK1")
@@ -129,4 +210,42 @@ class SystemHome : Fragment() {
             navController.navigate(action)
         }
     }
+
+
+    fun dayOfWeekToJapanese(day: DayOfWeek): String {
+        return when (day) {
+            DayOfWeek.MONDAY -> "月"
+            DayOfWeek.TUESDAY -> "火"
+            DayOfWeek.WEDNESDAY -> "水"
+            DayOfWeek.THURSDAY -> "木"
+            DayOfWeek.FRIDAY -> "金"
+            DayOfWeek.SATURDAY -> "土"
+            DayOfWeek.SUNDAY -> "日"
+        }
+    }
+
+    fun durationToString(duration: Duration?): String? {
+        if (duration == null) {
+            return null
+        }
+
+        val hours = duration.seconds / 3600
+        val minutes = duration.seconds % 3600 / 60
+
+        return "$hours"+"時間$minutes"+"分経過後にロック"
+    }
+
+    fun localTimeToString(localTime: LocalTime?): String? {
+        if (localTime == null) {
+            return null
+        }
+        val formatter = DateTimeFormatter.ofPattern("HH:mm")
+        return localTime.format(formatter).replace(":", "時").plus("分")
+    }
+
+
+
+
+
+
 }

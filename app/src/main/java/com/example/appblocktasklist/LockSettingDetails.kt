@@ -80,6 +80,9 @@ class LockSettingDetails : Fragment() {
 
 
 
+
+
+
         sharedViewModel.preNoticeTiming.observe(viewLifecycleOwner, Observer { preNoticeTimings ->
             // preNoticeTimingsが更新されたときの処理を書く
             // 例えば、preNoticeTimingsをログに出力する
@@ -174,7 +177,7 @@ class LockSettingDetails : Fragment() {
 
                         sharedViewModel.dayOfWeek.observe(viewLifecycleOwner, { dayOfWeek ->
                             val selectedDays = dayOfWeek.entries.filter { it.value }.joinToString(", ") { it.key.name }
-                            println(selectedDays)
+                            //println(selectedDays)
                             val japaneseDays = convertEnglishDaysToJapanese(selectedDays)
                             timeString += "制限する曜日：$japaneseDays\n"
 
@@ -218,6 +221,11 @@ class LockSettingDetails : Fragment() {
 
 
 
+
+
+        sharedViewModel.lockid.observe(viewLifecycleOwner, Observer<Int?> { lockid ->
+            println(lockid)
+        })
 
 
 

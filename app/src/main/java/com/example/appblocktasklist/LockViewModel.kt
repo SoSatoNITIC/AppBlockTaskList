@@ -4,6 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.appblocktasklist.roomdb.rocksettingDB.LockSetting
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.time.DayOfWeek
 import java.time.Duration
 import java.time.LocalDate
@@ -45,6 +48,15 @@ class LockViewModel: ViewModel() {
     private var _activeDate= MutableLiveData<LocalDate?>(null)
     val activeDate: LiveData<LocalDate?> = _activeDate
 
+    private var _lockid: MutableLiveData<Int?> = MutableLiveData(0)
+    val lockid: LiveData<Int?> = _lockid
+
+    fun setLockId(id: Int?){
+        _lockid.value = id
+    }
+
+
+
     fun setBeginTime(time: LocalTime?) {
         _beginTime.value = time
     }
@@ -78,6 +90,8 @@ class LockViewModel: ViewModel() {
     }
 
     fun reset() {
+        //setLockId(-1)
+        setLockId(null)
         setBeginTime(null)
         setEndTime(null)
         setUsableTime(null)
@@ -98,6 +112,50 @@ class LockViewModel: ViewModel() {
     }
 
 
+    //fun saveSettings() {
+    //    println("insertData!!!!!!!!")
+    //    val setting = LockSetting(
+    //        beginTime = beginTime.value,
+    //        endTime = endTime.value,
+    //        usableTime = usableTime.value,
+    //        dayOfWeek = dayOfWeek.value ?: mapOf(),
+    //        targetApp = targetApp.value ?: listOf(),
+    //        unUsableTime = Duration.ofMinutes(60),
+    //        preNoticeTiming = preNoticeTiming.value ?: listOf(),
+    //        activeDate = activeDate.value
+    //    )
+    //    // lockSettingDaoインスタンスを取得します
+    //    val dao = MyApplication.database.rocksettingDao() // ここでdaoインスタンスを取得します
+    //    // データベースに保存します
+    //    dao.insertAll(setting)
+    //    println("Complete!!!!!!!!!!!!!")
+    //}
+
+    //fun saveSettings() {
+    //    println("insertData!!!!!!!!")
+    //    val setting = LockSetting(
+    //        beginTime = beginTime.value,
+    //        endTime = endTime.value,
+    //        usableTime = usableTime.value,
+    //        dayOfWeek = dayOfWeek.value ?: mapOf(),
+    //        targetApp = targetApp.value ?: listOf(),
+    //        unUsableTime = Duration.ofMinutes(60),
+    //        preNoticeTiming = preNoticeTiming.value ?: listOf(),
+    //        activeDate = activeDate.value
+    //    )
+    //    // lockSettingDaoインスタンスを取得します
+    //    val dao = MyApplication.database.rocksettingDao() // ここでdaoインスタンスを取得します
+    //    // lockidが-1でない場合、データベースの特定のレコードを更新します
+    //    if (_lockid.value != -1) {
+    //        //setting.id = _lockid.value
+    //        dao.update(setting)
+    //    } else {
+    //        // それ以外の場合、新しいレコードをデータベースに保存します
+    //        dao.insertAll(setting)
+    //    }
+    //    println("Complete!!!!!!!!!!!!!")
+    //}
+
     fun saveSettings() {
         println("insertData!!!!!!!!")
         val setting = LockSetting(
@@ -108,13 +166,25 @@ class LockViewModel: ViewModel() {
             targetApp = targetApp.value ?: listOf(),
             unUsableTime = Duration.ofMinutes(60),
             preNoticeTiming = preNoticeTiming.value ?: listOf(),
-            activeDate = activeDate.value
+            activeDate = activeDate.value,
+            id = if (_lockid.value != null) _lockid.value else null // idフィールドを設定
         )
-        // lockSettingDaoインスタンスを取得します
-        val dao = MyApplication.database.rocksettingDao() // ここでdaoインスタンスを取得します
-        // データベースに保存します
-        dao.insertAll(setting)
+        val dao = MyApplication.database.rocksettingDao()
+        if (_lockid.value != null) {
+            println("update!!!!!")
+            dao.update(setting)
+        } else {
+            println("insert!!!!!")
+            dao.insertAll(setting)
+        }
         println("Complete!!!!!!!!!!!!!")
     }
+
+
+
+
+
+
+
 
 }

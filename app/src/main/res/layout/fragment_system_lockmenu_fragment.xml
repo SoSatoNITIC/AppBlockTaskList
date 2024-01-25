@@ -46,6 +46,7 @@
             app:strokeColor="#C13E3E" />
 
         <ListView
+            android:id="@+id/locksettinglist"
             android:layout_width="370dp"
             android:layout_height="519dp"
             android:background="@color/title"
