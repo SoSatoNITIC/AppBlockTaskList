@@ -110,54 +110,32 @@ class LockSettingDetails : Fragment() {
         }
 
         sharedViewModel.usableTime.observe(viewLifecycleOwner) { usableTime ->
-            if (usableTime == null) {
+            val textView = view.findViewById<TextView>(R.id.locksettingtexts)
+            if(usableTime == null){
                 println("Usable null")
-                val lockset = "時間帯型ロック"
-                var timeString = " "
                 sharedViewModel.beginTime.observe(viewLifecycleOwner) { beginTime ->
                     val begintime = beginTime?.format(DateTimeFormatter.ofPattern("HH:mm"))
                     sharedViewModel.endTime.observe(viewLifecycleOwner) { endTime ->
                         val endtime = endTime?.format(DateTimeFormatter.ofPattern("HH:mm"))
-                        timeString += "時間帯型ロック\n開始時間：$begintime\n終了時間：$endtime\n"
-
-                        sharedViewModel.dayOfWeek.observe(viewLifecycleOwner, { dayOfWeek ->
+                        textView.append("時間帯型ロック\n開始時間：$begintime\n終了時間：$endtime\n")
+                        sharedViewModel.dayOfWeek.observe(viewLifecycleOwner) { dayOfWeek ->
                             val selectedDays = dayOfWeek.entries.filter { it.value }.joinToString(", ") { it.key.name }
-                            //println(selectedDays)
                             val japaneseDays = convertEnglishDaysToJapanese(selectedDays)
-                            timeString += "制限する曜日：$japaneseDays\n"
-
-
-                            val textView = view.findViewById<TextView>(R.id.locksettingtexts)
-                            textView.text = timeString
-
+                            textView.append("制限する曜日：$japaneseDays\n")
                         }
-
-                        println(timeString)
-                        //val textView = view.findViewById<TextView>(R.id.lockSetting)
-                        //textView.text = timeString
-
                     }
                 }
-
             } else {
                 println("Begin and End Time null")
-                var timeString = " "
                 sharedViewModel.usableTime.observe(viewLifecycleOwner) { usableTime ->
                     val hours = usableTime?.toHours() ?: 0
                     val minutes = usableTime?.toMinutesPart() ?: 0
                     val usableTimes = String.format("%02d時間%02d分", hours, minutes)
-                    timeString += "使用時間型ロック\n使用時間：$usableTimes　経過したら制限\n"
+                    textView.append("使用時間型ロック\n使用時間：$usableTimes　経過したら制限\n")
                     sharedViewModel.dayOfWeek.observe(viewLifecycleOwner) { dayOfWeek ->
-                        val selectedDays =
-                            dayOfWeek.entries.filter { it.value }.joinToString(", ") { it.key.name }
-                        println(selectedDays)
+                        val selectedDays = dayOfWeek.entries.filter { it.value }.joinToString(", ") { it.key.name }
                         val japaneseDays = convertEnglishDaysToJapanese(selectedDays)
-                        timeString += "選択された曜日：$japaneseDays\n"
-
-
-                        val textView = view.findViewById<TextView>(R.id.locksettingtexts)
-                        textView.text = timeString
-
+                        textView.append("選択された曜日：$japaneseDays\n")
                     }
                 }
             }
