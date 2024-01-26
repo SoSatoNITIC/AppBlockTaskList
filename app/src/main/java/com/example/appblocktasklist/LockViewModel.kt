@@ -3,10 +3,7 @@ package com.example.appblocktasklist
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.appblocktasklist.roomdb.rocksettingDB.LockSetting
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.example.appblocktasklist.roomdb.locksettingDB.LockSetting
 import java.time.DayOfWeek
 import java.time.Duration
 import java.time.LocalDate

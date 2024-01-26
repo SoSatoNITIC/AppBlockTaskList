@@ -1,4 +1,4 @@
-package com.example.appblocktasklist.roomdb.rocksettingDB
+package com.example.appblocktasklist.roomdb.locksettingDB
 
 import androidx.room.*
 import java.time.DayOfWeek

@@ -1,7 +1,6 @@
-package com.example.appblocktasklist.roomdb.rocksettingDB
+package com.example.appblocktasklist.roomdb.locksettingDB
 
 import androidx.room.*
-import com.example.appblocktasklist.roomdb.TasksDB.Task
 
 @Dao
 interface LockSettingDao {
