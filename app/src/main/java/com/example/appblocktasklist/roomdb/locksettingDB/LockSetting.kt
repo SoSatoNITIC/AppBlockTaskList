@@ -1,6 +1,7 @@
-package com.example.appblocktasklist.roomdb.rocksettingDB
+package com.example.appblocktasklist.roomdb.locksettingDB
 
-import androidx.room.*
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.time.DayOfWeek
 import java.time.Duration
 import java.time.LocalDate

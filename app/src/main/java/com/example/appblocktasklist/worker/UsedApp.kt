@@ -1,11 +1,11 @@
 package com.example.appblocktasklist.worker
 import android.content.Context
 import android.util.Log
-import kotlinx.coroutines.delay
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.example.appblocktasklist.MyApplication
 import com.example.appblocktasklist.lockProcess.cancelWorker
+import kotlinx.coroutines.delay
 
 class UsedApp(context: Context, params: WorkerParameters) : CoroutineWorker(context, params) {
     private var mostRecentlyUsedPackage: String? = null
@@ -80,7 +80,7 @@ class UsedApp(context: Context, params: WorkerParameters) : CoroutineWorker(cont
     }
 
     fun updateTargetAppList() {
-        val lockList = MyApplication.database.rocksettingDao().getAll()
+        val lockList = MyApplication.database.lockSettingDao().getAll()
         val packages = lockList.flatMap { it.targetApp }
         targetAppNames = packages.toMutableSet()
         print(packages)

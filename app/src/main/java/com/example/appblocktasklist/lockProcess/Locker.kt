@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.appblocktasklist.MyApplication
-import com.example.appblocktasklist.roomdb.rocksettingDB.LockSetting
+import com.example.appblocktasklist.roomdb.locksettingDB.LockSetting
 import java.time.DayOfWeek
 import java.time.Duration
 import java.time.LocalTime
