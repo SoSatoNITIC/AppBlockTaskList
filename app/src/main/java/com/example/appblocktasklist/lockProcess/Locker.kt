@@ -4,49 +4,56 @@ import android.content.Context
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.appblocktasklist.MyApplication
-import com.example.appblocktasklist.roomdb.rocksettingDB.LockSetting
-import java.time.DayOfWeek
 import java.time.Duration
+import java.time.LocalDate
 import java.time.LocalTime
 import java.util.concurrent.TimeUnit
 
 
 fun calcRemaining(packageName: String):Duration? {
 //    TODO:データベースからデータをとってくる処理にあとで書き換える
-    val lockSetting = LockSetting(
-        beginTime = LocalTime.of(20, 51),
-        endTime = LocalTime.of(2, 0),
-//        usableTime = Duration.ofMinutes(20),
-        usableTime = null,
-        dayOfWeek = mapOf<DayOfWeek, Boolean>(
-            DayOfWeek.MONDAY to false,
-            DayOfWeek.TUESDAY to false,
-            DayOfWeek.WEDNESDAY to false,
-            DayOfWeek.THURSDAY to false,
-            DayOfWeek.FRIDAY to false,
-            DayOfWeek.SATURDAY to false,
-            DayOfWeek.SUNDAY to false
-        ),
-        targetApp = listOf("YouTube"),
-        unUsableTime = Duration.ofMinutes(60),
-        preNoticeTiming = listOf(Duration.ofMinutes(10)),
-        activeDate = null,
-    )
+    val lockSettings = MyApplication.database.lockSettingDao().getByPackageName(packageName)
 
-    var remainingTime: Duration? = null
+//    検証用サンプル
+//    val lockSettings = listOf<LockSetting>(LockSetting(
+//        beginTime = LocalTime.of(9, 10),
+//        endTime = LocalTime.of(23, 0),
+////        usableTime = Duration.ofMinutes(20),
+//        usableTime = null,
+//        dayOfWeek = mapOf<DayOfWeek, Boolean>(
+//            DayOfWeek.MONDAY to true,
+//            DayOfWeek.TUESDAY to true,
+//            DayOfWeek.WEDNESDAY to true,
+//            DayOfWeek.THURSDAY to true,
+//            DayOfWeek.FRIDAY to true,
+//            DayOfWeek.SATURDAY to true,
+//            DayOfWeek.SUNDAY to true
+//        ),
+//        targetApp = listOf("com.google.android.youtube"),
+//        unUsableTime = Duration.ofMinutes(60),
+//        preNoticeTiming = listOf(Duration.ofMinutes(10)),
+//        activeDate = null,
+//    ))
+    val remainingTimes = mutableListOf<Duration>()
+    for (lockSetting in lockSettings) {
+        if (lockSetting.dayOfWeek[LocalDate.now().dayOfWeek] == true) {
+            var remainingTime: Duration? = null
 
-    if(lockSetting.beginTime != null  && lockSetting.endTime != null) {
-        remainingTime = calcReminingByTimeRange(lockSetting.beginTime, lockSetting.endTime)
-    } else if (lockSetting.usableTime != null){
-        val usedTime = MyApplication.usageGetter.
-            getUsageStatsKeyPackageName(packageName, 60)?.totalTimeInForeground
-        if (usedTime != null) {
-            remainingTime = calcReminingByUsableTime(lockSetting.usableTime, usedTime)
+            if(lockSetting.beginTime != null  && lockSetting.endTime != null) {
+                remainingTime = calcReminingByTimeRange(lockSetting.beginTime, lockSetting.endTime)
+            } else if (lockSetting.usableTime != null){
+                val usedTime = MyApplication.usageGetter.
+                getUsageStatsKeyPackageName(packageName, 60)?.totalTimeInForeground
+                if (usedTime != null) {
+                    remainingTime = calcReminingByUsableTime(lockSetting.usableTime, usedTime)
+                }
+            }
+            if (remainingTime != null) {
+                remainingTimes.add(remainingTime)
+            }
         }
     }
-
-    return remainingTime
-
+    return remainingTimes.minOrNull()
 }
 
 fun setLockWorker(context: Context, duration: Duration) {
@@ -63,7 +70,7 @@ fun cancelWorker(context: Context) {
     WorkManager.getInstance(context).cancelAllWorkByTag("lockWorker")
 }
 
-fun calcReminingByUsableTime(usable: Duration, usedTime: Long): Duration {
+private fun calcReminingByUsableTime(usable: Duration, usedTime: Long): Duration {
     // 使用済みの時間をDuration型に変換
     val usedTimeDuration = Duration.ofMillis(usedTime)
 
@@ -76,7 +83,7 @@ fun calcReminingByUsableTime(usable: Duration, usedTime: Long): Duration {
     }
 }
 
-fun calcReminingByTimeRange(beginTime: LocalTime, endTime: LocalTime): Duration {
+private fun calcReminingByTimeRange(beginTime: LocalTime, endTime: LocalTime): Duration {
     if (inTimeRange(beginTime, endTime)) {
         return Duration.ZERO
     } else {
