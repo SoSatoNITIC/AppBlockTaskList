@@ -10,6 +10,9 @@ interface LockSettingDao {
     @Query("SELECT * FROM LockSetting WHERE id IN (:lockSettingIds)")
     fun getByIds(lockSettingIds: IntArray): List<LockSetting>
 
+    @Query("SELECT * FROM LockSetting WHERE targetApp LIKE :packageName")
+    fun getByPackageName(packageName: String): List<LockSetting>
+
     @Insert
     fun insertAll(vararg users: LockSetting)
 
