@@ -101,13 +101,57 @@ class LockViewModel: ViewModel() {
             DayOfWeek.SATURDAY to false,
             DayOfWeek.SUNDAY to false
         ))
-        setTargetApp(listOf())
+        setTargetApp(listOf(""))
         setUnUsableTime(Duration.ofMinutes(60))
         //setPreNoticeTiming(listOf(Duration.ofMinutes(15), Duration.ofMinutes(30)))
         setPreNoticeTiming(listOf())
         setActiveDate(null)
     }
 
+
+    //fun saveSettings() {
+    //    println("insertData!!!!!!!!")
+    //    val setting = LockSetting(
+    //        beginTime = beginTime.value,
+    //        endTime = endTime.value,
+    //        usableTime = usableTime.value,
+    //        dayOfWeek = dayOfWeek.value ?: mapOf(),
+    //        targetApp = targetApp.value ?: listOf(),
+    //        unUsableTime = Duration.ofMinutes(60),
+    //        preNoticeTiming = preNoticeTiming.value ?: listOf(),
+    //        activeDate = activeDate.value
+    //    )
+    //    // lockSettingDaoインスタンスを取得します
+    //    val dao = MyApplication.database.rocksettingDao() // ここでdaoインスタンスを取得します
+    //    // データベースに保存します
+    //    dao.insertAll(setting)
+    //    println("Complete!!!!!!!!!!!!!")
+    //}
+
+    //fun saveSettings() {
+    //    println("insertData!!!!!!!!")
+    //    val setting = LockSetting(
+    //        beginTime = beginTime.value,
+    //        endTime = endTime.value,
+    //        usableTime = usableTime.value,
+    //        dayOfWeek = dayOfWeek.value ?: mapOf(),
+    //        targetApp = targetApp.value ?: listOf(),
+    //        unUsableTime = Duration.ofMinutes(60),
+    //        preNoticeTiming = preNoticeTiming.value ?: listOf(),
+    //        activeDate = activeDate.value
+    //    )
+    //    // lockSettingDaoインスタンスを取得します
+    //    val dao = MyApplication.database.rocksettingDao() // ここでdaoインスタンスを取得します
+    //    // lockidが-1でない場合、データベースの特定のレコードを更新します
+    //    if (_lockid.value != -1) {
+    //        //setting.id = _lockid.value
+    //        dao.update(setting)
+    //    } else {
+    //        // それ以外の場合、新しいレコードをデータベースに保存します
+    //        dao.insertAll(setting)
+    //    }
+    //    println("Complete!!!!!!!!!!!!!")
+    //}
 
     fun saveSettings() {
         println("insertData!!!!!!!!")
@@ -122,8 +166,7 @@ class LockViewModel: ViewModel() {
             activeDate = activeDate.value,
             id = if (_lockid.value != null) _lockid.value else null // idフィールドを設定
         )
-        // lockSettingDaoインスタンスを取得します
-        val dao = MyApplication.database.lockSettingDao() // ここでdaoインスタンスを取得します
+        val dao = MyApplication.database.rocksettingDao()
         if (_lockid.value != null) {
             println("update!!!!!")
             dao.update(setting)
@@ -133,5 +176,12 @@ class LockViewModel: ViewModel() {
         }
         println("Complete!!!!!!!!!!!!!")
     }
+
+
+
+
+
+
+
 
 }

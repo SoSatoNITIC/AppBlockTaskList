@@ -10,5 +10,5 @@ import com.example.appblocktasklist.roomdb.locksettingDB.LockSettingDao
 @TypeConverters(Converters::class)
 abstract class AppDB : RoomDatabase() {
     abstract fun tasksDao(): TasksDao
-    abstract fun lockSettingDao(): LockSettingDao
+    abstract fun rocksettingDao(): lockSettingDao
 }
