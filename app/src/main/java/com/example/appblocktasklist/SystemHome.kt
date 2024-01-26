@@ -12,11 +12,15 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
 import androidx.navigation.fragment.NavHostFragment
+import com.example.appblocktasklist.lockProcess.calcRemaining
+import com.example.appblocktasklist.lockProcess.setLockWorker
+import com.example.appblocktasklist.notify.TimeRemaining
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.appblocktasklist.roomdb.TasksDB.Task
-import com.example.appblocktasklist.roomdb.locksettingDB.LockSetting
+import com.example.appblocktasklist.roomdb.rocksettingDB.LockSetting
+import com.example.appblocktasklist.roomdb.rocksettingDB.lockSettingDao
 import com.example.appblocktasklist.worker.UsedApp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -26,6 +30,7 @@ import java.time.DayOfWeek
 import java.time.Duration
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
+import java.util.concurrent.locks.Lock
 import java.util.concurrent.TimeUnit
 
 class SystemHome : Fragment() {
@@ -91,7 +96,7 @@ class SystemHome : Fragment() {
 
         GlobalScope.launch {
             val listView_lock = view.findViewById<ListView>(R.id.SystemLockList)
-            val locks: List<LockSetting> = MyApplication.database.lockSettingDao().getAll()
+            val locks: List<LockSetting> = MyApplication.database.rocksettingDao().getAll()
 
             withContext(Dispatchers.Main) {
                 val lockStrings: List<String> = locks.mapNotNull { lock ->

@@ -7,11 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ListView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
-import com.example.appblocktasklist.roomdb.locksettingDB.LockSetting
+import com.example.appblocktasklist.roomdb.TasksDB.Task
+import com.example.appblocktasklist.roomdb.rocksettingDB.LockSetting
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -54,7 +56,7 @@ class SystemLockMenu : Fragment() {
 
         //DB読み込み
         GlobalScope.launch {
-            locks = MyApplication.database.lockSettingDao().getAll().toMutableList()
+            locks = MyApplication.database.rocksettingDao().getAll().toMutableList()
 
             withContext(Dispatchers.Main) {
                 val lockStrings: List<String> = locks.mapNotNull { lock ->
@@ -85,7 +87,7 @@ class SystemLockMenu : Fragment() {
         //val listView_lock = view.findViewById<ListView>(R.id.locksettinglist)
         listView_lock.setOnItemClickListener { parent, view, position, id ->
             GlobalScope.launch {
-                val locks: List<LockSetting> = MyApplication.database.lockSettingDao().getAll()
+                val locks: List<LockSetting> = MyApplication.database.rocksettingDao().getAll()
                 val selectedLock = locks[position]
                 // Switch to main thread before updating LiveData
                 withContext(Dispatchers.Main) {
@@ -145,7 +147,7 @@ class SystemLockMenu : Fragment() {
                     adapter.notifyDataSetChanged()
 
                     GlobalScope.launch {
-                        MyApplication.database.lockSettingDao().delete(lock)
+                        MyApplication.database.rocksettingDao().delete(lock)
                     }
                 }
                 .setNegativeButton("キャンセル", null)
