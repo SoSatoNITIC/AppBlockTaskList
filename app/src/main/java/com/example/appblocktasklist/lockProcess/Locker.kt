@@ -4,52 +4,53 @@ import android.content.Context
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.appblocktasklist.MyApplication
-import com.example.appblocktasklist.roomdb.locksettingDB.LockSetting
-import java.time.DayOfWeek
 import java.time.Duration
+import java.time.LocalDate
 import java.time.LocalTime
 import java.util.concurrent.TimeUnit
 
 
 fun calcRemaining(packageName: String):Duration? {
 //    TODO:データベースからデータをとってくる処理にあとで書き換える
-//    val lockSettings = MyApplication.database.lockSettingDao().getByPackageName(packageName)
+    val lockSettings = MyApplication.database.lockSettingDao().getByPackageName(packageName)
 
 //    検証用サンプル
-    val lockSettings = listOf<LockSetting>(LockSetting(
-        beginTime = LocalTime.of(9, 10),
-        endTime = LocalTime.of(23, 0),
-//        usableTime = Duration.ofMinutes(20),
-        usableTime = null,
-        dayOfWeek = mapOf<DayOfWeek, Boolean>(
-            DayOfWeek.MONDAY to true,
-            DayOfWeek.TUESDAY to true,
-            DayOfWeek.WEDNESDAY to true,
-            DayOfWeek.THURSDAY to true,
-            DayOfWeek.FRIDAY to true,
-            DayOfWeek.SATURDAY to true,
-            DayOfWeek.SUNDAY to true
-        ),
-        targetApp = listOf("com.google.android.youtube"),
-        unUsableTime = Duration.ofMinutes(60),
-        preNoticeTiming = listOf(Duration.ofMinutes(10)),
-        activeDate = null,
-    ))
+//    val lockSettings = listOf<LockSetting>(LockSetting(
+//        beginTime = LocalTime.of(9, 10),
+//        endTime = LocalTime.of(23, 0),
+////        usableTime = Duration.ofMinutes(20),
+//        usableTime = null,
+//        dayOfWeek = mapOf<DayOfWeek, Boolean>(
+//            DayOfWeek.MONDAY to true,
+//            DayOfWeek.TUESDAY to true,
+//            DayOfWeek.WEDNESDAY to true,
+//            DayOfWeek.THURSDAY to true,
+//            DayOfWeek.FRIDAY to true,
+//            DayOfWeek.SATURDAY to true,
+//            DayOfWeek.SUNDAY to true
+//        ),
+//        targetApp = listOf("com.google.android.youtube"),
+//        unUsableTime = Duration.ofMinutes(60),
+//        preNoticeTiming = listOf(Duration.ofMinutes(10)),
+//        activeDate = null,
+//    ))
     val remainingTimes = mutableListOf<Duration>()
     for (lockSetting in lockSettings) {
-        var remainingTime: Duration? = null
+        if (lockSetting.dayOfWeek[LocalDate.now().dayOfWeek] == true) {
+            var remainingTime: Duration? = null
 
-        if(lockSetting.beginTime != null  && lockSetting.endTime != null) {
-            remainingTime = calcReminingByTimeRange(lockSetting.beginTime, lockSetting.endTime)
-        } else if (lockSetting.usableTime != null){
-            val usedTime = MyApplication.usageGetter.
-            getUsageStatsKeyPackageName(packageName, 60)?.totalTimeInForeground
-            if (usedTime != null) {
-                remainingTime = calcReminingByUsableTime(lockSetting.usableTime, usedTime)
+            if(lockSetting.beginTime != null  && lockSetting.endTime != null) {
+                remainingTime = calcReminingByTimeRange(lockSetting.beginTime, lockSetting.endTime)
+            } else if (lockSetting.usableTime != null){
+                val usedTime = MyApplication.usageGetter.
+                getUsageStatsKeyPackageName(packageName, 60)?.totalTimeInForeground
+                if (usedTime != null) {
+                    remainingTime = calcReminingByUsableTime(lockSetting.usableTime, usedTime)
+                }
             }
-        }
-        if (remainingTime != null) {
-            remainingTimes.add(remainingTime)
+            if (remainingTime != null) {
+                remainingTimes.add(remainingTime)
+            }
         }
     }
     return remainingTimes.minOrNull()

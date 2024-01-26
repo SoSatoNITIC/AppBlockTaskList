@@ -14,7 +14,7 @@ class UsedApp(context: Context, params: WorkerParameters) : CoroutineWorker(cont
     private var beforeUsedApp: String? = null
 
     // モニタリングするアプリのリスト
-    val targetAppNames = mutableSetOf<String>("com.google.android.youtube","com.google.android.apps.youtube.music","tv.abema")
+    private val targetAppNames = mutableSetOf<String>("com.google.android.youtube","com.google.android.apps.youtube.music","tv.abema")
 
     override suspend fun doWork(): Result {
 
@@ -35,11 +35,11 @@ class UsedApp(context: Context, params: WorkerParameters) : CoroutineWorker(cont
                 if (beforeUsedApp != mostRecentlyUsedPackage) {
 //                    ここに呼び出しを書く
                     println("画面が切り替わりました")
+                    cancelWorker(applicationContext)
                     if (targetAppNames.contains(mostRecentlyUsedPackage)) {
                         val duration = calcRemaining(mostRecentlyUsedPackage!!)
 
                         if (duration != null) {
-                            cancelWorker(applicationContext)
                             setLockWorker(applicationContext, duration)
                         }
                     }
