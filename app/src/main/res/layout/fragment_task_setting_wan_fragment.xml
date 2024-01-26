@@ -173,7 +173,7 @@
                 android:id="@+id/radioLowPriority"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Low"
+                android:text="低"
                 tools:layout_editor_absoluteX="159dp"
                 tools:layout_editor_absoluteY="554dp" />
 
@@ -181,7 +181,7 @@
                 android:id="@+id/radioMediumPriority"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Medium"
+                android:text="中"
                 tools:layout_editor_absoluteX="244dp"
                 tools:layout_editor_absoluteY="554dp" />
 
@@ -190,7 +190,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="High"
+                android:text="高"
                 tools:layout_editor_absoluteX="100dp"
                 tools:layout_editor_absoluteY="554dp" />
         </RadioGroup>
