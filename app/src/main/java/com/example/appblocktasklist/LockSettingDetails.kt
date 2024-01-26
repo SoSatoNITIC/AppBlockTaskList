@@ -120,10 +120,9 @@ class LockSettingDetails : Fragment() {
                         val endtime = endTime?.format(DateTimeFormatter.ofPattern("HH:mm"))
                         timeString += "時間帯型ロック\n開始時間：$begintime\n終了時間：$endtime\n"
 
-                        sharedViewModel.dayOfWeek.observe(viewLifecycleOwner) { dayOfWeek ->
-                            val selectedDays = dayOfWeek.entries.filter { it.value }
-                                .joinToString(", ") { it.key.name }
-                            println(selectedDays)
+                        sharedViewModel.dayOfWeek.observe(viewLifecycleOwner, { dayOfWeek ->
+                            val selectedDays = dayOfWeek.entries.filter { it.value }.joinToString(", ") { it.key.name }
+                            //println(selectedDays)
                             val japaneseDays = convertEnglishDaysToJapanese(selectedDays)
                             timeString += "制限する曜日：$japaneseDays\n"
 
@@ -166,6 +165,11 @@ class LockSettingDetails : Fragment() {
 
 
 
+
+
+        sharedViewModel.lockid.observe(viewLifecycleOwner, Observer<Int?> { lockid ->
+            println(lockid)
+        })
 
 
 

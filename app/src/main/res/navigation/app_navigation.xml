@@ -122,6 +122,12 @@
             app:destination="@id/system_home_fragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"/>
+        <action
+            android:id="@+id/action_system_lockmenu_fragment_to_lock_setting_details_fragment"
+            app:destination="@id/lock_setting_details_fragment" />
+        <action
+            android:id="@+id/action_system_lockmenu_fragment_self"
+            app:destination="@id/system_lockmenu_fragment" />
     </fragment>
     <fragment
         android:id="@+id/system_taskmenu_fragment"
