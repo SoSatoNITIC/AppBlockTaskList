@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:backgroundTint="@color/toggle"
-        android:text="Home画面へ"
+        android:text="ロックアプリを開く"
         android:textColor="@color/w1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
