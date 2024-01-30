@@ -64,20 +64,38 @@ class LockSettingTarget : Fragment() {
         }
 
         //文字表示のみはこれでできた
+//        appListView.setOnItemClickListener { parent, view, position, id ->
+//            // 選択された要素を取得します。
+//            val appInfo = installedApps[position]
+//
+//            // 選択された要素が既にArrayListに存在するかどうかを確認します。
+//            if (!chosenApps.contains(appInfo)) {
+////                val appName = appInfo.loadLabel(packageManager)
+//                chosenApps.add(appInfo)
+//                chosenAppsAdapter.notifyDataSetChanged()
+//
+//            } else {
+//                Toast.makeText(requireActivity(), "すでに選択されています", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+
         appListView.setOnItemClickListener { parent, view, position, id ->
             // 選択された要素を取得します。
             val appInfo = installedApps[position]
 
             // 選択された要素が既にArrayListに存在するかどうかを確認します。
             if (!chosenApps.contains(appInfo)) {
-//                val appName = appInfo.loadLabel(packageManager)
+                // 既存のアプリをクリア
+                chosenApps.clear()
+                // 新しいアプリを選択
                 chosenApps.add(appInfo)
                 chosenAppsAdapter.notifyDataSetChanged()
-
             } else {
                 Toast.makeText(requireActivity(), "すでに選択されています", Toast.LENGTH_SHORT).show()
             }
         }
+
+
 
 
         appListViewChoose.setOnItemLongClickListener { parent, view, position, id ->

@@ -160,7 +160,7 @@
             android:id="@+id/アプリ一覧"
             android:layout_width="236dp"
             android:layout_height="44dp"
-            android:text="制限アプリ一覧"
+            android:text="制限アプリ"
             android:textColor="@color/w1"
             android:textSize="23sp"
             app:layout_constraintStart_toStartOf="@+id/appText"
