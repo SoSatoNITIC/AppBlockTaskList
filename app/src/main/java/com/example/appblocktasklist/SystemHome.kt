@@ -40,6 +40,19 @@ class SystemHome : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        println("Work OK1")
+        val workRequest = OneTimeWorkRequestBuilder<UsedApp>()
+            .setInitialDelay(0, TimeUnit.SECONDS)
+            .build()
+        WorkManager.getInstance(requireContext())
+            .beginUniqueWork("uniqueWork", ExistingWorkPolicy.KEEP, workRequest)//Workerが複数起動することを防ぐ
+            .enqueue()
+
+        println("Work OK2")
+
+
+
         //NavHostの取得
         val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         //navControllerの取得
