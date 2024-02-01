@@ -1,9 +1,15 @@
 package com.example.appblocktasklist.worker
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.util.Log
+import androidx.core.app.NotificationCompat
 import androidx.work.CoroutineWorker
+import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.example.appblocktasklist.MyApplication
+import com.example.appblocktasklist.R
 import com.example.appblocktasklist.lockProcess.calcRemaining
 import com.example.appblocktasklist.lockProcess.cancelWorker
 import com.example.appblocktasklist.lockProcess.setLockWorker
@@ -16,8 +22,27 @@ class UsedApp(context: Context, params: WorkerParameters) : CoroutineWorker(cont
     // モニタリングするアプリのリスト
     private val targetAppNames = mutableSetOf<String>("com.google.android.youtube","com.google.android.apps.youtube.music","tv.abema")
 
-    override suspend fun doWork(): Result {
+    val channelId = "my_channel_id"
+    val channelName = "My Channel"
+    val importance = NotificationManager.IMPORTANCE_DEFAULT
+    val channel = NotificationChannel(channelId, channelName, importance)
+    val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
+    // contextがContextオブジェクトであることを確認
+    init {
+        manager.createNotificationChannel(channel)
+    }
+
+    override suspend fun doWork(): Result {
+        val notification: Notification = NotificationCompat.Builder(applicationContext, channelId)
+            .setContentTitle("AppBlockTaskList")
+            .setContentText("アプリ監視中")
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .build()
+
+        val foregroundInfo = ForegroundInfo(1, notification)
+
+        setForeground(foregroundInfo)
         // アプリの使用状況を継続的にチェック
         while (true){
             // PowerManagerサービスを取得してスリープ中にはカウントしないようにする
