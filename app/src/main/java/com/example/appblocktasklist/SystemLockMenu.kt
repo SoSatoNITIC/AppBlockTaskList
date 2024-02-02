@@ -147,6 +147,10 @@ class SystemLockMenu : Fragment() {
                     GlobalScope.launch {
                         MyApplication.database.lockSettingDao().delete(lock)
                     }
+
+                    val action = SystemLockMenuDirections.actionSystemLockmenuFragmentToSystemHomeFragment()
+                    navController.navigate(action)
+
                 }
                 .setNegativeButton("キャンセル", null)
                 .setCancelable(true)
