@@ -79,8 +79,9 @@ class SystemLockMenu : Fragment() {
                         }
                     }
 
+                    val targetApps = labelNames.joinToString(", ") // Join the target apps into a single string
                     if (humanReadableTime != null) {
-                        "$humanReadableTime\n 制限する曜日:$days\n 制限アプリ: $labelNames" // Include target apps in the string
+                        "$humanReadableTime\n 制限する曜日:$days\n 制限アプリ: $targetApps" // Include target apps in the string
                     } else {
                         null
                     }
