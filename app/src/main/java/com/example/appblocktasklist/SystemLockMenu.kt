@@ -1,6 +1,7 @@
 package com.example.appblocktasklist
 
 import android.app.AlertDialog
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -66,7 +67,19 @@ class SystemLockMenu : Fragment() {
                     } else {
                         null
                     }
-                    val targetApps = lock.targetApp.joinToString(", ") // Join the target apps into a single string
+
+                    val pm: PackageManager = requireContext().packageManager
+                    val labelNames = mutableListOf<String>()
+                    for (packageName in lock.targetApp) {
+                        try {
+                            val packageInfo = pm.getPackageInfo(packageName, 0)
+                            labelNames.add(pm.getApplicationLabel(packageInfo.applicationInfo).toString())
+                        } catch (e: PackageManager.NameNotFoundException) {
+                            continue
+                        }
+                    }
+
+                    val targetApps = labelNames.joinToString(", ") // Join the target apps into a single string
                     if (humanReadableTime != null) {
                         "$humanReadableTime\n 制限する曜日:$days\n 制限アプリ: $targetApps" // Include target apps in the string
                     } else {
