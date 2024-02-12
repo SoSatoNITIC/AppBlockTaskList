@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LockSettingUseAble">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background">
+
+
+        <TextView
+            android:id="@+id/LockSettingUseabletimeText1"
+            android:layout_width="125dp"
+            android:layout_height="46dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="27dp"
+            android:background="@color/title"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="使用時間"
+            android:textColor="@color/w1"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/textView10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/toggle"
+            android:text="次へ"
+            android:textColor="@color/w1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.948"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView10"
+            app:layout_constraintVertical_bias="0.813" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="324dp"
+            android:layout_height="513dp"
+            android:background="@drawable/wakusen"
+            android:backgroundTint="@color/title"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.65"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.8" />
+
+        <TextView
+            android:id="@+id/LockSettingUseabletimeText2"
+            android:layout_width="284dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:text="・使用時間の設定"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+            app:layout_constraintEnd_toEndOf="@+id/textView10"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textView10"
+            app:layout_constraintTop_toTopOf="@+id/textView10"
+            app:layout_constraintVertical_bias="0.072" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/time_label_timer"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="使用時間"
+            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+            app:layout_constraintEnd_toEndOf="@+id/textView10"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintStart_toStartOf="@+id/textView10"
+            app:layout_constraintTop_toTopOf="@+id/textView10"
+            app:layout_constraintVertical_bias="0.15">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/time_timer"
+                android:layout_width="190dp"
+                android:layout_height="60dp"
+                android:clickable="false"
+                android:editable="false"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- TimePicker表示ボタン -->
+        <ImageButton
+            android:id="@+id/time_picker_actions_timer"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/black"
+            android:contentDescription="TimePicker"
+            android:src="@drawable/ic_arrow_down"
+            app:layout_constraintBottom_toBottomOf="@id/time_label_timer"
+            app:layout_constraintEnd_toEndOf="@id/time_label_timer"
+            app:layout_constraintTop_toTopOf="@id/time_label_timer"
+            app:tint="@android:color/black" />
+
+
+        <TextView
+            android:id="@+id/LockSettingUseabletimeText3"
+            android:layout_width="284dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:text="・曜日"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+            app:layout_constraintEnd_toEndOf="@+id/textView10"
+            app:layout_constraintHorizontal_bias="0.047"
+            app:layout_constraintStart_toStartOf="@+id/textView10"
+            app:layout_constraintTop_toTopOf="@+id/textView10"
+            app:layout_constraintVertical_bias="0.398" />
+
+        <ToggleButton
+            android:id="@+id/SundayToggleButton"
+            android:layout_width="38dp"
+            android:layout_height="39dp"
+            android:background="@color/toggle"
+            android:text="ToggleButton"
+            android:textColor="@color/w1"
+            android:textOff="日"
+            android:textOn="日"
+            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+            app:layout_constraintEnd_toEndOf="@+id/textView10"
+            app:layout_constraintHorizontal_bias="0.041"
+            app:layout_constraintStart_toStartOf="@+id/textView10"
+            app:layout_constraintTop_toBottomOf="@+id/LockSettingUseabletimeText3"
+            app:layout_constraintVertical_bias="0.743" />
+
+        <ToggleButton
+            android:id="@+id/MondayToggleButton"
+            android:layout_width="38dp"
+            android:layout_height="39dp"
+            android:background="@color/toggle"
+            android:text="ToggleButton"
+            android:textColor="@color/w1"
+            android:textOff="月"
+            android:textOn="月"
+            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+            app:layout_constraintEnd_toEndOf="@+id/textView10"
+            app:layout_constraintHorizontal_bias="0.044"
+            app:layout_constraintStart_toStartOf="@+id/textView10"
+            app:layout_constraintTop_toBottomOf="@+id/LockSettingUseabletimeText3"
+            app:layout_constraintVertical_bias="0.173" />
+
+        <ToggleButton
+            android:id="@+id/TuesdayToggleButton"
+            android:layout_width="38dp"
+            android:layout_height="39dp"
+            android:background="@color/toggle"
+            android:text="ToggleButton"
+            android:textColor="@color/w1"
+            android:textOff="火"
+            android:textOn="火"
+            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+            app:layout_constraintEnd_toEndOf="@+id/textView10"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="@+id/textView10"
+            app:layout_constraintTop_toBottomOf="@+id/LockSettingUseabletimeText3"
+            app:layout_constraintVertical_bias="0.173" />
+
+        <ToggleButton
+            android:id="@+id/WednesdayToggleButton"
+            android:layout_width="38dp"
+            android:layout_height="39dp"
+            android:background="@color/toggle"
+            android:text="ToggleButton"
+            android:textColor="@color/w1"
+            android:textOff="水"
+            android:textOn="水"
+            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+            app:layout_constraintEnd_toEndOf="@+id/textView10"
+            app:layout_constraintHorizontal_bias="0.041"
+            app:layout_constraintStart_toStartOf="@+id/textView10"
+            app:layout_constraintTop_toBottomOf="@+id/LockSettingUseabletimeText3"
+            app:layout_constraintVertical_bias="0.359" />
+
+        <ToggleButton
+            android:id="@+id/ThursdayToggleButton"
+            android:layout_width="38dp"
+            android:layout_height="39dp"
+            android:background="@color/toggle"
+            android:text="ToggleButton"
+            android:textColor="@color/w1"
+            android:textOff="木"
+            android:textOn="木"
+            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+            app:layout_constraintEnd_toEndOf="@+id/textView10"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="@+id/textView10"
+            app:layout_constraintTop_toBottomOf="@+id/LockSettingUseabletimeText3"
+            app:layout_constraintVertical_bias="0.359" />
+
+        <ToggleButton
+            android:id="@+id/FridayToggleButton"
+            android:layout_width="38dp"
+            android:layout_height="39dp"
+            android:background="@color/toggle"
+            android:text="ToggleButton"
+            android:textColor="@color/w1"
+            android:textOff="金"
+            android:textOn="金"
+            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+            app:layout_constraintEnd_toEndOf="@+id/textView10"
+            app:layout_constraintHorizontal_bias="0.041"
+            app:layout_constraintStart_toStartOf="@+id/textView10"
+            app:layout_constraintTop_toBottomOf="@+id/LockSettingUseabletimeText3"
+            app:layout_constraintVertical_bias="0.561" />
+
+        <ToggleButton
+            android:id="@+id/SaturdayToggleButton"
+            android:layout_width="38dp"
+            android:layout_height="39dp"
+            android:background="@color/toggle"
+            android:text="ToggleButton"
+            android:textColor="@color/w1"
+            android:textOff="土"
+            android:textOn="土"
+            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+            app:layout_constraintEnd_toEndOf="@+id/textView10"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="@+id/textView10"
+            app:layout_constraintTop_toBottomOf="@+id/LockSettingUseabletimeText3"
+            app:layout_constraintVertical_bias="0.565" />
+
+        <Switch
+            android:id="@+id/Mondayswitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="195dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+            app:layout_constraintEnd_toEndOf="@+id/textView10"
+            app:layout_constraintHorizontal_bias="0.065"
+            app:layout_constraintStart_toEndOf="@+id/MondayToggleButton"
+            app:layout_constraintTop_toBottomOf="@+id/LockSettingUseabletimeText3"
+            app:layout_constraintVertical_bias="0.8" />
+
+        <Switch
+            android:id="@+id/Tuesdayswitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="195dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+            app:layout_constraintEnd_toEndOf="@+id/textView10"
+            app:layout_constraintHorizontal_bias="0.224"
+            app:layout_constraintStart_toEndOf="@+id/TuesdayToggleButton"
+            app:layout_constraintTop_toBottomOf="@+id/LockSettingUseabletimeText3"
+            app:layout_constraintVertical_bias="0.8" />
+
+        <Switch
+            android:id="@+id/Wednesdayswitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="145dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+            app:layout_constraintEnd_toEndOf="@+id/textView10"
+            app:layout_constraintHorizontal_bias="0.065"
+            app:layout_constraintStart_toEndOf="@+id/WednesdayToggleButton"
+            app:layout_constraintTop_toBottomOf="@+id/LockSettingUseabletimeText3"
+            app:layout_constraintVertical_bias="0.858" />
+
+        <Switch
+            android:id="@+id/Thursdayswitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="145dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+            app:layout_constraintEnd_toEndOf="@+id/textView10"
+            app:layout_constraintHorizontal_bias="0.234"
+            app:layout_constraintStart_toEndOf="@+id/ThursdayToggleButton"
+            app:layout_constraintTop_toBottomOf="@+id/LockSettingUseabletimeText3"
+            app:layout_constraintVertical_bias="0.858" />
+
+        <Switch
+            android:id="@+id/Fridayswitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="90dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+            app:layout_constraintEnd_toEndOf="@+id/textView10"
+            app:layout_constraintHorizontal_bias="0.065"
+            app:layout_constraintStart_toEndOf="@+id/FridayToggleButton"
+            app:layout_constraintTop_toBottomOf="@+id/LockSettingUseabletimeText3"
+            app:layout_constraintVertical_bias="0.885" />
+
+        <Switch
+            android:id="@+id/Saturdayswitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="95dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+            app:layout_constraintEnd_toEndOf="@+id/textView10"
+            app:layout_constraintHorizontal_bias="0.224"
+            app:layout_constraintStart_toEndOf="@+id/SaturdayToggleButton"
+            app:layout_constraintTop_toBottomOf="@+id/LockSettingUseabletimeText3"
+            app:layout_constraintVertical_bias="0.911" />
+
+        <Switch
+            android:id="@+id/Sundayswitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+            app:layout_constraintEnd_toEndOf="@+id/textView10"
+            app:layout_constraintHorizontal_bias="0.065"
+            app:layout_constraintStart_toEndOf="@+id/SundayToggleButton"
+            app:layout_constraintTop_toBottomOf="@+id/LockSettingUseabletimeText3"
+            app:layout_constraintVertical_bias="0.888" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
